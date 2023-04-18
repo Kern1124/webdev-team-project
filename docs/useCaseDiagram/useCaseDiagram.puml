@@ -1,0 +1,71 @@
+@startuml useCaseDiagram
+skinparam actorStyle Hollow
+skinparam actorBorderColor black
+skinparam actorFontColor black
+skinparam useCaseBackgroundColor AliceBlue
+skinparam useCaseBorderColor RoyalBlue
+skinparam useCaseFontColor black
+skinparam useCaseFontSize 14
+
+actor GuestUser
+actor LoggedUser
+actor Manager
+actor Director
+
+rectangle System {
+  usecase Authenticate
+  usecase Registration
+  usecase Browse_Newspapers
+  usecase View_Articles
+  usecase Filter_Articles_By_Categories
+  usecase View_Newspaper_Copy
+  usecase Search_Articles
+  usecase Filter_Newspapers_Copy_By_Date
+  usecase Create_Article
+  usecase Submit_Article_for_Approval
+  usecase Comment_on_Article
+  usecase Approve_Article
+  usecase Approve_Newspaper_Copy
+  usecase Filter_Newspapers
+  usecase By_title
+  usecase By_publisher
+}
+
+' General Use Cases
+GuestUser -up-> Authenticate
+GuestUser -up-> Registration
+GuestUser -up-> Browse_Newspapers
+GuestUser -up-> View_Articles
+GuestUser -up-> Filter_Articles_By_Categories
+GuestUser -up-> View_Newspaper_Copy
+GuestUser -up-> Search_Articles
+GuestUser -up-> Filter_Newspapers_Copy_By_Date
+
+' User Specific Use Cases
+LoggedUser --|> GuestUser
+LoggedUser -down-> Create_Article
+LoggedUser -down-> Submit_Article_for_Approval
+LoggedUser -down-> Comment_on_Article
+
+' Manager & Director Use Cases
+Manager -down-> Approve_Article
+Manager -down-> Filter_Newspapers
+Manager -down-> By_title
+Manager -down-> By_publisher
+
+Director -down-> Approve_Newspaper_Copy
+Director -down-> Filter_Newspapers
+Director -down-> By_title
+Director -down-> By_publisher
+
+' Formatting for columns
+Create_Article -left-> Filter_Newspapers_Copy_By_Date
+Submit_Article_for_Approval -left-> Search_Articles
+Comment_on_Article -left-> View_Newspaper_Copy
+Approve_Article -left-> Filter_Articles_By_Categories
+Approve_Newspaper_Copy -left-> View_Articles
+Filter_Newspapers -left-> Browse_Newspapers
+By_title -left-> Registration
+By_publisher -left-> Authenticate
+
+@enduml
