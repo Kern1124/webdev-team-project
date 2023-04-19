@@ -1,0 +1,88 @@
+@startuml project_name
+
+' visual style
+hide circle
+
+' straight lines
+skinparam Linetype ortho
+skinparam Nodesep 110
+skinparam Ranksep 80
+
+
+entity User {
+    * id: <<uuid>>
+    ---
+    * username: string
+    * email: string
+    * passwordHash: string
+    * isManager: bool
+    * isDirector: bool
+}
+
+entity Newspaper { 
+    * id: <<uuid>>
+    ---
+    * publisher: FK<Publisher>
+    * name: string
+}
+
+entity Article { 
+    * id: <<uuid>>
+    ---
+    * author: FK<User>
+    * contents: string
+}
+
+entity Publisher { 
+    * id: <<uuid>>
+    ---
+    * name: string
+}
+
+entity Comment {
+    * id: <<uuid>>
+    ---
+    * author: FK<User>
+    * content: string
+}
+
+entity Category {
+    * id: <<uuid>>
+    ---
+    * name: string
+}
+
+entity Newspaper_manager {
+    * id: <<uuid>>
+    ---
+    * manager: FK<User>
+    * newspaper: FK<newspaper>
+}
+
+entity Newspaper_copy { 
+    * id: <<uuid>>
+    ---
+    * date: datetime
+    * newspaper: FK<Newspaper>
+}
+
+
+entity Article_category { 
+    * id: <<uuid>>
+    ---
+    * article: FK<Article>
+    * category: FK<Category>
+}
+
+Publisher ||--o{ Newspaper
+Publisher ||--|{ User
+Newspaper ||--o{ Newspaper_copy
+Newspaper ||--|{ Newspaper_manager
+Newspaper_manager ||--|{ User
+Newspaper_copy ||--|{ Article
+Article }|--|| Article_category
+Article_category ||--|{ Category
+Article ||--o{ Comment
+Comment }o--|| User
+
+@enduml

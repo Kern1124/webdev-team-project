@@ -1,4 +1,4 @@
-@startuml useCaseDiagram
+@startuml Newspaper
 skinparam actorStyle Hollow
 skinparam actorBorderColor black
 skinparam actorFontColor black
@@ -11,61 +11,52 @@ actor GuestUser
 actor LoggedUser
 actor Manager
 actor Director
+left to right direction
 
 rectangle System {
+  usecase Create_Article
+  usecase Filter_Newspapers_Copy_By_Date
+  usecase Filter_Articles_By_Categories
+  usecase Approve_Article
   usecase Authenticate
   usecase Registration
   usecase Browse_Newspapers
-  usecase View_Articles
-  usecase Filter_Articles_By_Categories
+  usecase Filter_Newspapers
   usecase View_Newspaper_Copy
   usecase Search_Articles
-  usecase Filter_Newspapers_Copy_By_Date
-  usecase Create_Article
   usecase Submit_Article_for_Approval
   usecase Comment_on_Article
-  usecase Approve_Article
   usecase Approve_Newspaper_Copy
-  usecase Filter_Newspapers
   usecase By_title
   usecase By_publisher
+  usecase View_Articles
 }
 
-' General Use Cases
+Registration -[hidden]down-> Search_Articles
+Browse_Newspapers -[hidden]down-> Authenticate
+Filter_Newspapers_Copy_By_Date -[hidden]down-> View_Articles
+Approve_Article -[hidden]down-> Create_Article
+
 GuestUser -up-> Authenticate
 GuestUser -up-> Registration
 GuestUser -up-> Browse_Newspapers
+GuestUser -up-> Filter_Newspapers
 GuestUser -up-> View_Articles
 GuestUser -up-> Filter_Articles_By_Categories
 GuestUser -up-> View_Newspaper_Copy
 GuestUser -up-> Search_Articles
 GuestUser -up-> Filter_Newspapers_Copy_By_Date
 
-' User Specific Use Cases
 LoggedUser --|> GuestUser
-LoggedUser -down-> Create_Article
+Manager --|> LoggedUser
+Director --|> LoggedUser
 LoggedUser -down-> Submit_Article_for_Approval
+LoggedUser -down-> Create_Article
 LoggedUser -down-> Comment_on_Article
 
-' Manager & Director Use Cases
 Manager -down-> Approve_Article
-Manager -down-> Filter_Newspapers
-Manager -down-> By_title
-Manager -down-> By_publisher
 
 Director -down-> Approve_Newspaper_Copy
-Director -down-> Filter_Newspapers
-Director -down-> By_title
-Director -down-> By_publisher
-
-' Formatting for columns
-Create_Article -left-> Filter_Newspapers_Copy_By_Date
-Submit_Article_for_Approval -left-> Search_Articles
-Comment_on_Article -left-> View_Newspaper_Copy
-Approve_Article -left-> Filter_Articles_By_Categories
-Approve_Newspaper_Copy -left-> View_Articles
-Filter_Newspapers -left-> Browse_Newspapers
-By_title -left-> Registration
-By_publisher -left-> Authenticate
-
+Filter_Newspapers <.. By_publisher : <<extends>>
+Filter_Newspapers <.. By_title : <<extends>>
 @enduml
