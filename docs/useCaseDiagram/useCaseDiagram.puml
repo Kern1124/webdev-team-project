@@ -1,4 +1,4 @@
-@startuml Newspaper
+@startuml useCaseDiagram
 skinparam actorStyle Hollow
 skinparam actorBorderColor black
 skinparam actorFontColor black
@@ -9,6 +9,7 @@ skinparam useCaseFontSize 14
 
 actor GuestUser
 actor LoggedUser
+actor Journalist
 actor Manager
 actor Director
 left to right direction
@@ -19,7 +20,7 @@ rectangle System {
   usecase Filter_Articles_By_Categories
   usecase Approve_Article
   usecase Authenticate
-  usecase Registration
+  usecase Register
   usecase Browse_Newspapers
   usecase Filter_Newspapers
   usecase View_Newspaper_Copy
@@ -32,13 +33,19 @@ rectangle System {
   usecase View_Articles
 }
 
-Registration -[hidden]down-> Search_Articles
+Register -[hidden]down-> Search_Articles
+Register -[hidden]down-> View_Newspaper_Copy
 Browse_Newspapers -[hidden]down-> Authenticate
 Filter_Newspapers_Copy_By_Date -[hidden]down-> View_Articles
-Approve_Article -[hidden]down-> Create_Article
+
+
+LoggedUser --|> GuestUser
+Journalist --|> LoggedUser
+Manager --|> LoggedUser
+Director --|> LoggedUser
 
 GuestUser -up-> Authenticate
-GuestUser -up-> Registration
+GuestUser -up-> Register
 GuestUser -up-> Browse_Newspapers
 GuestUser -up-> Filter_Newspapers
 GuestUser -up-> View_Articles
@@ -47,11 +54,9 @@ GuestUser -up-> View_Newspaper_Copy
 GuestUser -up-> Search_Articles
 GuestUser -up-> Filter_Newspapers_Copy_By_Date
 
-LoggedUser --|> GuestUser
-Manager --|> LoggedUser
-Director --|> LoggedUser
-LoggedUser -down-> Submit_Article_for_Approval
-LoggedUser -down-> Create_Article
+Journalist -down-> Submit_Article_for_Approval
+Journalist -down-> Create_Article
+
 LoggedUser -down-> Comment_on_Article
 
 Manager -down-> Approve_Article
