@@ -1,4 +1,4 @@
-@startuml project_name
+@startuml entityRelationshipDiagram
 
 ' visual style
 hide circle
@@ -8,15 +8,27 @@ skinparam Linetype ortho
 skinparam Nodesep 110
 skinparam Ranksep 80
 
-
 entity User {
     * id: <<uuid>>
     ---
+    * publisher: FK<Publisher>
     * username: string
     * email: string
     * passwordHash: string
-    * isManager: bool
-    * isDirector: bool
+}
+
+entity Role {
+    * id: <<uuid>>
+    ---
+    * name: string
+}
+
+entity UserRole {
+    * id: <<uuid>>
+    ---
+    * user: FK<User>
+    * role: FK<Role>
+    * newspaper: FK<Newspaper>
 }
 
 entity Newspaper { 
@@ -26,9 +38,18 @@ entity Newspaper {
     * name: string
 }
 
+entity Newspaper_copy { 
+    * id: <<uuid>>
+    ---
+    * issueNr: autoincrement
+    * date: datetime
+    * newspaper: FK<Newspaper>
+}
+
 entity Article { 
     * id: <<uuid>>
     ---
+    * newspaper_copy: FK<Newspaper_copy>
     * author: FK<User>
     * contents: string
 }
@@ -42,6 +63,7 @@ entity Publisher {
 entity Comment {
     * id: <<uuid>>
     ---
+    * article: FK<Article>
     * author: FK<User>
     * content: string
 }
@@ -52,21 +74,6 @@ entity Category {
     * name: string
 }
 
-entity Newspaper_manager {
-    * id: <<uuid>>
-    ---
-    * manager: FK<User>
-    * newspaper: FK<newspaper>
-}
-
-entity Newspaper_copy { 
-    * id: <<uuid>>
-    ---
-    * date: datetime
-    * newspaper: FK<Newspaper>
-}
-
-
 entity Article_category { 
     * id: <<uuid>>
     ---
@@ -75,14 +82,16 @@ entity Article_category {
 }
 
 Publisher ||--o{ Newspaper
-Publisher ||--|{ User
+Publisher |o--|{ User
+User }|--|| UserRole
+UserRole }|--|| Role
+UserRole }|--|| Newspaper
 Newspaper ||--o{ Newspaper_copy
-Newspaper ||--|{ Newspaper_manager
-Newspaper_manager ||--|{ User
 Newspaper_copy ||--|{ Article
 Article }|--|| Article_category
 Article_category ||--|{ Category
 Article ||--o{ Comment
+Article }|--|| User
 Comment }o--|| User
 
 @enduml
