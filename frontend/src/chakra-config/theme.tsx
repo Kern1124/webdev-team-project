@@ -16,6 +16,7 @@ const theme = extendTheme({
     mainLight: "#3F4E4F",
     secondary: "#A27B5C",
     secondaryLight: "#DCD7C9",
+    light: "##FFFFFF"
   },
 });
 
