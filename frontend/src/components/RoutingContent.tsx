@@ -1,6 +1,8 @@
 import { Box } from "@chakra-ui/layout";
 import { Route, Routes } from "react-router-dom";
 import { SignupPage } from "../pages/SignupPage";
+import { LoginPage } from "../pages/LoginPage";
+
 
 export const RoutingContent = () => {
   return (
@@ -9,7 +11,7 @@ export const RoutingContent = () => {
         <Route index path="/" />
         <Route path="/newspapers" />
         <Route path="/signup" element={<SignupPage />} />
-        <Route path="/login" />
+        <Route path="/login" element={<LoginPage />} />
         <Route path="/articles" />
       </Routes>
     </Box>
