@@ -1,6 +1,7 @@
-import { Flex, Stack } from '@chakra-ui/react';
+import { Flex, Spacer } from '@chakra-ui/react';
 import { Route, Routes } from 'react-router-dom';
 
+import { ResponsiveStack } from './components/ResponsiveStack';
 import { RouteLink } from './components/RouteLink';
 import { SearchLink } from './components/SeachLink';
 
@@ -11,18 +12,23 @@ function App() {
         w="100%"
         bgColor="mainLight"
         color="secondaryLight"
-        justify="space-between"
-        align="center"
         padding="2rem"
+        flexDir={{ base: "column", md: "row" }}
+        paddingLeft={{ base: "4rem", md: "2rem" }}
+        paddingRight={{ base: "4rem", md: "2rem" }}
+        justify="flex-start"
+        gap="0.5rem"
       >
-        <Stack direction="row" gap="4rem">
+        <ResponsiveStack>
           <RouteLink to="/newspapers">Newspapers</RouteLink>
-        </Stack>
-        <Stack direction="row" gap="1.8rem">
+          <RouteLink to="/newspapers">Newspapers</RouteLink>
+        </ResponsiveStack>
+        <Spacer />
+        <ResponsiveStack>
           <RouteLink to="/singup">Sing up</RouteLink>
           <RouteLink to="/login">Log in</RouteLink>
           <SearchLink placeholder="Search articles" to="/articles" />
-        </Stack>
+        </ResponsiveStack>
       </Flex>
 
       <Routes>
