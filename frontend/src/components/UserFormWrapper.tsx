@@ -1,28 +1,34 @@
-import { Card, CardBody, CardHeader } from "@chakra-ui/card";
+import { Card, CardBody, CardFooter, CardHeader } from "@chakra-ui/card";
 import { Center, Divider } from "@chakra-ui/layout";
 import { ScaleFade } from "@chakra-ui/transition";
 import { ReactElement } from "react";
 import { BoxProps } from "@chakra-ui/layout";
 import { FormControl } from "@chakra-ui/form-control";
+import { UserFormButton } from "./UserFormButton";
 
 interface UserFormWrapperProps {
   heading: string;
+  buttonLabel: string;
   children: ReactElement<BoxProps> | ReactElement<BoxProps>[] | undefined;
 }
 
 export const UserFormWrapper = ({
   heading,
   children,
+  buttonLabel
 }: UserFormWrapperProps) => {
   return (
     <ScaleFade in={true}>
-      <Center marginTop="3.5rem">
-        <Card borderRadius="0.1rem" p="3rem" w="30rem" color="main">
+      <Center marginTop="1.8rem">
+        <Card marginBottom="5rem" borderRadius="0.1rem" p="3rem" w="30rem" color="main">
           <CardHeader fontSize="3xl">{heading}</CardHeader>
           <Divider bgColor="main" />
           <CardBody marginTop="1rem">
             <FormControl>{children}</FormControl>
           </CardBody>
+          <CardFooter>
+            <UserFormButton>{buttonLabel}</UserFormButton>
+          </CardFooter>
         </Card>
       </Center>
     </ScaleFade>
