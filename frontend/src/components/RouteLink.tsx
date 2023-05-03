@@ -11,12 +11,16 @@ interface RouteLinkProps {
 
 export const RouteLink = ({ children, to }: RouteLinkProps) => {
   return (
-    <Link
-      as={NavLink}
-      to={to}
-      style={{ textDecoration: "none"}} 
-    >   <Card p="0.5rem" h="2.5rem" justify="center" color="secondaryLight" bgColor="main" >
-      {children}
+    <Link as={NavLink} to={to} style={{ textDecoration: "none" }}>
+      <Card
+        p="0.5rem"
+        h="2.5rem"
+        justify="center"
+        align="center"
+        color="secondaryLight"
+        bgColor="main"
+      >
+        {children}
       </Card>
     </Link>
   );

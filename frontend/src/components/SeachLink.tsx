@@ -1,4 +1,4 @@
-import { Flex, Box } from "@chakra-ui/layout";
+import { Flex } from "@chakra-ui/layout";
 import { Input } from "@chakra-ui/input";
 import { RouteLink } from "./RouteLink";
 import { SearchIcon } from "@chakra-ui/icons";
@@ -13,9 +13,9 @@ export const SearchLink = ({ to, placeholder }: SeachLinkProps) => {
     <Flex>
       <Input
         focusBorderColor="secondary"
+        borderColor="secondaryLight"
         placeholder={placeholder}
         h="2.5rem"
-        w="8.8rem"
         marginRight="0.3rem"
       />
       <RouteLink to={to}>
