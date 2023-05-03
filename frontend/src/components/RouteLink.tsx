@@ -13,13 +13,13 @@ export const RouteLink = ({ children, to }: RouteLinkProps) => {
   return (
     <Link as={NavLink} to={to} style={{ textDecoration: "none" }}>
       <Card
-        _hover={{bgColor: "secondary"}}
-        _active={{color: "main"}}
+        color="secondaryLight"
+        _hover={{ color: "secondary" }}
+        _active={{ bgColor: "secondary", color: "secondaryLight" }}
         p="0.5rem"
         h="2.5rem"
         justify="center"
         align="center"
-        color="secondaryLight"
         bgColor="main"
       >
         {children}

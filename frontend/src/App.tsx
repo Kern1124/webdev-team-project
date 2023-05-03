@@ -1,12 +1,12 @@
-import { Spacer, Text } from '@chakra-ui/react';
-import { Route, Routes } from 'react-router-dom';
+import { Spacer } from "@chakra-ui/react";
 
-import { ResponsiveHeader } from './components/ResponsiveHeader';
-import { ResponsiveStack } from './components/ResponsiveStack';
-import { RouteLink } from './components/RouteLink';
-import { SearchLink } from './components/SeachLink';
+import { ResponsiveHeader } from "./components/ResponsiveHeader";
+import { ResponsiveStack } from "./components/ResponsiveStack";
+import { RouteLink } from "./components/RouteLink";
+import { RoutingContent } from "./components/RoutingContent";
+import { SearchLink } from "./components/SeachLink";
 
-function App() {
+const App = () => {
   return (
     <>
       <ResponsiveHeader>
@@ -21,15 +21,9 @@ function App() {
           <SearchLink placeholder="Search articles" to="/articles" />
         </ResponsiveStack>
       </ResponsiveHeader>
-      <Routes>
-        <Route index path="/" />
-        <Route path="/newspapers" />
-        <Route path="/signup" />
-        <Route path="/login" />
-        <Route path="/articles" />
-      </Routes>
+      <RoutingContent />
     </>
   );
-}
+};
 
 export default App;

@@ -11,7 +11,6 @@ export const ResponsiveFlex = ({ children, isHidden }: ResponsiveFlexProps) => {
     md: false,
     base: true,
   }, { ssr: false })
-  console.log(variant)
   return (
     <Collapse in={variant ? !isHidden : true}>
       <Flex
