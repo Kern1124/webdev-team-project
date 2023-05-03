@@ -21,8 +21,8 @@ export const ResponsiveFlex = ({ children, isHidden }: ResponsiveFlexProps) => {
         color="secondaryLight"
         padding="2rem"
         flexDir={{ base: "column", md: "row" }}
-        paddingLeft={{ base: "4rem", md: "2rem" }}
-        paddingRight={{ base: "4rem", md: "2rem" }}
+        paddingLeft={{ base: "2rem", sm: "6rem", md: "2rem" }}
+        paddingRight={{ base: "2rem", sm: "6rem", md: "2rem" }}
         justify="flex-start"
         gap="0.5rem"
         boxShadow="md"
