@@ -10,6 +10,7 @@ export const UserFormButton = ({children}: UserFormButtonProps) => {
     bgColor="main"
     color="secondaryLight"
     _hover={{ bgColor: "mainLight" }}
+    _active={{bgColor: "secondary"}}
     type="submit"
   >
     {children}
