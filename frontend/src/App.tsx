@@ -16,16 +16,15 @@ function App() {
         </ResponsiveStack>
         <Spacer />
         <ResponsiveStack>
-          <RouteLink to="/singup">Sing up</RouteLink>
+          <RouteLink to="/signup">Sign up</RouteLink>
           <RouteLink to="/login">Log in</RouteLink>
           <SearchLink placeholder="Search articles" to="/articles" />
         </ResponsiveStack>
       </ResponsiveHeader>
-      <Text>TEST</Text>
       <Routes>
         <Route index path="/" />
         <Route path="/newspapers" />
-        <Route path="/singup" />
+        <Route path="/signup" />
         <Route path="/login" />
         <Route path="/articles" />
       </Routes>
