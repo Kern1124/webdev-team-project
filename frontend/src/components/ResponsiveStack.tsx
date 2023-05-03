@@ -10,7 +10,7 @@ export const ResponsiveStack = ({ children }: ResponsiveStackProps) => {
   return (
     <Stack
       direction={{ base: "column", md: "row" }}
-      gap={{ base: "0.5rem", lg: "2rem" }}
+      gap={{ base: "0.5rem", md: "2rem" }}
     >
       {children}
     </Stack>
