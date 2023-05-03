@@ -34,7 +34,7 @@ export const UserFormWrapper = ({
           color="main"
         >
           <form onSubmit={onSubmit}>
-            <CardHeader fontSize="3xl">{heading}</CardHeader>
+            <CardHeader fontWeight={700} fontSize="3xl">{heading}</CardHeader>
             <Divider bgColor="main" />
             <CardBody marginTop="1rem">
               <FormControl>{children}</FormControl>
