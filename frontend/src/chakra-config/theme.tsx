@@ -7,6 +7,7 @@ const theme = extendTheme({
         padding: 0,
         margin: 0,
         fontFamily: `'Roboto', sans-serif`,
+        bgColor: "secondaryLight"
       },
     },
   },
