@@ -1,4 +1,4 @@
-import { BoxProps } from '@chakra-ui/react';
+import { Box, BoxProps } from '@chakra-ui/react';
 import { useState } from 'react';
 import { ReactElement } from 'react';
 
@@ -12,12 +12,12 @@ interface ResponsiveHeaderProps {
 export const ResponsiveHeader = ({ children }: ResponsiveHeaderProps) => {
   const [headerIsHidden, setHeaderIsHidden] = useState<boolean>(true);
   return (
-    <>
+    <Box position="fixed" w="100%" top={0} zIndex={1000}>
       <HeaderHideButton
         isHidden={headerIsHidden}
         setHidden={setHeaderIsHidden}
       />
       <ResponsiveFlex isHidden={headerIsHidden}>{children}</ResponsiveFlex>
-    </>
+    </Box>
   );
 };
