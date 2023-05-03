@@ -24,6 +24,7 @@ export const UserFormWrapper = ({
   return (
     <ScaleFade in={true}>
       <Center marginTop="1.8rem">
+        {/* TODO: separate this into a wrapper component */}
         <Card
           marginBottom="5rem"
           bgColor="light"
@@ -32,16 +33,16 @@ export const UserFormWrapper = ({
           w="30rem"
           color="main"
         >
-          <CardHeader fontSize="3xl">{heading}</CardHeader>
-          <Divider bgColor="main" />
-          <CardBody marginTop="1rem">
-            <form onSubmit={onSubmit}>
+          <form onSubmit={onSubmit}>
+            <CardHeader fontSize="3xl">{heading}</CardHeader>
+            <Divider bgColor="main" />
+            <CardBody marginTop="1rem">
               <FormControl>{children}</FormControl>
-            </form>
-          </CardBody>
-          <CardFooter>
-            <UserFormButton>{buttonLabel}</UserFormButton>
-          </CardFooter>
+            </CardBody>
+            <CardFooter>
+              <UserFormButton>{buttonLabel}</UserFormButton>
+            </CardFooter>
+          </form>
         </Card>
       </Center>
     </ScaleFade>
