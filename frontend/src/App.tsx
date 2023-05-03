@@ -1,11 +1,10 @@
-import { Spacer, Text } from "@chakra-ui/react";
-import { useState } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Spacer, Text } from '@chakra-ui/react';
+import { Route, Routes } from 'react-router-dom';
 
-import { ResponsiveHeader } from "./components/ResponsiveHeader";
-import { ResponsiveStack } from "./components/ResponsiveStack";
-import { RouteLink } from "./components/RouteLink";
-import { SearchLink } from "./components/SeachLink";
+import { ResponsiveHeader } from './components/ResponsiveHeader';
+import { ResponsiveStack } from './components/ResponsiveStack';
+import { RouteLink } from './components/RouteLink';
+import { SearchLink } from './components/SeachLink';
 
 function App() {
   return (
