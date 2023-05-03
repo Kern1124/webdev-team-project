@@ -7,10 +7,11 @@ import { Icon } from "@chakra-ui/react";
 interface FormInputProps {
   children: string;
   placeholder: string;
-  icon: IconType
+  icon: IconType;
+  inputType?: string,
 }
 
-export const FormInput = ({ children, placeholder, icon }: FormInputProps) => {
+export const FormInput = ({ children, placeholder, icon, inputType }: FormInputProps) => {
   return (
     <>
       <FormLabel marginLeft="-0.9rem">{children}</FormLabel>
@@ -21,6 +22,7 @@ export const FormInput = ({ children, placeholder, icon }: FormInputProps) => {
             marginBottom="1.5rem"
             placeholder={placeholder}
             variant="flushed"
+            type={inputType ?? "text"}
         />
       </InputGroup>
     </>
