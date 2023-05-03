@@ -1,6 +1,5 @@
-import { BoxProps, Flex, useBreakpointValue } from "@chakra-ui/react";
-import { ReactElement } from "react";
-import { Fade, ScaleFade, Slide, SlideFade, Collapse } from "@chakra-ui/react";
+import { BoxProps, Collapse, Flex, useBreakpointValue } from '@chakra-ui/react';
+import { ReactElement } from 'react';
 
 interface ResponsiveFlexProps {
   children: ReactElement | ReactElement<BoxProps> | ReactElement<BoxProps>[];
@@ -9,12 +8,12 @@ interface ResponsiveFlexProps {
 
 export const ResponsiveFlex = ({ children, isHidden }: ResponsiveFlexProps) => {
   const variant = useBreakpointValue( {
+    md: false,
     base: true,
-    md: false
-  })
-
+  }, { ssr: false })
+  console.log(variant)
   return (
-    <Collapse  in={variant ? !isHidden : true}>
+    <Collapse in={variant ? !isHidden : true}>
       <Flex
         w="100%"
         bgColor="mainLight"
