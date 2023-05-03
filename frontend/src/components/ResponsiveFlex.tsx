@@ -1,0 +1,34 @@
+import { BoxProps, Flex, useBreakpointValue } from "@chakra-ui/react";
+import { ReactElement } from "react";
+import { Fade, ScaleFade, Slide, SlideFade, Collapse } from "@chakra-ui/react";
+
+interface ResponsiveFlexProps {
+  children: ReactElement | ReactElement<BoxProps> | ReactElement<BoxProps>[];
+  isHidden: boolean;
+}
+
+export const ResponsiveFlex = ({ children, isHidden }: ResponsiveFlexProps) => {
+  const variant = useBreakpointValue( {
+    base: true,
+    md: false
+  })
+
+  return (
+    <Collapse  in={variant ? !isHidden : true}>
+      <Flex
+        w="100%"
+        bgColor="mainLight"
+        color="secondaryLight"
+        padding="2rem"
+        flexDir={{ base: "column", md: "row" }}
+        paddingLeft={{ base: "4rem", md: "2rem" }}
+        paddingRight={{ base: "4rem", md: "2rem" }}
+        justify="flex-start"
+        gap="0.5rem"
+        boxShadow="md"
+      >
+        {children}
+      </Flex>
+    </Collapse>
+  );
+};

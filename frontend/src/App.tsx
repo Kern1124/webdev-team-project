@@ -1,30 +1,27 @@
-import { Flex, Stack } from '@chakra-ui/react';
+import { Spacer, Text } from '@chakra-ui/react';
 import { Route, Routes } from 'react-router-dom';
 
+import { ResponsiveHeader } from './components/ResponsiveHeader';
+import { ResponsiveStack } from './components/ResponsiveStack';
 import { RouteLink } from './components/RouteLink';
 import { SearchLink } from './components/SeachLink';
 
 function App() {
   return (
     <>
-      <Flex
-        w="100%"
-        bgColor="mainLight"
-        color="secondaryLight"
-        justify="space-between"
-        align="center"
-        padding="2rem"
-      >
-        <Stack direction="row" gap="4rem">
+      <ResponsiveHeader>
+        <ResponsiveStack>
           <RouteLink to="/newspapers">Newspapers</RouteLink>
-        </Stack>
-        <Stack direction="row" gap="1.8rem">
+          <RouteLink to="/newspapers">Newspapers</RouteLink>
+        </ResponsiveStack>
+        <Spacer />
+        <ResponsiveStack>
           <RouteLink to="/singup">Sing up</RouteLink>
           <RouteLink to="/login">Log in</RouteLink>
           <SearchLink placeholder="Search articles" to="/articles" />
-        </Stack>
-      </Flex>
-
+        </ResponsiveStack>
+      </ResponsiveHeader>
+      <Text>TEST</Text>
       <Routes>
         <Route index path="/" />
         <Route path="/newspapers" />
