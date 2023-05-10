@@ -1,0 +1,21 @@
+{
+    "compilerOptions": {
+        "module": "NodeNext",
+        "moduleResolution": "node",
+        "baseUrl": "src",
+        "outDir": "dist",
+        "sourceMap": true,
+        "noImplicitAny": true,
+        "allowSyntheticDefaultImports": true,
+        "allowImportingTsExtensions": true,
+        "noEmit": true,
+
+        /* Linting */
+        "strict": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "noFallthroughCasesInSwitch": true
+    },
+    "include": ["src/**/*"],
+    
+}
