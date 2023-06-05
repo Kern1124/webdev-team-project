@@ -6,6 +6,8 @@ import { UserFormWrapper } from "../components/UserFormWrapper";
 import { UserFormType } from "../types/user";
 import { UserSchema } from "../yup/schemata";
 import { useCallback } from "react";
+import { userLogin } from "../api/requests";
+import { useNavigate } from "react-router-dom";
 
 export const LoginPage = () => {
   const {
@@ -14,13 +16,16 @@ export const LoginPage = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<UserFormType>({ resolver: yupResolver(UserSchema) });
+  const navigate = useNavigate()
 
   const onSubmit: SubmitHandler<UserFormType> = useCallback(
     async (data) => {
-      console.log(data);
+      // TODO: parse response
+      await userLogin(data);
       reset();
+      navigate("/");
     },
-    [reset]
+    [reset, navigate]
   );
   return (
     <UserFormWrapper
