@@ -1,87 +1,81 @@
 import express from "express";
-import z from 'zod';
-import type { ZodType } from "zod";
+import { userLoginSchema, userRegistrationSchema } from "../../models/user.ts";
 import type { UserLoginData, UserRegisterData, UserWithRoles } from "./user.types.ts";
 
 import * as UserService from "./user.service.ts"
-import { User } from "@prisma/client";
+// import { User } from "@prisma/client";
 import { db } from "utils/db.server.ts";
+import { ValidationError } from "yup";
 
 // We are using express-validator to validate whether requests should be successful.
 // You can read more about it here: https://express-validator.github.io/docs/guides/getting-started
 
-const router = express.Router();
+const userRouter = express.Router();
 
 // Register a user
 
-router.post("/user/register", async (req, res) => {
-
-    const userRegistrationSchema: ZodType<UserRegisterData> = z.object({
-        username: z.string(),
-        email: z.string().email(),
-        password: z.string().min(6)
-    })
-
-    const result = await userRegistrationSchema.safeParseAsync(req.body);
-
-    if (!result.success){
-        res.status(400).json(result.error);
-        return;
-    }
-
-    const userData: UserRegisterData = result.data;
-    let user: Promise<User>;
+userRouter.post('/register', async (req, res) => {
     try {
-        (user = UserService.register(userData))
-
-    } catch (e) {
-        res.status(400).json({message: "User already exists!"});
-        return;
+        const validatedData = await userRegistrationSchema.validate(req.body);
+        const userData = validatedData as UserRegisterData;
+        const user = await UserService.register(userData);
+        if (!user) {
+            res.status(400).json({ message: "User already exists!" });
+            return;
+        }
+        res.status(200).json({ item: user, message: "User was registered successfully." });
+    } catch (error) {
+        if (error instanceof ValidationError) {
+            res.status(400).json({ message: error.message });
+            return;
+        }
+        res.status(500).json({ message: 'Something went wrong' });
     }
-
-    res.status(200).json({item: user, message: "User was registered successfully."});
 });
 
 // Login user
 
-router.post("/user/login", async (req, res) => {
+userRouter.post('/login', async (req, res) => {
+    try {
+        const validatedData = await userLoginSchema.validate(req.body);
+        const userData = validatedData as UserLoginData;
 
-    const userLoginSchema: ZodType<UserLoginData> = z.object({
-        username: z.string(),
-        password: z.string()
-    });
+        const user: UserWithRoles | null = await db.user.findFirst({
+            where: {
+                username: userData.username,
+            },
+            include: {
+                userRoles: true,
+            },
+        });
 
-    const result = await userLoginSchema.safeParseAsync(req.body);
-
-    if (!result.success){
-        res.status(400).json(result.error);
-        return;
-    }
-
-    const userData: UserLoginData = result.data;
-    const user: UserWithRoles | null = await db.user.findFirst({
-        where: {
-            username: userData.username,
-        },
-        include: {
-            userRoles: true,
+        if (!user) {
+            res
+                .status(400)
+                .json({ message: `User with username "${userData.username}" does not exist.` });
+            return;
         }
-    });
 
-    if (user == null){
-        res.status(400).json({message: `User with username "${userData.username}" does not exist.`});
-        return;
+        if (!UserService.validatePassword(userData.password, user.passwordHash)) {
+            res.status(400).json({ message: "Incorrect password." });
+            return;
+        }
+
+        req.session.user = { username: userData.username, roles: user.userRoles };
+        res.status(200).json({ message: "Successfully logged in." });
+    } catch (error) {
+        if (error instanceof ValidationError) {
+            res.status(400).json({ message: error.message });
+            return;
+        }
+        res.status(500).json({ message: 'Something went wrong' });
     }
-
-
-    if (!UserService.validatePassword(userData.password, user?.passwordHash!)){
-        res.status(400).json({message: "Incorrect password."});
-        return;
-    }
-
-    req.session.user = {username: userData.username, roles: user?.userRoles!};
-    res.status(200).json({message: "Successfully logged in."});
 });
 
 
-export default router;
+userRouter.post('/logout', async (req, res) => {
+    req.session.destroy(() => { });
+    res.json({ message: 'Logged out' });
+})
+
+export default userRouter;
