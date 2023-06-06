@@ -7,7 +7,7 @@ declare module 'express-session' {
     }
 }
 
-const userSession = () => expressSession ({
+export const userSession = () => expressSession ({
     secret: "this is a bad secret",
     resave: false,
     saveUninitialized: true,

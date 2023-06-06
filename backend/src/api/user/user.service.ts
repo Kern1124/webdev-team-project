@@ -17,6 +17,7 @@ export const register = async (data: UserRegisterData): Promise<User> => {
     return Promise.resolve(
         await db.$transaction(async (transaction) => {
             try {
+                // TODO username should be unique? email too?
                 await transaction.user.findFirstOrThrow({
                 where: {
                     username: data.username
