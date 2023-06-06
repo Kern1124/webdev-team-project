@@ -20,7 +20,7 @@ export const LoginPage = () => {
 
   const onSubmit: SubmitHandler<UserFormType> = useCallback(
     async (data) => {
-      login(data);
+      await login(data);
       if (isError) {
         // use data to show an error here
       }
