@@ -6,7 +6,7 @@ import type { UserLoginData, UserRegisterData, UserWithRoles } from "./user.type
 import * as ArticleService from "./article.service.ts"
 import { ValidationError } from "yup";
  */
-import auth from 'middleware/authMiddleware.ts';
+import auth from '../../middleware/authMiddleware';
 
 const articleRouter = Router();
 

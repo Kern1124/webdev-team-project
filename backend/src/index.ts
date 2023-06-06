@@ -3,7 +3,7 @@ import cookieParser from 'cookie-parser';
 import * as dotenv from "dotenv";
 import cors from 'cors';
 import userSession from "./api/user/user.session";
-import userRouter from "./api/user/user.router";
+import { userApi } from "./api/user/userApi";
 import articleRouter from "./api/article/article.router";
 
 dotenv.config();
@@ -22,9 +22,11 @@ app.use(cors({
 ))
 
 app.use(userSession());
-app.use('/user', userRouter);
+app.post('/register', userApi.register)
+app.post('/login', userApi.login)
+app.post('/logout', userApi.logout)
 app.use('/article', articleRouter)
 
 app.listen(PORT, () => {
-    console.log("Listening");
+    console.log(`Listening on ${PORT}`);
 });

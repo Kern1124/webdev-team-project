@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "ts-node src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon"
   },
@@ -24,6 +25,7 @@
     "typescript": "^5.0.4"
   },
   "dependencies": {
+    "@badrap/result": "^0.2.13",
     "@prisma/client": "^4.13.0",
     "@types/yup": "^0.32.0",
     "argon2": "^0.30.3",
