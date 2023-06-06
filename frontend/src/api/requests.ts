@@ -25,7 +25,7 @@ export const userLogout = async () => {
     return response.data
 }
 
-export const useraAuth = async () => {
+export const userAuth = async () => {
     const response = await serverApi.get("/auth", {});
     return response.data
 }
