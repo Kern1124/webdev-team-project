@@ -72,6 +72,9 @@ const seed = async () => {
             if (user == null){
                 throw new Error("no user");
             }
+            const categories = articleData.categories.map((category) => ({
+              name: category.name,
+            }));
             const article = await prisma.article.create({
               data: {
                 contents: articleData.contents,
@@ -85,9 +88,13 @@ const seed = async () => {
                     id: user.id,
                   },
                 },
+                categories: {
+                  create: categories,
+                },
               },
             });
 
+            console.log(`Created article with id ${article.id}`);
             console.log(`Created article with id ${article.id}`);
 
             // Create comments
