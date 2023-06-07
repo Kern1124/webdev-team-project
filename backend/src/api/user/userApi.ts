@@ -1,10 +1,11 @@
 import { userLoginSchema, userRegistrationSchema } from "../../models/user";
-import type { UserLoginData, UserRegisterData, UserWithRoles } from "./user.types";
+import type { UserLoginData, UserRegisterData } from "./user.types";
 import { Request, Response } from "express";
 import * as UserService from "./user.service"
 // import { User } from "@prisma/client";
 import { db } from "../../utils/db.server";
 import { ValidationError } from "yup";
+import { User } from "@prisma/client";
 
 // We are using express-validator to validate whether requests should be successful.
 // You can read more about it here: https://express-validator.github.io/docs/guides/getting-started
@@ -51,13 +52,10 @@ const login = async (req: Request, res: Response) => {
         const validatedData = await userLoginSchema.validate(req.body);
         const userData = validatedData as UserLoginData;
 
-        const user: UserWithRoles | null = await db.user.findFirst({
+        const user: User | null = await db.user.findFirst({
             where: {
                 username: userData.username,
-            },
-            include: {
-                userRoles: true,
-            },
+            }
         });
 
         if (!user) {

@@ -12,7 +12,3 @@ export type UserLoginData = {
     password: string
 }
 
-export type UserWithRoles = Prisma.UserGetPayload<{
-    include: { userRoles: true }
-  }>
-

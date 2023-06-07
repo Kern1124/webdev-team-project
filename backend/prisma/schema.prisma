@@ -31,10 +31,8 @@ model User {
   username      String    @unique
   email         String    @unique
   passwordHash  String
-  userRoles     UserRole[]
   articles      Article[]
   comments      Comment[]
-  newspaper     Newspaper @relation(fields: [newspaperId], references: [id])
   newspaperId   String
   userRole      String
 }
@@ -46,7 +44,6 @@ model Newspaper {
   publisherId String
   name        String
   newspaperCopies Newspaper_copy[]
-  userRoles   UserRole[]
 }
 
 model Newspaper_copy {
