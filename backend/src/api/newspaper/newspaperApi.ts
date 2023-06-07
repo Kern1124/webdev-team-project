@@ -1,11 +1,9 @@
-import express from "express";
+import { Request, Response } from "express";
 import { number } from "yup";
 import { newspaperById } from "../../models/newspaper";
 import { Newspaper } from "@prisma/client";
 import { NewspaperWithCopies } from "./newspaper.types";
 import { db } from "../../utils/db.server";
-
-const newspaperRouter = express.Router();
 
 // V požadavku je záslán title newspaper a publisher name
 // -> server vyfiltruje odpovídající newspapers a pošle je
@@ -14,9 +12,9 @@ const newspaperRouter = express.Router();
 // případně jestli v databází bude mít nějaký podnázev.
 
 
-newspaperRouter.get("/newspaper", async (req, res) => {
+const getNewspapers = async (req: Request, res: Response) => {
     
-});
+};
 
 // V požadavku je zasláno id newspaperu a datum od-do ->
 // server pošle daný newspaper spolu s jeho newspaper copies,
@@ -25,8 +23,7 @@ newspaperRouter.get("/newspaper", async (req, res) => {
 // null tak se pošlou všechny newspaper copies.
 
 
-newspaperRouter.get("/newspaper/:id", async (req, res) => {
-
+const getNewspapersByIdInverval =  async (req: Request, res: Response) => {
     const id: string  = req.params.id;
     const validatedData = await newspaperById.validate(req.body);
     
@@ -57,7 +54,10 @@ newspaperRouter.get("/newspaper/:id", async (req, res) => {
         res.status(500).json({message: "Internal error."})
     }
 
-});
+};
 
 
-export default newspaperRouter;
+export const newspaperApi = {
+    getNewspapers,
+    getNewspapersByIdInverval,
+};

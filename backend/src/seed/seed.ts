@@ -7,6 +7,7 @@ const user = {
 }
 
 const seed = async () => {
+    
 }
 
 seed()

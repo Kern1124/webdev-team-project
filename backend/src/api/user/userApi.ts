@@ -37,6 +37,7 @@ const register = async (req: Request, res: Response) => {
             return;
         }
         res.status(200).json({ item: user, message: "User was registered successfully." });
+        return;
     } catch (error) {
         if (error instanceof ValidationError) {
             res.status(400).json({ message: error.message });
@@ -72,6 +73,7 @@ const login = async (req: Request, res: Response) => {
 
         req.session.user = user
         res.status(200).json({ message: "Successfully logged in." });
+        return;
     } catch (error) {
         if (error instanceof ValidationError) {
             res.status(400).json({ message: error.message });
