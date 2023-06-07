@@ -33,8 +33,7 @@ model User {
   passwordHash  String
   articles      Article[]
   comments      Comment[]
-  newspaperId   String
-  userRole      String
+  userRole      String?
 }
 
 
