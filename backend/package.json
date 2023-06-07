@@ -28,7 +28,7 @@
   },
   "dependencies": {
     "@badrap/result": "^0.2.13",
-    "@prisma/client": "^4.13.0",
+    "@prisma/client": "^4.15.0",
     "@types/yup": "^0.32.0",
     "argon2": "^0.30.3",
     "cookie-parser": "^1.4.6",

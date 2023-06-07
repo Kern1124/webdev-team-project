@@ -1,4 +1,4 @@
-import { Newspaper, Newspaper_copy, Prisma } from '@prisma/client'
+import { Newspaper, Newspaper_copy } from '@prisma/client'
 
 export type NewspaperCreateData = {
     publisherId: string,
