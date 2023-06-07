@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { number } from "yup";
-import { newspaperById } from "../../models/newspaper";
+import { newspaperById, newspaperPublisherRequest } from "../../models/newspaper";
 import { Newspaper } from "@prisma/client";
 import { NewspaperWithCopies } from "./newspaper.types";
 import { db } from "../../utils/db.server";
@@ -26,7 +26,7 @@ const getNewspapers = async (req: Request, res: Response) => {
 const getNewspapersByIdInverval =  async (req: Request, res: Response) => {
     const id: string  = req.params.id;
     const validatedData = await newspaperById.validate(req.body);
-    
+
     try{
         const newspaper: NewspaperWithCopies | null = await  db.newspaper.findFirst({
             where: {
