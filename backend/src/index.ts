@@ -6,6 +6,7 @@ import userSession from "./api/user/user.session";
 import { userApi } from "./api/user/userApi";
 import { newspaperApi } from "./api/newspaper/newspaperApi";
 import { publisherApi } from "./api/publisher/publisherApi";
+import { articleApi } from "./api/article/article.router";
 
 dotenv.config();
 
@@ -29,6 +30,7 @@ app.post('/logout', userApi.logout)
 app.get('/newspaper/:publisher', newspaperApi.getNewspaperByPublisher)
 app.get('/newspaper/:id', newspaperApi.getNewspapersByIdInverval)
 app.get('/publisher', publisherApi.getAllPublishers)
+app.get('/article', articleApi.getCopyArticles)
 app.listen(PORT, () => {
     console.log(`Listening on ${PORT}`);
 });
