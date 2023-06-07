@@ -7,3 +7,8 @@ export type ArticleCreateData = {
 export type ArticleDeleteData = {
     id: string
 }
+
+export type CopyArticlesData = {
+    newspaperCopyId: string | undefined,
+    content: string
+}
