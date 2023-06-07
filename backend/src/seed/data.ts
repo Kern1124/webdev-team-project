@@ -14,7 +14,6 @@ const data = async () => {
             name: 'Newspaper A',
             newspaperCopies: [
               {
-                
                 articles: [
                   {
                     contents: 'Article 1 for Newspaper A Issue 1',
@@ -35,7 +34,6 @@ const data = async () => {
                 ],
               },
               {
-                
                 articles: [
                   {
                     contents: 'Article 1 for Newspaper A Issue 2',
@@ -58,7 +56,6 @@ const data = async () => {
             articles: [
               {
                 contents: 'Article 1 by User1',
-                newspaperCopy: {  },
                 categories: [{ name: 'Category A' }],
                 comments: [
                   { content: 'Comment 1 for Article 1 by User1' },
@@ -67,7 +64,6 @@ const data = async () => {
               },
               {
                 contents: 'Article 2 by User1',
-                newspaperCopy: {  },
                 categories: [{ name: 'Category B' }],
                 comments: [
                   { content: 'Comment 1 for Article 2 by User1' },
@@ -83,7 +79,6 @@ const data = async () => {
             articles: [
               {
                 contents: 'Article 1 by User2',
-                newspaperCopy: {  },
                 categories: [{ name: 'Category A' }],
                 comments: [
                   { content: 'Comment 1 for Article 1 by User2' },
@@ -92,7 +87,6 @@ const data = async () => {
               },
               {
                 contents: 'Article 2 by User2',
-                newspaperCopy: {  },
                 categories: [{ name: 'Category B' }],
                 comments: [
                   { content: 'Comment 1 for Article 2 by User2' },
@@ -108,7 +102,6 @@ const data = async () => {
             articles: [
               {
                 contents: 'Article 1 by User3',
-                newspaperCopy: {  },
                 categories: [{ name: 'Category A' }],
                 comments: [
                   { content: 'Comment 1 for Article 1 by User3' },
