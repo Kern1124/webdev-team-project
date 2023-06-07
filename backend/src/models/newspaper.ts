@@ -5,7 +5,6 @@ export const newspaperById = object({
     to: date().optional()
 });
 
-export const userLoginSchema = object({
-    username: string().required(),
-    password: string().min(6).max(20).required(),
+export const newspaperPublisherRequest = object({
+    title: string(),
 });
