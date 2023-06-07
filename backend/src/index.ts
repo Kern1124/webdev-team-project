@@ -27,7 +27,7 @@ app.post('/register', userApi.register)
 app.post('/login', userApi.login)
 app.post('/logout', userApi.logout)
 app.use('/article', articleRouter)
-app.get('/newspaper', newspaperApi.getNewspapers)
+app.get('/newspaper/:publisher', newspaperApi.getNewspaperByPublisher)
 app.get('/newspaper/:id', newspaperApi.getNewspapersByIdInverval)
 
 app.listen(PORT, () => {

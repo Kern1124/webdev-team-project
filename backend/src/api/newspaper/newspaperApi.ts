@@ -11,9 +11,33 @@ import { db } from "../../utils/db.server";
 // Ať se neposílá moc dat, tak by tenhle endpoint měl poslat jen jméno a id newspaperu,
 // případně jestli v databází bude mít nějaký podnázev.
 
+const getNewspaperByPublisher =  async (req: Request, res: Response) => {
+    const publisher: string = req.params.publisher;
+    const validatedData = await newspaperPublisherRequest.validate(req.body);
 
-const getNewspapers = async (req: Request, res: Response) => {
-    
+    try {
+        const newspapers: Newspaper[] = await db.newspaper.findMany({
+            where: {
+                publisher: {
+                    name: publisher,
+                },
+                name: {
+                    contains: validatedData.title,
+                }
+            }
+        })
+
+        if (newspapers.length == 0){
+            res.status(404).json({message: "No newspapers found."});
+            return
+        }
+
+        res.status(200).json({item: newspapers, message: "Found " + newspapers.length + " entries."});
+
+    } catch (e) {
+        res.status(500).json({message: "Internal error."})
+    }
+
 };
 
 // V požadavku je zasláno id newspaperu a datum od-do ->
@@ -58,6 +82,6 @@ const getNewspapersByIdInverval =  async (req: Request, res: Response) => {
 
 
 export const newspaperApi = {
-    getNewspapers,
+    getNewspaperByPublisher,
     getNewspapersByIdInverval,
 };

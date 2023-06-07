@@ -47,23 +47,25 @@ model Newspaper {
 
 model Newspaper_copy {
   id          String      @id @default(uuid())
-  issueNr     Int         @unique
   date        DateTime    @default(now())
   newspaper   Newspaper   @relation(fields: [newspaperId], references: [id])
   newspaperId String
   articles    Article[]
+  published   Boolean    @default(false)
+
 }
 
 
 model Article {
   id             String            @id @default(uuid())
   contents       String
-  newspaper_copy Newspaper_copy?   @relation(fields: [newspaperCopyId], references: [id])
-  newspaperCopyId String?
+  newspaper_copy Newspaper_copy   @relation(fields: [newspaperCopyId], references: [id])
+  newspaperCopyId String
   author         User              @relation(fields: [authorId], references: [id])
   authorId       String
   categories     Category[]
   comments       Comment[]
+  approved       Boolean    @default(false)
 }
 
 model Category {
