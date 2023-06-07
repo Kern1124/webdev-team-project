@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { number } from "yup";
+import { ValidationError, number } from "yup";
 import { newspaperById, newspaperPublisherRequest } from "../../models/newspaper";
 import { Newspaper } from "@prisma/client";
 import { NewspaperWithCopies } from "../../types/newspaper.types";
@@ -12,30 +12,37 @@ import { db } from "../../utils/db.server";
 // případně jestli v databází bude mít nějaký podnázev.
 
 const getNewspaperByPublisher =  async (req: Request, res: Response) => {
-    const publisher: string = req.params.publisher;
-    const validatedData = await newspaperPublisherRequest.validate(req.body);
 
     try {
+        const publisher: string = req.params.publisher;
+        const title: string = req.params.title;
+
         const newspapers: Newspaper[] = await db.newspaper.findMany({
             where: {
-                publisher: {
-                    name: publisher,
-                },
-                name: {
-                    contains: validatedData.title,
+                AND: [
+                    {
+                    publisher: {
+                        name: publisher,
+                    },
+                    name: {
+                        contains: title,
+                    }
                 }
+                ]
+
             }
         })
 
         if (newspapers.length == 0){
-            res.status(404).json({message: "No newspapers found."});
+            res.status(404).json({message: "No newspapers found.", publisher: publisher, name: title});
             return
         }
 
         res.status(200).json({item: newspapers, message: "Found " + newspapers.length + " entries."});
 
     } catch (e) {
-        res.status(500).json({message: "Internal error."})
+
+        res.status(500).json({message: "Internal error."});
     }
 
 };
@@ -46,10 +53,11 @@ const getNewspaperByPublisher =  async (req: Request, res: Response) => {
 // Vyfiltruje jeho newspaper copies podle data, pokud je datum
 // null tak se pošlou všechny newspaper copies.
 
-
+// DOESNT WORK! NEEDS A FIX - GET REQUESTS CANNOT HAVE BODY
 const getNewspapersByIdInverval =  async (req: Request, res: Response) => {
     const id: string  = req.params.id;
-    const validatedData = await newspaperById.validate(req.body);
+    const from: string = req.params.from;
+    const to: string = req.params.to;
 
     try{
         const newspaper: NewspaperWithCopies | null = await  db.newspaper.findFirst({
@@ -60,8 +68,8 @@ const getNewspapersByIdInverval =  async (req: Request, res: Response) => {
                 newspaperCopies: {
                     where: {
                         date: {
-                            lte: validatedData.to,
-                            gte: validatedData.from
+                            lte: to,
+                            gte: from
                         }
                     }
                 },

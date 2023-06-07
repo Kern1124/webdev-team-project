@@ -21,29 +21,27 @@ import { ValidationError } from "yup";
 
 export const getCopyArticles =  async (req: Request, res: Response) => {
     try{
-        const validatedData = await CopyArticlesSchema.validate(req.body);
-        const articleData = validatedData as CopyArticlesData;
+
+        const newspaperCopyId: string = req.params.newspaperCopyId;
+        const content: string = req.params.content;
 
         const articles: Article[] = await db.article.findMany({
             where: {
-                OR: [
+                AND: [
                     {
-                        newspaperCopyId: articleData.newspaperCopyId,
-                    }
+                        newspaperCopyId: newspaperCopyId,
+                        contents: {
+                            contains: content
+                        }
+                    },
+                    
                 ],
-                contents: {
-                    contains: articleData.content
-                }
             }
         })
 
-        res.status(200).json({items: articles, message: "Fetched " + articles.length + " articles."})
+        res.status(200).json({items: articles, message: "Fetched " + articles.length + " articles.", data: newspaperCopyId})
 
     } catch (e) {
-        if (e instanceof ValidationError){
-            res.status(400).json({message: e.message})
-            return
-        }
 
         res.status(500).json({message: "Internal error.", error: e})
     }

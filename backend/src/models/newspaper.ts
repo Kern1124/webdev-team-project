@@ -6,10 +6,10 @@ export const newspaperById = object({
 });
 
 export const newspaperCreateData = object({
-    publisherId: string(),
-    name: string()
+    publisherId: string().required(),
+    name: string().required()
 })
 
 export const newspaperPublisherRequest = object({
-    title: string(),
+    title: string().required(),
 });

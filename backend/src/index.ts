@@ -7,6 +7,7 @@ import { userApi } from "./api/user/userApi";
 import { newspaperApi } from "./api/newspaper/newspaperApi";
 import { publisherApi } from "./api/publisher/publisherApi";
 import { articleApi } from "./api/article/article.router";
+import bodyParser from "body-parser";
 
 dotenv.config();
 
@@ -27,10 +28,15 @@ app.use(userSession());
 app.post('/register', userApi.register)
 app.post('/login', userApi.login)
 app.post('/logout', userApi.logout)
-app.get('/newspaper/:publisher', newspaperApi.getNewspaperByPublisher)
-app.get('/newspaper/:id', newspaperApi.getNewspapersByIdInverval)
+app.get('/newspaper/publisher=/:publisher', newspaperApi.getNewspaperByPublisher)
+app.get('/newspaper/name=/:title', newspaperApi.getNewspaperByPublisher)
+app.get('/newspaper/:publisher/:title', newspaperApi.getNewspaperByPublisher)
+app.get('/newspaper/:id/:from/:to', newspaperApi.getNewspapersByIdInverval)
 app.get('/publisher', publisherApi.getAllPublishers)
-app.get('/article', articleApi.getCopyArticles)
+app.get('/article/content=/:content', articleApi.getCopyArticles)
+app.get('/article/id=/:newspaperCopyId', articleApi.getCopyArticles)
+app.get('/article/:newspaperCopyId/:content', articleApi.getCopyArticles)
+
 app.listen(PORT, () => {
     console.log(`Listening on ${PORT}`);
 });
