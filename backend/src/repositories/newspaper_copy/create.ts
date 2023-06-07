@@ -1,7 +1,7 @@
 import { Result } from "@badrap/result";
 import { db } from "../../utils/db.server";
 import { Newspaper_copy } from "@prisma/client";
-import { NewspaperCopyCreateData } from "./newspaper_copy.types";
+import { NewspaperCopyCreateData } from "../../types/newspaper_copy.types";
 
 export const create = async (data: NewspaperCopyCreateData): Promise<Result<Newspaper_copy>> => {
 

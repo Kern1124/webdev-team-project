@@ -2,7 +2,7 @@ import { Result } from '@badrap/result';
 import { User } from "@prisma/client";
 import { db } from "../../utils/db.server";
 import argon2 from 'argon2';
-import type { UserRegisterData } from "./user.types";
+import type { UserRegisterData } from "../../types/user.types";
 
 // This service file contains all user related prisma functions
 
@@ -12,7 +12,7 @@ export const validatePassword = async (inputPassword: string, passwordHash: stri
   } catch (error) {
     return false;
   }
-};
+}
 
 export const register = async (data: UserRegisterData) => {
   try {
@@ -50,4 +50,4 @@ export const register = async (data: UserRegisterData) => {
     // Transaction failed or user already exists
     return Result.err(error as Error);
   }
-};
+}

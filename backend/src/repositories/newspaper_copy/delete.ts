@@ -1,6 +1,6 @@
 import { Newspaper_copy } from "@prisma/client";
 import { db } from "../../utils/db.server";
-import { NewspaperCopyDeleteData } from "./newspaper_copy.types";
+import { NewspaperCopyDeleteData } from "../../types/newspaper_copy.types";
 import { Result } from "@badrap/result";
 
 

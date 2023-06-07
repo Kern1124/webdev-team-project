@@ -1,5 +1,5 @@
 import { userLoginSchema, userRegistrationSchema } from "../../models/user";
-import type { UserLoginData, UserRegisterData } from "./user.types";
+import type { UserLoginData, UserRegisterData } from "../../types/user.types";
 import { Request, Response } from "express";
 import * as UserService from "./user.service"
 // import { User } from "@prisma/client";

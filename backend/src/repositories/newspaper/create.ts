@@ -1,5 +1,5 @@
 import { Newspaper } from "@prisma/client";
-import { NewspaperCreateData } from "../../api/newspaper/newspaper.types";
+import { NewspaperCreateData } from "../../types/newspaper.types";
 import { db } from "../../utils/db.server";
 import { Result } from "@badrap/result";
 

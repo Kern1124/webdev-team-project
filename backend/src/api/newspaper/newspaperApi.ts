@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { number } from "yup";
 import { newspaperById, newspaperPublisherRequest } from "../../models/newspaper";
 import { Newspaper } from "@prisma/client";
-import { NewspaperWithCopies } from "./newspaper.types";
+import { NewspaperWithCopies } from "../../types/newspaper.types";
 import { db } from "../../utils/db.server";
 
 // V požadavku je záslán title newspaper a publisher name
