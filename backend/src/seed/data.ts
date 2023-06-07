@@ -1,8 +1,9 @@
 import argon2 from 'argon2';
+import { RoleRecordType } from '../models/role';
 
 const data = async () => {
-  const hashedPassword1 = await argon2.hash('hashed_password1');
-  const hashedPassword2 = await argon2.hash('hashed_password2');
+  const hashedPassword1 = await argon2.hash('Slavoo');
+  const hashedPassword2 = await argon2.hash('Tylich');
   const hashedPassword3 = await argon2.hash('hashed_password3');
 
   return {
@@ -50,9 +51,10 @@ const data = async () => {
         ],
         users: [
           {
-            username: 'User1',
-            email: 'user1@example.com',
+            username: 'Slavo',
+            email: 'slavo@example.com',
             passwordHash: hashedPassword1,
+            role: 'DIRECTOR' as RoleRecordType,
             articles: [
               {
                 contents: 'Article 1 by User1',
@@ -73,9 +75,10 @@ const data = async () => {
             ],
           },
           {
-            username: 'User2',
-            email: 'user2@example.com',
+            username: 'Tylich',
+            email: 'tylich@example.com',
             passwordHash: hashedPassword2,
+            role: 'MANAGER' as RoleRecordType,
             articles: [
               {
                 contents: 'Article 1 by User2',
