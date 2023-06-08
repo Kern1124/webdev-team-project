@@ -45,6 +45,7 @@ export const getNewspapers = async (publisherId: string, title: string) => {
     } else if (title) {
         url += "/name=/" + title;
     } 
+    
     const response = await serverApi.get(url, {})
     return response.data
 }

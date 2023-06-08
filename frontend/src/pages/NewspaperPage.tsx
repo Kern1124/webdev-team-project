@@ -9,7 +9,6 @@ export const NewspaperPage = () => {
   const [publisher, setPublisher] = useState<string | null>(null);
   const [title, setTitle] = useState<string | null>(null);
   const debouncedTitle = useDebounce(title, 300);
-
   const { data, isLoading } = useQuery({
     queryKey: ["newspaper", publisher, debouncedTitle],
     queryFn: () => getNewspapers(publisher ?? "", debouncedTitle ?? ""),
@@ -19,7 +18,7 @@ export const NewspaperPage = () => {
   return (
     <>
       <NewspaperFilter onInputChange={setTitle} onSelectChange={setPublisher} />
-      <NewspaperGrid newspapers={data?.item} />
+      <NewspaperGrid isLoading={isLoading} newspapers={data?.item} />
     </>
   );
 };

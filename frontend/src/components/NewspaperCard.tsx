@@ -5,10 +5,11 @@ import { useCallback } from "react";
 
 interface NewspaperCardProps {
   title: string;
+  publisher: string
   onClickUrl: string;
 }
 
-export const NewspaperCard = ({ title, onClickUrl }: NewspaperCardProps) => {
+export const NewspaperCard = ({ title, publisher, onClickUrl }: NewspaperCardProps) => {
   const navigate = useNavigate();
   const onClickHandle = useCallback(
     () => navigate(onClickUrl),
@@ -26,6 +27,7 @@ export const NewspaperCard = ({ title, onClickUrl }: NewspaperCardProps) => {
         onClick={onClickHandle}
       ></Card>
       <Text>{title}</Text>
+      <Text color="mainLight" fontSize="sm">{publisher}</Text>
     </Flex>
   );
 };
