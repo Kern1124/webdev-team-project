@@ -1,5 +1,14 @@
 import argon2 from 'argon2';
 import { RoleRecordType } from '../models/role';
+const axios = require('axios');
+const fs = require('fs');
+
+
+async function downloadPhoto(url: string, filePath: string) {
+  const response = await axios.get(url, { responseType: 'arsraybuffer' });
+  fs.writeFileSync(filePath, response.data);
+  const photoData = fs.readFileSync(filePath);
+}
 
 const data = async () => {
   const Slavopwd = await argon2.hash('Gugugaga1#');

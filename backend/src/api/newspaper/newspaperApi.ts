@@ -8,6 +8,18 @@ import { Newspaper } from "@prisma/client";
 import { NewspaperWithCopies } from "../../types/newspaper.types";
 import { db } from "../../utils/db.server";
 
+const getAllNewspaper = async (req: Request, res: Response) => {
+    try {
+        const newspapers = await db.newspaper.findMany()
+        if (!newspapers){
+            res.status(400).json({ message: "No newspapers." });
+        }
+        res.status(200).json({ item: newspapers, message: "Fetched " + newspapers.length + " newspapers." });
+    } catch (e) {
+        res.status(500).json({ message: "Internal error." });
+    }
+}
+
 // V požadavku je záslán title newspaper a publisher name
 // -> server vyfiltruje odpovídající newspapers a pošle je
 // (filtrování normálně přes string contains substring).
@@ -115,12 +127,12 @@ const getNewspapersByIdInverval = async (req: Request, res: Response) => {
 };
 
 const getUnpublishedCopies = async (req: Request, res: Response) => {
-    try{
-    const user = req.session.user;
-    const copies = await db.newspaper_copy.findMany({
-        where: { published: false },
-    });
-    res.status(200).json({ items: copies, message: "Fetched " + copies.length + " copies to publish.", data: user?.username });
+    try {
+        const user = req.session.user;
+        const copies = await db.newspaper_copy.findMany({
+            where: { published: false },
+        });
+        res.status(200).json({ items: copies, message: "Fetched " + copies.length + " copies to publish.", data: user?.username });
     }
     catch (e) {
         res.status(500).json({ message: "Internal error.", error: e })
@@ -128,6 +140,7 @@ const getUnpublishedCopies = async (req: Request, res: Response) => {
 }
 
 export const newspaperApi = {
+    getAllNewspaper,
     getNewspaperByPublisher,
     getNewspapersByIdInverval,
     getUnpublishedCopies,
