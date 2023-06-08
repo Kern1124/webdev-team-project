@@ -35,3 +35,16 @@ export const getAllPublishers = async () => {
     const response = await serverApi.get("/publisher", {})
     return response.data
 }
+
+export const getNewspapers = async (publisherId: string, title: string) => {
+    let url = "/newspaper";
+    if (publisherId && title) {
+        url += "/" + publisherId + "/" + title;
+    } else if (publisherId) {
+        url += "/publisher=/" + publisherId;
+    } else if (title) {
+        url += "/name=/" + title;
+    } 
+    const response = await serverApi.get(url, {})
+    return response.data
+}

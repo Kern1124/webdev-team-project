@@ -1,6 +1,5 @@
 import { Grid, GridItem } from "@chakra-ui/layout";
 import { useMemo } from "react";
-
 import { NewspaperCard } from "./NewspaperCard";
 
 const SAMPLE_NEWSPAPERS = [
