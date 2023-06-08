@@ -15,7 +15,7 @@ const auth = async (req: Request, res: Response) => {
     try {
         const user = req.session.user;
         if (!user) {
-            res.status(404).json({ message: 'No user authenticated' });
+            res.status(400).json({ message: 'No user authenticated' });
             return;
         }
 
