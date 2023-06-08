@@ -56,12 +56,8 @@ const getNewspaperByPublisher = async (req: Request, res: Response) => {
 
         if (newspapers.length == 0) {
             res
-                .status(404)
-                .json({
-                    message: "No newspapers found.",
-                    publisher: publisher,
-                    name: title,
-                });
+                .status(400)
+                .json([]);
             return;
         }
 
