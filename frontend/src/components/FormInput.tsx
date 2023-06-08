@@ -5,6 +5,7 @@ import React from "react";
 import { LegacyRef } from "react";
 import { ChangeHandler } from "react-hook-form";
 import { IconType } from "react-icons";
+import { ErrorText } from "./ErrorText";
 
 interface FormInputProps {
   children: string;
@@ -51,9 +52,7 @@ export const FormInput = React.forwardRef(
             name={name}
             id={name}
           />
-          <Text marginBottom="1rem" fontSize="sm" color="error">
-            {errorMessage ?? ""}
-          </Text>
+          <ErrorText message={errorMessage} />
         </InputGroup>
       </>
     );

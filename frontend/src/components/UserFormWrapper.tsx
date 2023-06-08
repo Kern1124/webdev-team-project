@@ -5,10 +5,13 @@ import { ReactElement } from "react";
 import { BoxProps } from "@chakra-ui/layout";
 import { FormControl } from "@chakra-ui/form-control";
 import { UserFormButton } from "./UserFormButton";
+import { ErrorText } from "./ErrorText";
 
 interface UserFormWrapperProps {
   heading: string;
   buttonLabel: string;
+  buttonIsDisabled: boolean;
+  errorMessage?: string | null;
   onSubmit: (
     e?: React.BaseSyntheticEvent<object, any, any> | undefined
   ) => Promise<void>;
@@ -20,6 +23,8 @@ export const UserFormWrapper = ({
   children,
   buttonLabel,
   onSubmit,
+  buttonIsDisabled,
+  errorMessage
 }: UserFormWrapperProps) => {
   return (
     <ScaleFade in={true}>
@@ -34,13 +39,18 @@ export const UserFormWrapper = ({
           color="main"
         >
           <form onSubmit={onSubmit}>
-            <CardHeader fontWeight={700} fontSize="3xl">{heading}</CardHeader>
+            <CardHeader fontWeight={700} fontSize="3xl">
+              {heading}
+            </CardHeader>
             <Divider bgColor="main" />
             <CardBody marginTop="1rem">
               <FormControl>{children}</FormControl>
             </CardBody>
-            <CardFooter>
-              <UserFormButton>{buttonLabel}</UserFormButton>
+            <CardFooter flexDir="column" display="flex">
+              <UserFormButton isDisabled={buttonIsDisabled}>
+                {buttonLabel}
+              </UserFormButton>
+              <ErrorText message={errorMessage} />
             </CardFooter>
           </form>
         </Card>
