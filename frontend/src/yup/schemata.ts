@@ -8,7 +8,7 @@ username: yup
 password: yup
   .string()
   .matches(
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/,
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^_~&*])(?=.{8,})/,
     "Password must contain at least 8 Characters, an uppercase letter, a lowercase letter, a number and a special character"
   )
   .required("Password is required"),
