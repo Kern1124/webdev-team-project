@@ -10,7 +10,6 @@ interface AuthorizedProps {
 
 export const Authorized = ({ children, role }: AuthorizedProps) => {
     const { auth } = useAuth();
-    console.log(auth)
 
     if (!auth) {
         if (role === "GUEST") {
