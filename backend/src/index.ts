@@ -9,6 +9,7 @@ import { publisherApi } from "./api/publisher/publisherApi";
 import { articleApi } from "./api/article/article.router";
 import bodyParser from "body-parser";
 import auth from "./middleware/authMiddleware";
+import { commentApi } from "./api/comment/commentApi";
 
 dotenv.config();
 
@@ -40,6 +41,7 @@ app.get('/article/id=/:newspaperCopyId', articleApi.getCopyArticles)
 app.get('/article/:newspaperCopyId/:content', articleApi.getCopyArticles)
 app.get('/articles/approval', auth('MANAGER'), articleApi.getUnapprovedArticles)
 app.get('/newspaper/publish', auth('DIRECTOR'), newspaperApi.getUnpublishedCopies)
+app.post('/article/comment', auth('JOURNALIST'), commentApi.create)
 app.listen(PORT, () => {
     console.log(`Listening on ${PORT}`);
 });
