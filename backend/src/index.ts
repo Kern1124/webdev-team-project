@@ -8,6 +8,7 @@ import { newspaperApi } from "./api/newspaper/newspaperApi";
 import { publisherApi } from "./api/publisher/publisherApi";
 import { articleApi } from "./api/article/article.router";
 import bodyParser from "body-parser";
+import auth from "./middleware/authMiddleware";
 
 dotenv.config();
 
@@ -23,7 +24,7 @@ app.use(cors({
     credentials: true
 }
 ))
-
+//auth('MANAGER') auth('DIRECTOR') auth('JOURNALIST')
 app.use(userSession());
 app.get('/auth', userApi.auth)
 app.post('/register', userApi.register)
@@ -33,7 +34,7 @@ app.get('/newspaper/publisher=/:publisher', newspaperApi.getNewspaperByPublisher
 app.get('/newspaper/name=/:title', newspaperApi.getNewspaperByPublisher)
 app.get('/newspaper/:publisher/:title', newspaperApi.getNewspaperByPublisher)
 app.get('/newspaper/:id/:from/:to', newspaperApi.getNewspapersByIdInverval)
-app.get('/publisher', publisherApi.getAllPublishers)
+app.get('/publisher', auth('JOURNALIST'), publisherApi.getAllPublishers)
 app.get('/article/content=/:content', articleApi.getCopyArticles)
 app.get('/article/id=/:newspaperCopyId', articleApi.getCopyArticles)
 app.get('/article/:newspaperCopyId/:content', articleApi.getCopyArticles)

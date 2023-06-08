@@ -3,6 +3,7 @@ import { User } from "@prisma/client";
 import { db } from "../../utils/db.server";
 import argon2 from 'argon2';
 import type { UserRegisterData } from "../../types/user.types";
+import { RoleRecordType } from '../../models/role';
 
 // This service file contains all user related prisma functions
 
@@ -39,6 +40,7 @@ export const register = async (data: UserRegisterData) => {
           username: data.username,
           email: data.email,
           passwordHash,
+          userRole: 'JOURNALIST' as RoleRecordType
           // Other user properties
         },
       });

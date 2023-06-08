@@ -25,6 +25,7 @@ const seed = async () => {
             username: userData.username,
             email: userData.email,
             passwordHash: userData.passwordHash,
+            userRole: userData.role,
             publisher: {
               connect: {
                 id: publisher.id,
