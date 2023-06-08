@@ -7,9 +7,10 @@ import { userApi } from "./api/user/userApi";
 import { newspaperApi } from "./api/newspaper/newspaperApi";
 import { publisherApi } from "./api/publisher/publisherApi";
 import { articleApi } from "./api/article/article.router";
-import bodyParser from "body-parser";
 import auth from "./middleware/authMiddleware";
 import { commentApi } from "./api/comment/commentApi";
+import upload from "./middleware/uploadMiddleware";
+
 
 dotenv.config();
 
@@ -43,6 +44,11 @@ app.get('/article/:newspaperCopyId/:content', articleApi.getCopyArticles)
 app.get('/articles/approval', auth('MANAGER'), articleApi.getUnapprovedArticles)
 app.get('/newspaper/publish', auth('DIRECTOR'), newspaperApi.getUnpublishedCopies)
 app.post('/article/comment', auth('JOURNALIST'), commentApi.create)
+
+app.post('/upload', upload.single('up'), (req, res) => {
+    res.status(200).json({message: "Upload successful"});
+})
+
 app.listen(PORT, () => {
     console.log(`Listening on ${PORT}`);
 });
