@@ -30,3 +30,8 @@ export const userAuth = async () => {
     const response = await serverApi.get("/auth", {});
     return response.data
 }
+
+export const getAllPublishers = async () => {
+    const response = await serverApi.get("/publisher", {})
+    return response.data
+}
