@@ -25,8 +25,13 @@ const App = () => {
         </ResponsiveStack>
         <Spacer />
         <ResponsiveStack>
-          <RouteLink to="/signup">Sign up</RouteLink>
-          <RouteLink to="/login">Log in</RouteLink>
+          <Authorized role="GUEST">
+            <RouteLink to="/signup">Sign up</RouteLink>
+            <RouteLink to="/login">Log in</RouteLink>
+          </Authorized>
+          <Authorized role="JOURNALIST">
+            <RouteLink to="auth/logout">Log out</RouteLink>
+          </Authorized>
           <SearchLink placeholder="Search articles" to="/articles" />
         </ResponsiveStack>
       </ResponsiveHeader>

@@ -24,6 +24,8 @@ export const ResponsiveFlex = ({ children, isHidden }: ResponsiveFlexProps) => {
         justify="flex-start"
         gap="0.5rem"
         boxShadow="md"
+        borderBottomWidth={{base: "0.3rem", md: "0rem"}}
+        borderBottomColor="main"
       >
         {children}
       </Flex>

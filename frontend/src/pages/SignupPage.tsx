@@ -1,12 +1,13 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useCallback } from 'react';
+import { AxiosError } from 'axios';
+import { useCallback, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { AiOutlineLock, AiOutlineMail, AiOutlineUser } from 'react-icons/ai';
-import { useNavigate } from 'react-router-dom';
 
-import { userSignup } from '../api/requests';
 import { FormInput } from '../components/FormInput';
 import { UserFormWrapper } from '../components/UserFormWrapper';
+import { useSignup } from '../hooks/useSignup';
+import { ErrorResponseType } from '../types/response';
 import { UserSignupFormType } from '../types/user';
 import { UserSignupSchema } from '../yup/schemata';
 
@@ -17,22 +18,30 @@ export const SignupPage = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<UserSignupFormType>({ resolver: yupResolver(UserSignupSchema) });
-  const navigate = useNavigate();
+  const { signup, isLoading } = useSignup({
+    redirect: "/login",
+  });
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const onSubmit: SubmitHandler<UserSignupFormType> = useCallback(
     async (data) => {
-      const response = await userSignup(data);
-      // TODO: parse response here
+      try {
+        await signup(data);
+      } catch (e) {
+        const data = (e as AxiosError)?.response?.data as ErrorResponseType;
+        setErrorMessage(data?.message);
+      }
       reset();
-      navigate("/login");
     },
-    [reset, navigate]
+    [reset, signup]
   );
   return (
     <UserFormWrapper
+      buttonIsDisabled={isLoading}
       buttonLabel="SIGN UP"
       heading="Sign up"
       onSubmit={handleSubmit(onSubmit)}
+      errorMessage={errorMessage}
     >
       <FormInput
         {...register("username")}

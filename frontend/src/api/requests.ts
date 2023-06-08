@@ -3,12 +3,13 @@ import { UserSignupFormType, UserFormType } from "../types/user"
 
 // TODO: change baseURL before release
 const serverApi = axios.create({
-    baseURL: "http://localhost:3000",
+    baseURL: 'http://localhost:8000',
     headers: {
         "Access-Control-Allow-Credentials": true,
     },
     withCredentials: true
 })
+
 
 export const userSignup = async (data: UserSignupFormType) => {
     const response = await serverApi.post("/register", data)
@@ -27,5 +28,10 @@ export const userLogout = async () => {
 
 export const userAuth = async () => {
     const response = await serverApi.get("/auth", {});
+    return response.data
+}
+
+export const getAllPublishers = async () => {
+    const response = await serverApi.get("/publisher", {})
     return response.data
 }
