@@ -1,6 +1,5 @@
 import { PrismaClient } from "@prisma/client";
 import data from "./data";
-import auth from "../middleware/authMiddleware";
 
 const prisma = new PrismaClient();
 
@@ -20,21 +19,20 @@ const seed = async () => {
       console.log(`Created publisher: ${publisher.name}`);
     
       // Create users
-        for (const userData of publisherData.users) {
-          await prisma.user.create({
-            data: {
-              username: userData.username,
-              email: userData.email,
-              passwordHash: userData.passwordHash,
-              publisher: {
-                connect: {
-                  id: publisher.id,
-                },
+      for (const userData of publisherData.users) {
+        await prisma.user.create({
+          data: {
+            username: userData.username,
+            email: userData.email,
+            passwordHash: userData.passwordHash,
+            publisher: {
+              connect: {
+                id: publisher.id,
               },
             },
-          });
-        }
-
+          },
+        });
+      }
 
       // Create newspapers
       for (const newspaperData of publisherData.newspapers) {
@@ -67,7 +65,11 @@ const seed = async () => {
 
           // Create articles
           for (const articleData of newspaperCopyData.articles) {
-            const user = await prisma.user.findFirst(); // Fetch a random user for the article's author
+            const user = await prisma.user.findFirst({
+              where: {
+                username: articleData.comments[0].author.username,
+              },
+            }); // Fetch a article author for the article's author
             if (user == null){
                 throw new Error("no user");
             }
@@ -83,6 +85,7 @@ const seed = async () => {
                   },
                 },
                 author: {
+                  // connect to author with name
                   connect: {
                     id: user.id,
                   },
@@ -93,7 +96,6 @@ const seed = async () => {
               },
             });
 
-            console.log(`Created article with id ${article.id}`);
             console.log(`Created article with id ${article.id}`);
 
             // Create comments
@@ -119,7 +121,6 @@ const seed = async () => {
           }
         }
       }
-
     }
 
     console.log(`[${new Date().toISOString()}] Seed succeeded`);

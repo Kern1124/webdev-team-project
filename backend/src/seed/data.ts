@@ -2,19 +2,9 @@ import argon2 from 'argon2';
 import { RoleRecordType } from '../models/role';
 
 const data = async () => {
-  /*
-  username: 'Slavo',
-            email: 'Slavo@example.com',
-            passwordHash: hashedPassword1,
-  */
-  const hashedPassword1 = await argon2.hash('Slavoo123');
-  /*
-  username: 'Tylich',
-            email: 'Tylich@example.com',
-            passwordHash: hashedPassword2,
-  */  
-  const hashedPassword2 = await argon2.hash('Tylich123');
-  const hashedPassword3 = await argon2.hash('hashed_password3');
+  const Slavopwd = await argon2.hash('Gugugaga1');
+  const Tylichpwd = await argon2.hash('Tylich123');
+  const Jarmilpwd = await argon2.hash('Jarmil123');
   const hashedPassword4 = await argon2.hash('hashed_password4');
   const hashedPassword5 = await argon2.hash('hashed_password5');
   const hashedPassword6 = await argon2.hash('hashed_password6');
@@ -22,27 +12,28 @@ const data = async () => {
   return {
     publishers: [
       {
-        name: 'Publisher A',
+        name: 'Global News Group',
         newspapers: [
           {
-            name: 'Newspaper A',
+            name: 'The New York Times',
             newspaperCopies: [
               {
                 articles: [
                   {
-                    contents: 'Article 1 for Newspaper A Issue 1',
-                    categories: [{ name: 'Category A' }],
+                    contents: 'Exploring the Wonders of the Grand Canyon',
+                    categories: [{ name: 'Travel' }],
                     comments: [
-                      { content: 'Comment 1 for Article 1', author: { username: 'User1' } },
-                      { content: 'Comment 2 for Article 1', author: { username: 'User2' } },
+                      { content: 'Great article!', author: { username: 'Slavo' } },
+                      { content: 'I\'ve always wanted to visit the Grand Canyon.', author: { username: 'Tylich' } },
                     ],
                   },
                   {
-                    contents: 'Article 2 for Newspaper A Issue 1',
-                    categories: [{ name: 'Category B' }],
+                    
+                    contents: 'The Impact of Climate Change on Coastal Cities',
+                    categories: [{ name: 'Environment' }],
                     comments: [
-                      { content: 'Comment 1 for Article 2', author: { username: 'User1' } },
-                      { content: 'Comment 2 for Article 2', author: { username: 'User3' } },
+                      { content: 'This is an important topic to discuss.', author: { username: 'Tylich' } },
+                      { content: 'We need to take immediate action to mitigate climate change.', author: { username: 'Slavo' } },
                     ],
                   },
                 ],
@@ -50,106 +41,102 @@ const data = async () => {
               {
                 articles: [
                   {
-                    contents: 'Article 1 for Newspaper A Issue 2',
-                    categories: [{ name: 'Category A' }],
+                    
+                    contents: 'The Impact of Climate Change on Coastal Cities',
+                    categories: [{ name: 'Environment' }],
                     comments: [
-                      { content: 'Comment 1 for Article 1', author: { username: 'User2' } },
-                      { content: 'Comment 2 for Article 1', author: { username: 'User3' } },
+                      { content: 'This is We need to take immediate action to mitigate climate change.an important topic to discuss.', author: { username: 'Slavo' } },
+                      { content: 'We need to take immediate action to mitigate climate change.', author: { username: 'Jarmil' } },
                     ],
                   },
                 ],
               },
             ],
           },
+          {
+            name: 'The Washington Post',
+            newspaperCopies: [
+              {
+                articles: [
+                  {
+                    contents: 'Exploring the Wonders of the Grand Canyon',
+                    categories: [{ name: 'Travel' }],
+                    comments: [
+                      { content: 'Great article!', author: { username: 'Slavo' } },
+                      { content: 'I\'ve always wanted to visit the Grand Canyon.', author: { username: 'Tylich' } },
+                    ],
+                  },
+                  {
+                    
+                    contents: 'The Impact of Climate Change on Coastal Cities',
+                    categories: [{ name: 'Environment' }],
+                    comments: [
+                      { content: 'This is an important topic to discuss.', author: { username: 'Tylich' } },
+                      { content: 'We need to take immediate action to mitigate climate change.', author: { username: 'Slavo' } },
+                    ],
+                  },
+                ],
+              },
+              {
+                articles: [
+                  {
+                    
+                    contents: 'The Impact of Climate Change on Coastal Cities',
+                    categories: [{ name: 'Environment' }],
+                    comments: [
+                      { content: 'This is We need to take immediate action to mitigate climate change.an important topic to discuss.', author: { username: 'Slavo' } },
+                      { content: 'We need to take immediate action to mitigate climate change.', author: { username: 'Jarmil' } },
+                    ],
+                  },
+                ],
+              },
+            ],
+          }
         ],
         users: [
           {
             username: 'Slavo',
             email: 'Slavo@example.com',
-            passwordHash: hashedPassword1,
+            passwordHash: Slavopwd,
             role: 'DIRECTOR' as RoleRecordType,
-            articles: [
-              {
-                contents: 'Article 1 by User1',
-                categories: [{ name: 'Category A' }],
-                comments: [
-                  { content: 'Comment 1 for Article 1 by User1' },
-                  { content: 'Comment 2 for Article 1 by User1' },
-                ],
-              },
-              {
-                contents: 'Article 2 by User1',
-                categories: [{ name: 'Category B' }],
-                comments: [
-                  { content: 'Comment 1 for Article 2 by User1' },
-                  { content: 'Comment 2 for Article 2 by User1' },
-                ],
-              },
-            ],
           },
           {
             username: 'Tylich',
             email: 'Tylich@example.com',
-            passwordHash: hashedPassword2,
+            passwordHash: Tylichpwd,
             role: 'MANAGER' as RoleRecordType,
-            articles: [
-              {
-                contents: 'Article 1 by User2',
-                categories: [{ name: 'Category A' }],
-                comments: [
-                  { content: 'Comment 1 for Article 1 by User2' },
-                  { content: 'Comment 2 for Article 1 by User2' },
-                ],
-              },
-              {
-                contents: 'Article 2 by User2',
-                categories: [{ name: 'Category B' }],
-                comments: [
-                  { content: 'Comment 1 for Article 2 by User2' },
-                  { content: 'Comment 2 for Article 2 by User2' },
-                ],
-              },
-            ],
           },
           {
-            username: 'jarmil',
+            username: 'Jarmil',
             email: 'Jarmil@example.com',
-            passwordHash: hashedPassword3,
-            articles: [
-              {
-                contents: 'Article 1 by User3',
-                categories: [{ name: 'Category A' }],
-                comments: [
-                  { content: 'Comment 1 for Article 1 by User3' },
-                  { content: 'Comment 2 for Article 1 by User3' },
-                ],
-              },
-            ],
+            passwordHash: Jarmilpwd,
           },
         ],
       },
       {
-        name: 'Publisher B',
+        name: 'Summit Publications',
         newspapers: [
           {
-            name: 'Newspaper A',
+            name: 'El País',
             newspaperCopies: [
               {
                 articles: [
                   {
+                    
                     contents: 'Article 1 for Newspaper A Issue 1',
                     categories: [{ name: 'Category A' }],
                     comments: [
-                      { content: 'Comment 1 for Article 1', author: { username: 'User1' } },
-                      { content: 'Comment 2 for Article 1', author: { username: 'User2' } },
+                      { content: 'Comment 1 for Article 1', author: { username: 'Tylich' } },
+                      { content: 'Comment 2 for Article 1', author: { username: 'Slavo' } },
                     ],
                   },
                   {
+                    
                     contents: 'Article 2 for Newspaper A Issue 1',
                     categories: [{ name: 'Category B' }],
                     comments: [
-                      { content: 'Comment 1 for Article 2', author: { username: 'User1' } },
-                      { content: 'Comment 2 for Article 2', author: { username: 'User3' } },
+                      { content: 'Comment 1 for Article 2', author: { username: 'Tylich' } },
+                      { content: 'Comment 2 for Article 2', author: { username: 'Jarmil' } },
                     ],
                   },
                 ],
@@ -157,11 +144,12 @@ const data = async () => {
               {
                 articles: [
                   {
+                    
                     contents: 'Article 1 for Newspaper A Issue 2',
                     categories: [{ name: 'Category A' }],
                     comments: [
-                      { content: 'Comment 1 for Article 1', author: { username: 'User2' } },
-                      { content: 'Comment 2 for Article 1', author: { username: 'User3' } },
+                      { content: 'Comment 1 for Article 1', author: { username: 'Slavo' } },
+                      { content: 'Comment 2 for Article 1', author: { username: 'Jarmil' } },
                     ],
                   },
                 ],
@@ -175,49 +163,33 @@ const data = async () => {
             email: 'Vojtech@example.com',
             passwordHash: hashedPassword4,
             role: 'DIRECTOR' as RoleRecordType,
-            articles: [
-              {
-                contents: 'Article 1 by User1',
-                categories: [{ name: 'Category A' }],
-                comments: [
-                  { content: 'Comment 1 for Article 1 by User1' },
-                  { content: 'Comment 2 for Article 1 by User1' },
-                ],
-              },
-              {
-                contents: 'Article 2 by User1',
-                categories: [{ name: 'Category B' }],
-                comments: [
-                  { content: 'Comment 1 for Article 2 by User1' },
-                  { content: 'Comment 2 for Article 2 by User1' },
-                ],
-              },
-            ],
           },
         ],
       },
       {
-        name: 'Publisher C',
+        name: 'Starlight Media',
         newspapers: [
           {
-            name: 'Newspaper A',
+            name: 'The Washington Post',
             newspaperCopies: [
               {
                 articles: [
                   {
+                    
                     contents: 'Article 1 for Newspaper A Issue 1',
                     categories: [{ name: 'Category A' }],
                     comments: [
-                      { content: 'Comment 1 for Article 1', author: { username: 'User1' } },
-                      { content: 'Comment 2 for Article 1', author: { username: 'User2' } },
+                      { content: 'Comment 1 for Article 1', author: { username: 'Tylich' } },
+                      { content: 'Comment 2 for Article 1', author: { username: 'Slavo' } },
                     ],
                   },
                   {
+                    
                     contents: 'Article 2 for Newspaper A Issue 1',
                     categories: [{ name: 'Category B' }],
                     comments: [
-                      { content: 'Comment 1 for Article 2', author: { username: 'User1' } },
-                      { content: 'Comment 2 for Article 2', author: { username: 'User3' } },
+                      { content: 'Comment 1 for Article 2', author: { username: 'Tylich' } },
+                      { content: 'Comment 2 for Article 2', author: { username: 'Jarmil' } },
                     ],
                   },
                 ],
@@ -228,8 +200,8 @@ const data = async () => {
                     contents: 'Article 1 for Newspaper A Issue 2',
                     categories: [{ name: 'Category A' }],
                     comments: [
-                      { content: 'Comment 1 for Article 1', author: { username: 'User2' } },
-                      { content: 'Comment 2 for Article 1', author: { username: 'User3' } },
+                      { content: 'Comment 2 for Article 1', author: { username: 'Jarmil' } },
+                      { content: 'Comment 1 for Article 1', author: { username: 'Slavo' } },
                     ],
                   },
                 ],
@@ -243,56 +215,20 @@ const data = async () => {
             email: 'Honza@example.com',
             passwordHash: hashedPassword5,
             role: 'DIRECTOR' as RoleRecordType,
-            articles: [
-              {
-                contents: 'Article 1 by User1',
-                categories: [{ name: 'Category A' }],
-                comments: [
-                  { content: 'Comment 1 for Article 1 by User1' },
-                  { content: 'Comment 2 for Article 1 by User1' },
-                ],
-              },
-              {
-                contents: 'Article 2 by User1',
-                categories: [{ name: 'Category B' }],
-                comments: [
-                  { content: 'Comment 1 for Article 2 by User1' },
-                  { content: 'Comment 2 for Article 2 by User1' },
-                ],
-              },
-            ],
           },
           {
             username: 'Hanys',
             email: 'Hanys@example.com',
-            passwordHash: hashedPassword2,
+            passwordHash: Tylichpwd,
             role: 'MANAGER' as RoleRecordType,
-            articles: [
-              {
-                contents: 'Article 1 by User2',
-                categories: [{ name: 'Category A' }],
-                comments: [
-                  { content: 'Comment 1 for Article 1 by User2' },
-                  { content: 'Comment 2 for Article 1 by User2' },
-                ],
-              },
-              {
-                contents: 'Article 2 by User2',
-                categories: [{ name: 'Category B' }],
-                comments: [
-                  { content: 'Comment 1 for Article 2 by User2' },
-                  { content: 'Comment 2 for Article 2 by User2' },
-                ],
-              },
-            ],
           },
         ],
       },
       {
-        name: 'Publisher D',
+        name: 'Pacific Press Agency',
         newspapers: [
           {
-            name: 'Newspaper A',
+            name: 'The Times of India',
             newspaperCopies: [
               {
                 articles: [
@@ -300,16 +236,16 @@ const data = async () => {
                     contents: 'Article 1 for Newspaper A Issue 1',
                     categories: [{ name: 'Category A' }],
                     comments: [
-                      { content: 'Comment 1 for Article 1', author: { username: 'User1' } },
-                      { content: 'Comment 2 for Article 1', author: { username: 'User2' } },
+                      { content: 'Comment 1 for Article 1', author: { username: 'Tylich' } },
+                      { content: 'Comment 2 for Article 1', author: { username: 'Slavo' } },
                     ],
                   },
                   {
                     contents: 'Article 2 for Newspaper A Issue 1',
                     categories: [{ name: 'Category B' }],
                     comments: [
-                      { content: 'Comment 1 for Article 2', author: { username: 'User1' } },
-                      { content: 'Comment 2 for Article 2', author: { username: 'User3' } },
+                      { content: 'Comment 1 for Article 2', author: { username: 'Tylich' } },
+                      { content: 'Comment 2 for Article 2', author: { username: 'Jarmil' } },
                     ],
                   },
                 ],
@@ -317,11 +253,12 @@ const data = async () => {
               {
                 articles: [
                   {
+                    
                     contents: 'Article 1 for Newspaper A Issue 2',
                     categories: [{ name: 'Category A' }],
                     comments: [
-                      { content: 'Comment 1 for Article 1', author: { username: 'User2' } },
-                      { content: 'Comment 2 for Article 1', author: { username: 'User3' } },
+                      { content: 'Comment 1 for Article 1', author: { username: 'Slavo' } },
+                      { content: 'Comment 2 for Article 1', author: { username: 'Jarmil' } },
                     ],
                   },
                 ],
@@ -333,10 +270,10 @@ const data = async () => {
         ],
       },
       {
-        name: 'Publisher E',
+        name: 'Diamond Publishing House',
         newspapers: [
           {
-            name: 'Newspaper A',
+            name: 'Le Monde',
             newspaperCopies: [
               {
                 articles: [
@@ -344,16 +281,16 @@ const data = async () => {
                     contents: 'Article 1 for Newspaper A Issue 1',
                     categories: [{ name: 'Category A' }],
                     comments: [
-                      { content: 'Comment 1 for Article 1', author: { username: 'User1' } },
-                      { content: 'Comment 2 for Article 1', author: { username: 'User2' } },
+                      { content: 'Comment 1 for Article 1', author: { username: 'Tylich' } },
+                      { content: 'Comment 2 for Article 1', author: { username: 'Slavo' } },
                     ],
                   },
                   {
                     contents: 'Article 2 for Newspaper A Issue 1',
                     categories: [{ name: 'Category B' }],
                     comments: [
-                      { content: 'Comment 1 for Article 2', author: { username: 'User1' } },
-                      { content: 'Comment 2 for Article 2', author: { username: 'User3' } },
+                      { content: 'Comment 1 for Article 2', author: { username: 'Tylich' } },
+                      { content: 'Comment 2 for Article 2', author: { username: 'Jarmil' } },
                     ],
                   },
                 ],
@@ -364,8 +301,9 @@ const data = async () => {
                     contents: 'Article 1 for Newspaper A Issue 2',
                     categories: [{ name: 'Category A' }],
                     comments: [
-                      { content: 'Comment 1 for Article 1', author: { username: 'User2' } },
-                      { content: 'Comment 2 for Article 1', author: { username: 'User3' } },
+                      { content: 'Comment 2 for Article 1', author: { username: 'Jarmil' } },
+                      { content: 'Comment 1 for Article 1', author: { username: 'Slavo' } },
+                      
                     ],
                   },
                 ],
@@ -374,16 +312,16 @@ const data = async () => {
           },
         ],
         users: [
-         
+
         ],
       },
 
       {
-        name: 'Publisher F',
+        name: 'Sunrise News Network',
         newspapers: [
         ],
         users: [
-          
+
         ],
       },
     ],
