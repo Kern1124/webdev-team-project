@@ -15,7 +15,7 @@ export const RoutingContent = () => {
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/articles" />
-        <Route path="/auth/*" Component={PrivateRouting} />
+        <Route path="/auth/*" element={<PrivateRouting />} />
       </Routes>
     </Box>
   );
