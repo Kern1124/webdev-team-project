@@ -12,17 +12,18 @@ import { User } from "@prisma/client";
 // Register a user
 
 const auth = async (req: Request, res: Response) => {
-    const username = req.session.user!.username;
-    const user = await db.user.findUnique({
-        where: { username },
-    });
-    
-    if (!user) {
-        res.status(404).json({ message: 'Something went wrong' });
-        return;
-    }
+    try {
+        const user = req.session.user;
+        if (!user) {
+            res.status(404).json({ message: 'No user authenticated' });
+            return;
+        }
 
-    res.json({ item: user, message: `User ${user.username} is authorized` });
+        res.status(200).json({ item: user, message: `User ${user.username} is authorized` });
+    }
+    catch (error) {
+        res.status(500).json({ message: (error as Error).message });
+    }
 }
 
 
@@ -32,7 +33,7 @@ const register = async (req: Request, res: Response) => {
         const userData = validatedData as UserRegisterData;
         const user = await UserService.register(userData);
         if (user.isErr) {
-            res.status(400).json({ message: user.error})
+            res.status(400).json({ message: user.error })
             // res.status(400).json({ message: "User already exists!" });
             return;
         }
