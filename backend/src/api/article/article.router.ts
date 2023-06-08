@@ -48,7 +48,7 @@ const getCopyArticles = async (req: Request, res: Response) => {
 }
 
 // TODO assigning to newspaper copies?
-const approveArticles = async (req: Request, res: Response) => {
+const getUnapprovedArticles = async (req: Request, res: Response) => {
     try {
         const user = req.session.user;
         const articles = await db.article.findMany({
@@ -64,5 +64,5 @@ const approveArticles = async (req: Request, res: Response) => {
 
 export const articleApi = {
     getCopyArticles,
-    approveArticles,
+    getUnapprovedArticles,
 }

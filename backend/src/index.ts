@@ -38,7 +38,8 @@ app.get('/publisher', publisherApi.getAllPublishers)
 app.get('/article/content=/:content', articleApi.getCopyArticles)
 app.get('/article/id=/:newspaperCopyId', articleApi.getCopyArticles)
 app.get('/article/:newspaperCopyId/:content', articleApi.getCopyArticles)
-app.get('/articles/approval', auth('MANAGER'), articleApi.approveArticles)
+app.get('/articles/approval', auth('MANAGER'), articleApi.getUnapprovedArticles)
+app.get('/newspaper/publish', auth('DIRECTOR'), newspaperApi.getUnpublishedCopies)
 app.listen(PORT, () => {
     console.log(`Listening on ${PORT}`);
 });
