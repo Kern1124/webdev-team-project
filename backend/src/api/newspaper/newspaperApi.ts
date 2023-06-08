@@ -20,7 +20,7 @@ const getAllNewspaper = async (req: Request, res: Response) => {
               }
             })
         if (!newspapers){
-            res.status(400).json([]);
+            res.status(200).json([]);
         }
         res.status(200).json({ item: newspapers, message: "Fetched " + newspapers.length + " newspapers." });
     } catch (e) {
@@ -56,7 +56,7 @@ const getNewspaperByPublisher = async (req: Request, res: Response) => {
 
         if (newspapers.length == 0) {
             res
-                .status(400)
+                .status(200)
                 .json([]);
             return;
         }
@@ -119,7 +119,7 @@ const getNewspapersByIdInverval = async (req: Request, res: Response) => {
         });
 
         if (!newspaper) {
-            res.status(404).json([]);
+            res.status(200).json([]);
             return;
         }
 
