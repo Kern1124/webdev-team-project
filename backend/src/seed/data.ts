@@ -2,9 +2,9 @@ import argon2 from 'argon2';
 import { RoleRecordType } from '../models/role';
 
 const data = async () => {
-  const Slavopwd = await argon2.hash('Gugugaga1');
-  const Tylichpwd = await argon2.hash('Tylich123');
-  const Jarmilpwd = await argon2.hash('Jarmil123');
+  const Slavopwd = await argon2.hash('Gugugaga1#');
+  const Tylichpwd = await argon2.hash('Tylich123#');
+  const Jarmilpwd = await argon2.hash('Jarmil123#');
   const hashedPassword4 = await argon2.hash('hashed_password4');
   const hashedPassword5 = await argon2.hash('hashed_password5');
   const hashedPassword6 = await argon2.hash('hashed_password6');
