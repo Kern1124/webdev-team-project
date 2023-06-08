@@ -32,8 +32,8 @@ const register = async (req: Request, res: Response) => {
         const userData = validatedData as UserRegisterData;
         const user = await UserService.register(userData);
         if (user.isErr) {
-            res.status(400).json({ message: user.error })
-            // res.status(400).json({ message: "User already exists!" });
+            // res.status(400).json({ message: user.error })
+            res.status(400).json({ message: "User already exists!" });
             return;
         }
         res.status(200).json({ item: user, message: "User was registered successfully." });
