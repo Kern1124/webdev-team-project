@@ -18,9 +18,8 @@ const seed = async () => {
       });
 
       console.log(`Created publisher: ${publisher.name}`);
-      
+    
       // Create users
-      for (const publisherData of seedData.publishers) {
         for (const userData of publisherData.users) {
           await prisma.user.create({
             data: {
@@ -35,7 +34,7 @@ const seed = async () => {
             },
           });
         }
-      }
+
 
       // Create newspapers
       for (const newspaperData of publisherData.newspapers) {
@@ -120,6 +119,7 @@ const seed = async () => {
           }
         }
       }
+
     }
 
     console.log(`[${new Date().toISOString()}] Seed succeeded`);
