@@ -25,6 +25,7 @@ app.use(cors({
 ))
 
 app.use(userSession());
+app.get('/auth', userApi.auth)
 app.post('/register', userApi.register)
 app.post('/login', userApi.login)
 app.post('/logout', userApi.logout)

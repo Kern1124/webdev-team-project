@@ -10,7 +10,7 @@ import { User } from "@prisma/client";
 // We are using express-validator to validate whether requests should be successful.
 // You can read more about it here: https://express-validator.github.io/docs/guides/getting-started
 // Register a user
-/*
+
 const auth = async (req: Request, res: Response) => {
     const username = req.session.user!.username;
     const user = await db.user.findUnique({
@@ -24,7 +24,7 @@ const auth = async (req: Request, res: Response) => {
 
     res.json({ item: user, message: `User ${user.username} is authorized` });
 }
-*/
+
 
 const register = async (req: Request, res: Response) => {
     try {
@@ -90,6 +90,7 @@ const logout = async (req: Request, res: Response) => {
 };
 
 export const userApi = {
+    auth,
     register,
     login,
     logout
