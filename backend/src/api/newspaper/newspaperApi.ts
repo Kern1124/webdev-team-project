@@ -1,6 +1,9 @@
 import { Request, Response } from "express";
 import { ValidationError, number } from "yup";
-import { newspaperById, newspaperPublisherRequest } from "../../models/newspaper";
+import {
+  newspaperById,
+  newspaperPublisherRequest,
+} from "../../models/newspaper";
 import { Newspaper } from "@prisma/client";
 import { NewspaperWithCopies } from "../../types/newspaper.types";
 import { db } from "../../utils/db.server";
@@ -11,40 +14,46 @@ import { db } from "../../utils/db.server";
 // Ať se neposílá moc dat, tak by tenhle endpoint měl poslat jen jméno a id newspaperu,
 // případně jestli v databází bude mít nějaký podnázev.
 
-const getNewspaperByPublisher =  async (req: Request, res: Response) => {
+const getNewspaperByPublisher = async (req: Request, res: Response) => {
+  try {
+    const publisher: string = req.params.publisher;
+    const title: string = req.params.title;
 
-    try {
-        const publisher: string = req.params.publisher;
-        const title: string = req.params.title;
+    const newspapers: Newspaper[] = await db.newspaper.findMany({
+      where: {
+        AND: [
+          {
+            publisher: {
+              name: publisher,
+            },
+            name: {
+              contains: title,
+            },
+          },
+        ],
+      },
+    });
 
-        const newspapers: Newspaper[] = await db.newspaper.findMany({
-            where: {
-                AND: [
-                    {
-                    publisher: {
-                        name: publisher,
-                    },
-                    name: {
-                        contains: title,
-                    }
-                }
-                ]
-
-            }
-        })
-
-        if (newspapers.length == 0){
-            res.status(404).json({message: "No newspapers found.", publisher: publisher, name: title});
-            return
-        }
-
-        res.status(200).json({item: newspapers, message: "Found " + newspapers.length + " entries."});
-
-    } catch (e) {
-
-        res.status(500).json({message: "Internal error."});
+    if (newspapers.length == 0) {
+      res
+        .status(404)
+        .json({
+          message: "No newspapers found.",
+          publisher: publisher,
+          name: title,
+        });
+      return;
     }
 
+    res
+      .status(200)
+      .json({
+        item: newspapers,
+        message: "Found " + newspapers.length + " entries.",
+      });
+  } catch (e) {
+    res.status(500).json({ message: "Internal error." });
+  }
 };
 
 // V požadavku je zasláno id newspaperu a datum od-do ->
@@ -53,43 +62,59 @@ const getNewspaperByPublisher =  async (req: Request, res: Response) => {
 // Vyfiltruje jeho newspaper copies podle data, pokud je datum
 // null tak se pošlou všechny newspaper copies.
 
-// DOESNT WORK! NEEDS A FIX - GET REQUESTS CANNOT HAVE BODY
-const getNewspapersByIdInverval =  async (req: Request, res: Response) => {
-    const id: string  = req.params.id;
-    const from: string = req.params.from;
-    const to: string = req.params.to;
+const getNewspapersByIdInverval = async (req: Request, res: Response) => {
+  const id: string = req.params.id;
+  const from: string = req.params.from;
+  const to: string = req.params.to;
+  let fromDate: Date | undefined;
+  let toDate: Date | undefined;
 
-    try{
-        const newspaper: NewspaperWithCopies | null = await  db.newspaper.findFirst({
-            where: {
-                id: id,
-            },
-            include: {
-                newspaperCopies: {
-                    where: {
-                        date: {
-                            lte: to,
-                            gte: from
-                        }
-                    }
+  // This is an error protection - we make sure we accept all JS supported date formats
+  // if the string isn't supported, it will be undefined and we will return all newspaper copies
+  // without date being a factor
+  
+  if (Date.parse(from)){
+    fromDate = new Date(from);
+  }
+
+  if (Date.parse(to)){
+    toDate = new Date(to);
+  }
+  
+  try {
+    const newspaper: NewspaperWithCopies | null = await db.newspaper.findFirst({
+      where: {
+        id: id,
+      },
+      include: {
+        newspaperCopies: {
+          where: {
+            AND: [
+              {
+                date: {
+                  lte: toDate,
+                  gte: fromDate,
                 },
-            }
-        });
-        if(!newspaper) {
-            res.status(404).json({message: "No newspaper found."})
-            return
-        }
+              },
+            ],
+          },
+        },
+      },
+    });
 
-        res.status(200).json({item: newspaper, message: "Newspaper found."})
-
-    } catch (e) {
-        res.status(500).json({message: "Internal error."})
+    if (!newspaper) {
+      res.status(404).json({ message: "No newspaper found." });
+      return;
     }
 
+    res.status(200).json({ item: newspaper, message: "Newspaper found." });
+  } catch (e) {
+
+    res.status(500).json({ message: "Internal error. Date must be in datetime format.", error: e });
+  }
 };
 
-
 export const newspaperApi = {
-    getNewspaperByPublisher,
-    getNewspapersByIdInverval,
+  getNewspaperByPublisher,
+  getNewspapersByIdInverval,
 };
