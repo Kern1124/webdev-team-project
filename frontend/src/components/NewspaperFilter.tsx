@@ -48,6 +48,7 @@ export const NewspaperFilter = ({
         focusBorderColor="main"
         placeholder="Select a publisher"
         variant="filled"
+        bgColor="light"
       >
         {publishers}
       </Select>
@@ -55,6 +56,7 @@ export const NewspaperFilter = ({
         focusBorderColor="main"
         variant="filled"
         placeholder="Type in a newspaper name"
+        bgColor="light"
         onChange={inputChangeHandler}
       />
     </Flex>
