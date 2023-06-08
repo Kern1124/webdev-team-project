@@ -24,7 +24,7 @@ const getAllNewspaper = async (req: Request, res: Response) => {
         }
         res.status(200).json({ item: newspapers, message: "Fetched " + newspapers.length + " newspapers." });
     } catch (e) {
-        res.status(500).json({ message: "Internal error." });
+        res.status(500).json([]);
     }
 }
 
@@ -68,7 +68,7 @@ const getNewspaperByPublisher = async (req: Request, res: Response) => {
                 message: "Found " + newspapers.length + " entries.",
             });
     } catch (e) {
-        res.status(500).json({ message: "Internal error." });
+        res.status(500).json([]);
     }
 };
 
@@ -119,14 +119,14 @@ const getNewspapersByIdInverval = async (req: Request, res: Response) => {
         });
 
         if (!newspaper) {
-            res.status(404).json({ message: "No newspaper found." });
+            res.status(404).json([]);
             return;
         }
 
         res.status(200).json({ item: newspaper, message: "Newspaper found." });
     } catch (e) {
 
-        res.status(500).json({ message: "Internal error. Date must be in datetime format.", error: e });
+        res.status(500).json([]);
     }
 };
 
@@ -139,7 +139,7 @@ const getUnpublishedCopies = async (req: Request, res: Response) => {
         res.status(200).json({ items: copies, message: "Fetched " + copies.length + " copies to publish.", data: user?.username });
     }
     catch (e) {
-        res.status(500).json({ message: "Internal error.", error: e })
+        res.status(500).json([])
     }
 }
 

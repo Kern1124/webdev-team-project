@@ -17,6 +17,10 @@ const data = async () => {
   const hashedPassword4 = await argon2.hash('hashed_password4');
   const hashedPassword5 = await argon2.hash('hashed_password5');
   const hashedPassword6 = await argon2.hash('hashed_password6');
+  const photo = 'https://www.freepik.com/free-vector/business-magazine-with-image_2447935.htm#query=newspaper%20cover&position=12&from_view=search&track=ais'
+  const blob = ''
+  await downloadPhoto(photo, blob)
+  
 
   return {
     publishers: [
