@@ -10,9 +10,17 @@ import { db } from "../../utils/db.server";
 
 const getAllNewspaper = async (req: Request, res: Response) => {
     try {
-        const newspapers = await db.newspaper.findMany()
+        const newspapers = await db.newspaper.findMany({
+            include: {
+                publisher: {
+                  select: {
+                    name: true
+                  }
+                }
+              }
+            })
         if (!newspapers){
-            res.status(400).json({ message: "No newspapers." });
+            res.status(400).json([]);
         }
         res.status(200).json({ item: newspapers, message: "Fetched " + newspapers.length + " newspapers." });
     } catch (e) {
@@ -28,7 +36,7 @@ const getAllNewspaper = async (req: Request, res: Response) => {
 
 const getNewspaperByPublisher = async (req: Request, res: Response) => {
     try {
-        const publisherId: string = req.params.publisherId;
+        const publisher: string = req.params.publisher;
         const title: string = req.params.title;
 
         const newspapers: Newspaper[] = await db.newspaper.findMany({
@@ -36,7 +44,7 @@ const getNewspaperByPublisher = async (req: Request, res: Response) => {
                 AND: [
                     {
                         publisher: {
-                            id: publisherId,
+                            name: publisher,
                         },
                         name: {
                             contains: title,
@@ -51,7 +59,7 @@ const getNewspaperByPublisher = async (req: Request, res: Response) => {
                 .status(404)
                 .json({
                     message: "No newspapers found.",
-                    publisher: publisherId,
+                    publisher: publisher,
                     name: title,
                 });
             return;
