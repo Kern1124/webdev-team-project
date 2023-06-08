@@ -3,12 +3,13 @@ import { UserSignupFormType, UserFormType } from "../types/user"
 
 // TODO: change baseURL before release
 const serverApi = axios.create({
-    baseURL: "http://localhost:3000",
+    baseURL: 'http://localhost:8000',
     headers: {
         "Access-Control-Allow-Credentials": true,
     },
     withCredentials: true
 })
+
 
 export const userSignup = async (data: UserSignupFormType) => {
     const response = await serverApi.post("/register", data)
