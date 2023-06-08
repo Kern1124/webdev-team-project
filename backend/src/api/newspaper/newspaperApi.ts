@@ -36,7 +36,7 @@ const getAllNewspaper = async (req: Request, res: Response) => {
 
 const getNewspaperByPublisher = async (req: Request, res: Response) => {
     try {
-        const publisher: string = req.params.publisher;
+        const publisherId: string = req.params.publisherId;
         const title: string = req.params.title;
 
         const newspapers: Newspaper[] = await db.newspaper.findMany({
@@ -44,7 +44,7 @@ const getNewspaperByPublisher = async (req: Request, res: Response) => {
                 AND: [
                     {
                         publisher: {
-                            name: publisher,
+                            id: publisherId,
                         },
                         name: {
                             contains: title,
