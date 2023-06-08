@@ -19,8 +19,8 @@ import { ValidationError } from "yup";
 // I think it would be better to separate /login /logout / register from user
 // and then probably make a hierarchy user / :id / article / :id atd...
 
-export const getCopyArticles =  async (req: Request, res: Response) => {
-    try{
+const getCopyArticles = async (req: Request, res: Response) => {
+    try {
 
         const newspaperCopyId: string = req.params.newspaperCopyId;
         const content: string = req.params.content;
@@ -34,26 +34,35 @@ export const getCopyArticles =  async (req: Request, res: Response) => {
                             contains: content
                         }
                     },
-                    
+
                 ],
             }
         })
 
-        res.status(200).json({items: articles, message: "Fetched " + articles.length + " articles.", data: newspaperCopyId})
+        res.status(200).json({ items: articles, message: "Fetched " + articles.length + " articles.", data: newspaperCopyId })
 
     } catch (e) {
 
-        res.status(500).json({message: "Internal error.", error: e})
+        res.status(500).json({ message: "Internal error.", error: e })
     }
 }
 
-
-/*
-articleRouter.get('/protected-admin', auth('MANAGER'), (req, res) => {
-    res.json({ message: `This route has authentication and authorization, body: ${JSON.stringify(req.body)}` });
-});
-*/
+// TODO assigning to newspaper copies?
+const approveArticles = async (req: Request, res: Response) => {
+    try {
+        const user = req.session.user;
+        const articles = await db.article.findMany({
+            where: { approved: false },
+            //        include: { author: true } /in case we would ban users
+        });
+        res.status(200).json({ items: articles, message: "Fetched " + articles.length + " articles to approve.", data: user?.username });
+    }
+    catch (e) {
+        res.status(500).json({ message: "Internal error.", error: e })
+    }
+}
 
 export const articleApi = {
     getCopyArticles,
+    approveArticles,
 }

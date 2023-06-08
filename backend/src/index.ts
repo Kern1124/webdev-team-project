@@ -34,11 +34,11 @@ app.get('/newspaper/publisher=/:publisher', newspaperApi.getNewspaperByPublisher
 app.get('/newspaper/name=/:title', newspaperApi.getNewspaperByPublisher)
 app.get('/newspaper/:publisher/:title', newspaperApi.getNewspaperByPublisher)
 app.get('/newspaper/:id/:from/:to', newspaperApi.getNewspapersByIdInverval)
-app.get('/publisher', auth('JOURNALIST'), publisherApi.getAllPublishers)
+app.get('/publisher', publisherApi.getAllPublishers)
 app.get('/article/content=/:content', articleApi.getCopyArticles)
 app.get('/article/id=/:newspaperCopyId', articleApi.getCopyArticles)
 app.get('/article/:newspaperCopyId/:content', articleApi.getCopyArticles)
-
+app.get('/articles/approval', auth('MANAGER'), articleApi.approveArticles)
 app.listen(PORT, () => {
     console.log(`Listening on ${PORT}`);
 });
