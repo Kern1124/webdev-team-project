@@ -160,10 +160,32 @@ const getUnpublishedNewspaperCopies = async (req: Request, res: Response) => {
     }
 }
 
+const getNewspaperCopies = async (req: Request, res: Response) => {
+    try {
+        const id: string = req.params.id;
+
+        const newspaper = await db.newspaper.findFirst({
+            where: { id, },
+            select: {
+                id: true,
+                newspaperCopies: {
+                    select: {
+                        date: true,
+                    }
+                }
+            }
+        });
+        res.status(200).json({ items: newspaper, message: "Fetched " });
+    }
+    catch (e) {
+        res.status(500).json([])
+    }
+}
 export const newspaperApi = {
     getAllNewspaper,
     getNewspaperByPublisher,
     getNewspapersByIdInverval,
     getUnpublishedCopies,
     getUnpublishedNewspaperCopies,
+    getNewspaperCopies,
 };
