@@ -13,11 +13,13 @@ import { ArticleFormType } from "../types/article";
 import { ArticleCreateSchema } from "../yup/schemata";
 import { FormInput } from "../components/FormInput";
 import { FormSelect } from "../components/FormSelect";
+import { FormCheckboxGroup } from "../components/FormCheckboxGroup";
 
 export const ArticleCreatePage = () => {
   const {
     register,
     reset,
+    control,
     handleSubmit,
     formState: { errors },
   } = useForm<ArticleFormType>({ resolver: yupResolver(ArticleCreateSchema) });
@@ -38,11 +40,11 @@ export const ArticleCreatePage = () => {
             {[<option>pero</option>]}
           </FormSelect>
 
-          <CheckboxGroup>
+          <FormCheckboxGroup name="categories" control={control}>
             <Checkbox value="naruto">Naruto</Checkbox>
             <Checkbox value="sasuke">Sasuke</Checkbox>
             <Checkbox value="kakashi">Kakashi</Checkbox>
-          </CheckboxGroup>
+          </FormCheckboxGroup>
         </Flex>
         <Flex
           w={{ base: "1000", md: "100%" }}
