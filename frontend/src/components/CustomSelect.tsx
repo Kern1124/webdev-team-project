@@ -3,7 +3,7 @@ import { ChangeEventHandler, ReactNode } from "react";
 
 interface CustomSelectProps {
   placeholder: string;
-  changeHandler: ChangeEventHandler<HTMLSelectElement>;
+  changeHandler?: ChangeEventHandler<HTMLSelectElement>;
   children: ReactNode[];
 }
 
