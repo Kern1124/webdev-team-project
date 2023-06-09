@@ -216,10 +216,50 @@ const updateImage = async (req: Request, res: Response) => {
     })
 }
 
+const getUnpublishedNewspaperCopies = async (req: Request, res: Response) => {
+    try {
+        const user = req.session.user;
+        const newspaperId = req.params.id
+        
+        const copies = await db.newspaper_copy.findMany({
+            where: { 
+                newspaperId,
+                published: false },
+        });
+        res.status(200).json({ items: copies, message: "Fetched " + copies.length + " copies to publish.", data: user?.username });
+    }
+    catch (e) {
+        res.status(500).json([])
+    }
+}
+
+const getNewspaperCopies = async (req: Request, res: Response) => {
+    try {
+        const id: string = req.params.id;
+
+        const newspaper = await db.newspaper.findFirst({
+            where: { id, },
+            select: {
+                id: true,
+                newspaperCopies: {
+                    select: {
+                        date: true,
+                    }
+                }
+            }
+        });
+        res.status(200).json({ items: newspaper, message: "Fetched " });
+    }
+    catch (e) {
+        res.status(500).json([])
+    }
+}
 export const newspaperApi = {
     getAllNewspaper,
     getNewspaperByPublisher,
     getNewspapersByIdInverval,
     getUnpublishedCopies,
-    updateImage
+    updateImage,
+    getUnpublishedNewspaperCopies,
+    getNewspaperCopies,
 };

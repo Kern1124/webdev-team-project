@@ -1,16 +1,7 @@
 import argon2 from 'argon2';
 import { RoleRecordType } from '../models/role';
-const axios = require('axios');
-const fs = require('fs');
 
-
-// async function downloadPhoto(url: string, filePath: string) {
-//   const response = await axios.get(url, { responseType: 'arsraybuffer' });
-//   fs.writeFileSync(filePath, response.data);
-//   const photoData = fs.readFileSync(filePath);
-// }
-
-const data = async () => {
+export const data = async () => {
   const Slavopwd = await argon2.hash('Gugugaga1#');
   const Tylichpwd = await argon2.hash('Tylich123#');
   const Jarmilpwd = await argon2.hash('Jarmil123#');
@@ -18,9 +9,7 @@ const data = async () => {
   const hashedPassword5 = await argon2.hash('hashed_password5');
   const hashedPassword6 = await argon2.hash('hashed_password6');
   const photo = 'https://www.freepik.com/free-vector/business-magazine-with-image_2447935.htm#query=newspaper%20cover&position=12&from_view=search&track=ais'
-  const blob = ''
-  // await downloadPhoto(photo, blob)
-  
+
 
   return {
     publishers: [
@@ -29,6 +18,7 @@ const data = async () => {
         newspapers: [
           {
             name: 'The New York Times',
+
             newspaperImg: 'placeholder',
             newspaperCopies: [
               {
@@ -42,7 +32,6 @@ const data = async () => {
                     ],
                   },
                   {
-                    
                     contents: 'The Impact of Climate Change on Coastal Cities',
                     categories: [{ name: 'Environment' }],
                     comments: [
@@ -55,7 +44,7 @@ const data = async () => {
               {
                 articles: [
                   {
-                    
+
                     contents: 'The Impact of Climate Change on Coastal Cities',
                     categories: [{ name: 'Environment' }],
                     comments: [
@@ -82,7 +71,6 @@ const data = async () => {
                     ],
                   },
                   {
-                    
                     contents: 'The Impact of Climate Change on Coastal Cities',
                     categories: [{ name: 'Environment' }],
                     comments: [
@@ -95,7 +83,6 @@ const data = async () => {
               {
                 articles: [
                   {
-                    
                     contents: 'The Impact of Climate Change on Coastal Cities',
                     categories: [{ name: 'Environment' }],
                     comments: [
@@ -125,6 +112,7 @@ const data = async () => {
             username: 'Jarmil',
             email: 'Jarmil@example.com',
             passwordHash: Jarmilpwd,
+            role: 'JOURNALIST' as RoleRecordType
           },
         ],
       },
@@ -138,7 +126,7 @@ const data = async () => {
               {
                 articles: [
                   {
-                    
+
                     contents: 'Article 1 for Newspaper A Issue 1',
                     categories: [{ name: 'Category A' }],
                     comments: [
@@ -147,7 +135,7 @@ const data = async () => {
                     ],
                   },
                   {
-                    
+
                     contents: 'Article 2 for Newspaper A Issue 1',
                     categories: [{ name: 'Category B' }],
                     comments: [
@@ -160,7 +148,7 @@ const data = async () => {
               {
                 articles: [
                   {
-                    
+
                     contents: 'Article 1 for Newspaper A Issue 2',
                     categories: [{ name: 'Category A' }],
                     comments: [
@@ -192,7 +180,7 @@ const data = async () => {
               {
                 articles: [
                   {
-                    
+
                     contents: 'Article 1 for Newspaper A Issue 1',
                     categories: [{ name: 'Category A' }],
                     comments: [
@@ -201,7 +189,7 @@ const data = async () => {
                     ],
                   },
                   {
-                    
+
                     contents: 'Article 2 for Newspaper A Issue 1',
                     categories: [{ name: 'Category B' }],
                     comments: [
@@ -271,7 +259,7 @@ const data = async () => {
               {
                 articles: [
                   {
-                    
+
                     contents: 'Article 1 for Newspaper A Issue 2',
                     categories: [{ name: 'Category A' }],
                     comments: [
@@ -322,7 +310,7 @@ const data = async () => {
                     comments: [
                       { content: 'Comment 2 for Article 1', author: { username: 'Jarmil' } },
                       { content: 'Comment 1 for Article 1', author: { username: 'Slavo' } },
-                      
+
                     ],
                   },
                 ],
@@ -347,4 +335,66 @@ const data = async () => {
   };
 };
 
-export default data;
+export const roles = [
+  {
+  user: 'Slavo',
+  userRoles: [
+    {
+      name: 'DIRECTOR' as RoleRecordType,
+      newspaperName: 'The New York Times'
+    },
+    {
+      name: 'MANAGER' as RoleRecordType,
+      newspaperName: 'The Washington Post'
+    },
+  ],
+  },
+  {
+    user: 'Tylich',
+    userRoles: [
+      {
+
+        name: 'MANAGER' as RoleRecordType,
+        newspaperName: 'The New York Times'
+      },
+      {
+        name: 'DIRECTOR' as RoleRecordType,
+        newspaperName: 'The Washington Post'
+      },
+    ],
+  },
+  {
+    user: 'Vojtech',
+    userRoles: [
+      {
+        name: 'DIRECTOR' as RoleRecordType,
+        newspaperName: 'El País',
+      }
+    ]
+  },
+  {
+    user: 'Honza',
+    userRoles: [
+      {
+        name: 'DIRECTOR' as RoleRecordType,
+        newspaperName: 'The Washington Post',
+      },
+      {
+        name: 'MANAGER' as RoleRecordType,
+        newspaperName: 'The Washington Post',
+      }
+    ]
+  },
+  {
+    user: 'Hanys',
+    userRoles: [
+      {
+        name: 'MANAGER' as RoleRecordType,
+        newspaperName: 'The Washington Post',
+      }
+    ]
+  }
+]
+
+
+
