@@ -4,25 +4,26 @@ import {
     newspaperById,
     newspaperPublisherRequest,
 } from "../../models/newspaper";
-import { Newspaper } from "@prisma/client";
+import { Newspaper, Newspaper_copy } from "@prisma/client";
 import { NewspaperWithCopies } from "../../types/newspaper.types";
 import { db } from "../../utils/db.server";
 import multer from 'multer';
 import path from 'path';
-import {unlink} from 'node:fs'
+import { unlink } from 'node:fs'
+import { RoleRecordTypeEnumeration } from "../../models/role";
 
 const getAllNewspaper = async (req: Request, res: Response) => {
     try {
         const newspapers = await db.newspaper.findMany({
             include: {
                 publisher: {
-                  select: {
-                    name: true
-                  }
+                    select: {
+                        name: true
+                    }
                 }
-              }
-            })
-        if (!newspapers){
+            }
+        })
+        if (!newspapers) {
             res.status(200).json([]);
         }
         res.status(200).json({ item: newspapers, message: "Fetched " + newspapers.length + " newspapers." });
@@ -152,7 +153,7 @@ const updateImage = async (req: Request, res: Response) => {
 
         const storage = multer.diskStorage({
             destination: (req, file, cb) => {
-                cb(null, 'images', )  // ../images doesn't work for whatever reason???
+                cb(null, 'images',)  // ../images doesn't work for whatever reason???
             },
             filename: async (req, file, cb) => {
                 const newName = Date.now() + path.extname(file.originalname);
@@ -169,34 +170,35 @@ const updateImage = async (req: Request, res: Response) => {
             },
         });
 
-        const upload = multer({storage: storage, fileFilter: function (req, file, callback) {
-            var ext = path.extname(file.originalname);
-            if(ext !== '.png' && ext !== '.jpg' && ext !== '.gif' && ext !== '.jpeg') {
-                return callback(Error("Can only upload images!"));
+        const upload = multer({
+            storage: storage, fileFilter: function (req, file, callback) {
+                var ext = path.extname(file.originalname);
+                if (ext !== '.png' && ext !== '.jpg' && ext !== '.gif' && ext !== '.jpeg') {
+                    return callback(Error("Can only upload images!"));
 
+                }
+                callback(null, true);
+            }, limits: {
+                fileSize: 1024 * 1024 * 4, // 4MB
             }
-            callback(null, true);
-        }, limits: {
-            fileSize: 1024 * 1024 * 4, // 4MB
-        }
         });
-    
+
         // check if newspapers exist
-        try{ 
+        try {
             const newspaper: Newspaper | null = await transaction.newspaper.findFirst({
                 where: {
                     id: req.params.newspaperId
                 },
             })
-    
-            if (!newspaper){
-                res.status(400).json({message: "Newspaper with specified id doesn't exist."})
+
+            if (!newspaper) {
+                res.status(400).json({ message: "Newspaper with specified id doesn't exist." })
                 return
             }
-    
+
         } catch (e) {
             res.status(500)
-            .json({message: "Upload unsuccessful", error: e})
+                .json({ message: "Upload unsuccessful", error: e })
             return
         }
 
@@ -204,13 +206,13 @@ const updateImage = async (req: Request, res: Response) => {
 
         up(req, res, (err) => {
             if (err) {
-                res.status(500).json({message: "Upload unsuccessful", error: err});
+                res.status(500).json({ message: "Upload unsuccessful", error: err });
                 return err;
             }
-            res.status(200).json({message: "Upload successful"});
+            res.status(200).json({ message: "Upload successful" });
         });
 
-    
+
 
 
     })
@@ -220,11 +222,12 @@ const getUnpublishedNewspaperCopies = async (req: Request, res: Response) => {
     try {
         const user = req.session.user;
         const newspaperId = req.params.id
-        
+
         const copies = await db.newspaper_copy.findMany({
-            where: { 
+            where: {
                 newspaperId,
-                published: false },
+                published: false
+            },
         });
         res.status(200).json({ items: copies, message: "Fetched " + copies.length + " copies to publish.", data: user?.username });
     }
@@ -235,20 +238,61 @@ const getUnpublishedNewspaperCopies = async (req: Request, res: Response) => {
 
 const getNewspaperCopies = async (req: Request, res: Response) => {
     try {
-        const id: string = req.params.id;
-
-        const newspaper = await db.newspaper.findFirst({
-            where: { id, },
-            select: {
-                id: true,
+        const newspaperId: string = req.params.id;
+        const all = await db.newspaper.findFirst({
+            where: { id: newspaperId },
+            include: {
                 newspaperCopies: {
-                    select: {
-                        date: true,
+                    where: {
+                        published: true,
+                    },
+                    include: {
+                        articles: {
+                            where: {
+                                approved: true
+                            },
+                        }
                     }
                 }
             }
         });
-        res.status(200).json({ items: newspaper, message: "Fetched " });
+
+        const user = req.session.user
+        if (user) {
+            // Manager
+            if (user.userRoles.filter(role => role.newspaperId === newspaperId).some(role => role.name === RoleRecordTypeEnumeration[1])) {
+                const all = await db.newspaper.findFirst({
+                    where: { id: newspaperId },
+                    include: {
+                        newspaperCopies: {
+                            include: {
+                                articles: true,
+                            }
+                        }
+                    }
+                });
+                return res.status(200).json(all);
+            }
+            // Director
+            if (user.userRoles.filter(role => role.newspaperId === newspaperId).some(role => role.name === RoleRecordTypeEnumeration[0])) {
+                const all = await db.newspaper.findFirst({
+                    where: { id: newspaperId },
+                    include: {
+                        newspaperCopies: {
+                            include: {
+                                articles: {
+                                    where: {
+                                        approved: true
+                                    },
+                                }
+                            }
+                        }
+                    }
+                });
+                return res.status(200).json({ items: all, message: `Sex ${newspaperId}` });
+            }
+        }
+        return res.status(200).json(all);
     }
     catch (e) {
         res.status(500).json([])

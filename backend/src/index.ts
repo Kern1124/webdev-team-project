@@ -36,7 +36,7 @@ app.get('/newspaper', newspaperApi.getAllNewspaper)
 app.get('/newspaper/publisher=/:publisherId', newspaperApi.getNewspaperByPublisher)
 app.get('/newspaper/name=/:title', newspaperApi.getNewspaperByPublisher)
 app.get('/newspaper/:publisherId/:title', newspaperApi.getNewspaperByPublisher)
-app.get('/newspaper/:id', newspaperApi.getNewspaperCopies)
+app.get('/newspaper/:id', newspaperApi.getNewspaperCopies) // and unpublishedCopies and UnapprovedArticles
 app.get('/newspaper/:id/:from/:to', newspaperApi.getNewspapersByIdInverval)
 app.get('/publisher', publisherApi.getAllPublishers)
 app.get('/article/content=/:content', articleApi.getCopyArticles)
@@ -47,7 +47,7 @@ app.get('/articles/approval', articleApi.getUnapprovedArticles) //MANAGER
 app.get('/newspaper/publish', newspaperApi.getUnpublishedCopies) //DIRECTOR
 app.post('/article/comment', commentApi.create)
 
-app.get('/categories', articleApi.getCategories)
+app.get('/category', articleApi.getCategories)
 app.post('/upload/:newspaperId', newspaperApi.updateImage)
 
 app.listen(PORT, () => {
