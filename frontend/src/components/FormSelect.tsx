@@ -1,53 +1,46 @@
-import { FormLabel } from "@chakra-ui/form-control";
-import React, { ReactNode } from "react";
-import { LegacyRef } from "react";
-import { ChangeHandler } from "react-hook-form";
-import { ErrorText } from "./ErrorText";
-import { Select } from "@chakra-ui/select";
+import { BoxProps } from '@chakra-ui/layout';
+import { Select } from '@chakra-ui/select';
+import { ReactElement } from 'react';
+import { Control, Controller } from 'react-hook-form';
+
+import { ArticleFormType } from '../types/article';
+import { ErrorText } from './ErrorText';
 
 interface FormSelectProps {
-  label?: string;
-  children?: ReactNode[];
-  placeholder: string;
-  inputType?: string;
+  name: "newspaper";
+  control: Control<ArticleFormType>;
+  children?: ReactElement<BoxProps>[];
   errorMessage?: string;
-  onChange: ChangeHandler;
-  onBlur: ChangeHandler;
-  name: string;
+  placeholder: string;
 }
+// TODO: change to generic later
 
-export const FormSelect = React.forwardRef(
-  (
-    {
-      children,
-      placeholder,
-      errorMessage,
-      onChange,
-      onBlur,
-      name,
-      label,
-    }: FormSelectProps,
-    ref: LegacyRef<HTMLSelectElement>
-  ) => {
-    return (
-      <>
-        <FormLabel marginLeft="-0.9rem">{label}</FormLabel>
-        <Select
-          focusBorderColor="main"
-          placeholder={placeholder}
-          variant="filled"
-          bgColor="light"
-          marginBottom="0.3rem"
-          onChange={onChange}
-          onBlur={onBlur}
-          ref={ref}
-          name={name}
-          id={name}
-        >
-          {children}
-        </Select>
-        <ErrorText message={errorMessage} />
-      </>
-    );
-  }
-);
+export const FormSelect = ({
+  name,
+  control,
+  children,
+  errorMessage,
+  placeholder,
+}: FormSelectProps) => {
+  return (
+    <>
+      <Controller
+        name={name}
+        control={control}
+        render={({ field }) => (
+          <Select
+            {...field}
+            focusBorderColor="main"
+            placeholder={placeholder}
+            variant="filled"
+            bgColor="light"
+            marginBottom="0.3rem"
+          >
+            {children}
+          </Select>
+        )}
+      />
+      <ErrorText message={errorMessage} />{" "}
+    </>
+  );
+};
