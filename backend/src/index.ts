@@ -41,9 +41,9 @@ app.get('/publisher', publisherApi.getAllPublishers)
 app.get('/article/content=/:content', articleApi.getCopyArticles)
 app.get('/article/id=/:newspaperCopyId', articleApi.getCopyArticles)
 app.get('/article/:newspaperCopyId/:content', articleApi.getCopyArticles)
-app.get('/articles/approval', auth('MANAGER'), articleApi.getUnapprovedArticles)
-app.get('/newspaper/publish', auth('DIRECTOR'), newspaperApi.getUnpublishedCopies)
-app.post('/article/comment', auth('JOURNALIST'), commentApi.create)
+app.get('/articles/approval', articleApi.getUnapprovedArticles) //MANAGER
+app.get('/newspaper/publish', newspaperApi.getUnpublishedCopies) //DIRECTOR
+app.post('/article/comment', commentApi.create)
 
 app.get('/categories', articleApi.getCategories)
 //Fron now on, when we test something on permission, we need to add for what newspaper
