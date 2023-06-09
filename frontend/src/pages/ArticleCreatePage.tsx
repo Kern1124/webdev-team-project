@@ -51,6 +51,7 @@ export const ArticleCreatePage = () => {
           flexDir="column"
           alignItems="center"
           gap="1rem"
+          mt="-1.6rem"
         >
           <FormInput
             {...register("heading")}
