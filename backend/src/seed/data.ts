@@ -4,11 +4,11 @@ const axios = require('axios');
 const fs = require('fs');
 
 
-async function downloadPhoto(url: string, filePath: string) {
-  const response = await axios.get(url, { responseType: 'arsraybuffer' });
-  fs.writeFileSync(filePath, response.data);
-  const photoData = fs.readFileSync(filePath);
-}
+// async function downloadPhoto(url: string, filePath: string) {
+//   const response = await axios.get(url, { responseType: 'arsraybuffer' });
+//   fs.writeFileSync(filePath, response.data);
+//   const photoData = fs.readFileSync(filePath);
+// }
 
 const data = async () => {
   const Slavopwd = await argon2.hash('Gugugaga1#');
@@ -19,7 +19,7 @@ const data = async () => {
   const hashedPassword6 = await argon2.hash('hashed_password6');
   const photo = 'https://www.freepik.com/free-vector/business-magazine-with-image_2447935.htm#query=newspaper%20cover&position=12&from_view=search&track=ais'
   const blob = ''
-  await downloadPhoto(photo, blob)
+  // await downloadPhoto(photo, blob)
   
 
   return {
@@ -29,6 +29,7 @@ const data = async () => {
         newspapers: [
           {
             name: 'The New York Times',
+            newspaperImg: 'placeholder',
             newspaperCopies: [
               {
                 articles: [
@@ -68,6 +69,7 @@ const data = async () => {
           },
           {
             name: 'The Washington Post',
+            newspaperImg: 'placeholder',
             newspaperCopies: [
               {
                 articles: [
@@ -131,6 +133,7 @@ const data = async () => {
         newspapers: [
           {
             name: 'El País',
+            newspaperImg: 'placeholder',
             newspaperCopies: [
               {
                 articles: [
@@ -184,6 +187,7 @@ const data = async () => {
         newspapers: [
           {
             name: 'The Washington Post',
+            newspaperImg: 'placeholder',
             newspaperCopies: [
               {
                 articles: [
@@ -242,6 +246,7 @@ const data = async () => {
         newspapers: [
           {
             name: 'The Times of India',
+            newspaperImg: 'placeholder',
             newspaperCopies: [
               {
                 articles: [
@@ -287,6 +292,7 @@ const data = async () => {
         newspapers: [
           {
             name: 'Le Monde',
+            newspaperImg: 'placeholder',
             newspaperCopies: [
               {
                 articles: [

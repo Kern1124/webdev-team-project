@@ -40,6 +40,7 @@ const seed = async () => {
         const newspaper = await prisma.newspaper.create({
           data: {
             name: newspaperData.name,
+            newspaperImg: newspaperData.newspaperImg,
             publisher: {
               connect: {
                 id: publisher.id,
