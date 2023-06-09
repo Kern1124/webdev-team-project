@@ -5,7 +5,7 @@ const prisma = new PrismaClient();
 
 const seed = async () => {
   try {
-    console.log(`[${new Date().toISOString()}] Seed started`);
+    // console.log(`[${new Date().toISOString()}] Seed started`);
     const seedData = await data();
 
     // Create publishers
@@ -15,10 +15,8 @@ const seed = async () => {
           name: publisherData.name,
         },
       });
-
-      console.log(`Created publisher: ${publisher.name}`);
-
-      // Create users
+      // console.log(`Created publisher: ${publisher.name}`);
+      // Create users  
       for (const userData of publisherData.users) {
         await prisma.user.create({
           data: {
@@ -36,6 +34,16 @@ const seed = async () => {
       }
       // Create newspapers
       for (const newspaperData of publisherData.newspapers) {
+        
+        const existingNewspaper = await prisma.newspaper.findFirst({
+          where: {
+            name: newspaperData.name,
+          },
+        });
+
+        if (existingNewspaper) {
+          continue;
+        }
         const newspaper = await prisma.newspaper.create({
           data: {
             name: newspaperData.name,
@@ -48,10 +56,13 @@ const seed = async () => {
           },
         });
 
-        console.log(`Created newspaper: ${newspaper.name}`);
+        // console.log(`Created newspaper: ${newspaper.name}`);
 
         // Create newspaper copies
         for (const newspaperCopyData of newspaperData.newspaperCopies) {
+          if (existingNewspaper) {
+            continue;
+          }
           const newspaperCopy = await prisma.newspaper_copy.create({
             data: {
               newspaper: {
@@ -62,7 +73,7 @@ const seed = async () => {
             },
           });
 
-          console.log(`Created newspaper copy`);
+          // console.log(`Created newspaper copy`);
 
           // Create articles
           for (const articleData of newspaperCopyData.articles) {
@@ -97,7 +108,7 @@ const seed = async () => {
               },
             });
 
-            console.log(`Created article with id ${article.id}`);
+            // console.log(`Created article with id ${article.id}`);
 
             // Create comments
             for (const commentData of articleData.comments) {
@@ -117,26 +128,26 @@ const seed = async () => {
                 },
               });
 
-              console.log(`Created comment for article with id ${article.id}`);
+              // console.log(`Created comment for article with id ${article.id}`);
             }
           }
         }
       }
     }
-
-    console.log(`[${new Date().toISOString()}] Seed succeeded`);
   } catch (error) {
-    console.error(`[${new Date().toISOString()}] Seed failed`);
-    console.error(error);
+    // console.error(`[${new Date().toISOString()}] Seed failed`);
+    // console.error(error);
+  } finally {
+    seedRoles();
   }
 };
 const seedRoles = async () => {
   try {
     for (const roleData of roles) {
       for (const newspaperRole of roleData.userRoles) {
-        prisma.role.create({
+        const role = await prisma.role.create({
           data: {
-            name: "No clue proc ma mit Role jmeno xdd",
+            name: newspaperRole.name,
             user: {
               connect: {
                 username: roleData.user
@@ -149,11 +160,13 @@ const seedRoles = async () => {
             },
           },
         });
+        console.log(`Created role with id ${role.id}`)
       }
     }
+    console.log(`[${new Date().toISOString()}] Seed succeeded`);
   } catch (error) {
-    console.error(`[${new Date().toISOString()}] Seed failed`);
-    console.error(error);
+     console.error(`[${new Date().toISOString()}] Seed failed`);
+     console.error(error);
   } finally {
     await prisma.$disconnect();
   }
@@ -161,4 +174,3 @@ const seedRoles = async () => {
 
 
 seed();
-seedRoles();
