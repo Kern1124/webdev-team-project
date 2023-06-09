@@ -46,6 +46,7 @@ CREATE TABLE "Newspaper_copy" (
 -- CreateTable
 CREATE TABLE "Article" (
     "id" TEXT NOT NULL PRIMARY KEY,
+    "heading" TEXT NOT NULL,
     "contents" TEXT NOT NULL,
     "newspaperCopyId" TEXT NOT NULL,
     "authorId" TEXT NOT NULL,
@@ -89,6 +90,9 @@ CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Newspaper_name_key" ON "Newspaper"("name");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Category_name_key" ON "Category"("name");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "_ArticleToCategory_AB_unique" ON "_ArticleToCategory"("A", "B");

@@ -66,6 +66,7 @@ model Newspaper_copy {
 
 model Article {
   id              String         @id @default(uuid())
+  heading         String
   contents        String
   newspaper_copy  Newspaper_copy @relation(fields: [newspaperCopyId], references: [id])
   newspaperCopyId String
@@ -78,7 +79,7 @@ model Article {
 
 model Category {
   id       String    @id @default(uuid())
-  name     String
+  name     String    @unique
   articles Article[]
 }
 

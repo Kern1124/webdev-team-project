@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import { data, roles } from "./data";
+import { data, roles, cats } from "./data";
 
 const prisma = new PrismaClient();
 
@@ -7,7 +7,14 @@ const seed = async () => {
   try {
     // console.log(`[${new Date().toISOString()}] Seed started`);
     const seedData = await data();
-
+    // Create categories
+    for (const catData of cats) {
+      const createdCategory = await prisma.category.create({
+        data: {
+          name: catData.name,
+        },
+      });
+    }
     // Create publishers
     for (const publisherData of seedData.publishers) {
       const publisher = await prisma.publisher.create({
@@ -60,9 +67,6 @@ const seed = async () => {
 
         // Create newspaper copies
         for (const newspaperCopyData of newspaperData.newspaperCopies) {
-          if (existingNewspaper) {
-            continue;
-          }
           const newspaperCopy = await prisma.newspaper_copy.create({
             data: {
               newspaper: {
@@ -85,11 +89,9 @@ const seed = async () => {
             if (user == null) {
               throw new Error("no user");
             }
-            const categories = articleData.categories.map((category) => ({
-              name: category.name,
-            }));
             const article = await prisma.article.create({
               data: {
+                heading: articleData.heading,
                 contents: articleData.contents,
                 newspaper_copy: {
                   connect: {
@@ -103,12 +105,11 @@ const seed = async () => {
                   },
                 },
                 categories: {
-                  create: categories,
-                },
+                  connect: articleData.categories.map((categoryName) => categoryName),
+                }
               },
             });
-
-            // console.log(`Created article with id ${article.id}`);
+             console.log(`Created article with id ${article.id} for heading ${article.heading}`);
 
             // Create comments
             for (const commentData of articleData.comments) {
@@ -135,12 +136,13 @@ const seed = async () => {
       }
     }
   } catch (error) {
-    // console.error(`[${new Date().toISOString()}] Seed failed`);
-    // console.error(error);
+     console.error(`[${new Date().toISOString()}] Seed failed`);
+     console.error(error);
   } finally {
     seedRoles();
   }
 };
+
 const seedRoles = async () => {
   try {
     for (const roleData of roles) {
