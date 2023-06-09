@@ -13,7 +13,7 @@ import { InputModal } from "./InputModal";
 // react-quill is a bit broken, if this is put directly into the component children
 // the editor area keeps dissapearing
 const customEditArea = (
-  <Card h="60vh" overflow="scroll" bgColor="light" borderRadius="0" />
+  <Card h="55vh" overflow="scroll" bgColor="light" borderRadius="0" />
 );
 
 

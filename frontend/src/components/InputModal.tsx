@@ -1,5 +1,5 @@
 import { Button } from '@chakra-ui/button';
-import { FormControl, FormLabel } from '@chakra-ui/form-control';
+import { FormControl } from '@chakra-ui/form-control';
 import { Input } from '@chakra-ui/input';
 import { Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay } from '@chakra-ui/modal';
 import { ChangeEventHandler } from 'react';

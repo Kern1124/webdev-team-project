@@ -2,15 +2,13 @@ import { FormLabel } from "@chakra-ui/form-control";
 import React, { ReactNode } from "react";
 import { LegacyRef } from "react";
 import { ChangeHandler } from "react-hook-form";
-import { IconType } from "react-icons";
 import { ErrorText } from "./ErrorText";
 import { Select } from "@chakra-ui/select";
 
-interface FormInputProps {
-  label: string;
+interface FormSelectProps {
+  label?: string;
   children?: ReactNode[];
   placeholder: string;
-  icon: IconType;
   inputType?: string;
   errorMessage?: string;
   onChange: ChangeHandler;
@@ -18,7 +16,7 @@ interface FormInputProps {
   name: string;
 }
 
-export const FormInput = React.forwardRef(
+export const FormSelect = React.forwardRef(
   (
     {
       children,
@@ -28,7 +26,7 @@ export const FormInput = React.forwardRef(
       onBlur,
       name,
       label,
-    }: FormInputProps,
+    }: FormSelectProps,
     ref: LegacyRef<HTMLSelectElement>
   ) => {
     return (

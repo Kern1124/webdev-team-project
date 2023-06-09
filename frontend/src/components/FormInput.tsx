@@ -8,9 +8,9 @@ import { IconType } from "react-icons";
 import { ErrorText } from "./ErrorText";
 
 interface FormInputProps {
-  children: string;
+  children?: string;
   placeholder: string;
-  icon: IconType;
+  icon?: IconType;
   inputType?: string;
   errorMessage?: string;
   onChange: ChangeHandler;
@@ -36,10 +36,10 @@ export const FormInput = React.forwardRef(
       <>
         <FormLabel marginLeft="-0.9rem">{children}</FormLabel>
         <InputGroup flexDir="column">
-          <InputLeftElement
+          {icon && <InputLeftElement
             pointerEvents="none"
             children={<Icon as={icon} />}
-          />
+          />}
           <Input
             focusBorderColor="main"
             marginBottom="0.3rem"
