@@ -4,14 +4,14 @@ import { ArticleFormType } from "../types/article"
 import { ReactElement } from "react";
 import { BoxProps } from "@chakra-ui/layout";
 
-interface FormCheckboxGroup {
+interface FormCheckboxGroupProps {
     name: "categories";
     control: Control<ArticleFormType>;
     children?: ReactElement<BoxProps>[];
 }
 // TODO: change to generic later
 
-export const FormCheckboxGroup = ({ name, control, children }: FormCheckboxGroup) => {
+export const FormCheckboxGroup = ({ name, control, children }: FormCheckboxGroupProps) => {
     return <Controller
     name={name}
     control={control}

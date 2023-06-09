@@ -16,9 +16,14 @@ const customEditArea = (
   <Card h="55vh" overflow="scroll" bgColor="light" borderRadius="0" />
 );
 
+interface CustomEditorProps {
+  placeholder: string;
+  value: string;
+  onChange: (value: string) => void
+}
 
-export const CustomEditor = () => {
-  const [value, setValue] = useState("");
+
+export const CustomEditor = ({placeholder, value, onChange}:CustomEditorProps) => {
   const [imageUrl, setImageUrl] = useState("");
   const reactQuillRef: any = useRef(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -53,7 +58,7 @@ export const CustomEditor = () => {
         <Box w="100%">
           <ReactQuill
             value={value}
-            onChange={setValue}
+            onChange={onChange}
             modules={{
               toolbar: {
                 container: [
@@ -73,7 +78,7 @@ export const CustomEditor = () => {
                 },
               },
             }}
-            placeholder="Input article content..."
+            placeholder={placeholder}
             ref={reactQuillRef}
           >
             {customEditArea}

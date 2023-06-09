@@ -14,11 +14,11 @@ import { ArticleCreateSchema } from "../yup/schemata";
 import { FormInput } from "../components/FormInput";
 import { FormSelect } from "../components/FormSelect";
 import { FormCheckboxGroup } from "../components/FormCheckboxGroup";
+import { FormEditor } from "../components/FormEditor";
 
 export const ArticleCreatePage = () => {
   const {
     register,
-    reset,
     control,
     handleSubmit,
     formState: { errors },
@@ -58,7 +58,11 @@ export const ArticleCreatePage = () => {
             errorMessage={errors.heading?.message}
           />
 
-          <CustomEditor />
+          <FormEditor
+            name="content"
+            control={control}
+            placeholder="Input article content..."
+          />
           <CustomButton>Submit article</CustomButton>
         </Flex>
       </Flex>
