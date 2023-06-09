@@ -41,6 +41,11 @@ export const CustomEditor = () => {
     }
   }, [imageUrl, onClose]);
 
+  const onCloseHandle = useCallback(() => {
+    setImageUrl("");
+    onClose();
+  }, [onClose])
+
   const inputChangeHandler = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => setImageUrl(e.target.value),
     []
@@ -94,7 +99,7 @@ export const CustomEditor = () => {
             <Button bgColor="main" color="light" mr={3} onClick={imageHandler}>
               Add
             </Button>
-            <Button onClick={onClose}>Cancel</Button>
+            <Button onClick={onCloseHandle}>Cancel</Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
