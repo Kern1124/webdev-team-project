@@ -1,10 +1,10 @@
-import { User } from '@prisma/client';
+import { Role, User } from '@prisma/client';
 import expressSession from 'express-session';
 
 declare module 'express-session' {
-    interface SessionData {
-        user: User
-    }
+interface SessionData {
+    user: User & { userRoles: Role[] };
+  }
 }
 
 const userSession = () => expressSession ({

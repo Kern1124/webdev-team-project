@@ -62,7 +62,22 @@ const getUnapprovedArticles = async (req: Request, res: Response) => {
     }
 }
 
+const getCategories =  async (req: Request, res: Response) => {
+    try {
+        const categories = await db.category.findMany({
+            select: {
+                id: true,
+                name: true,
+            }
+});
+        res.status(200).json({ items: categories, message: "Fetched " + categories.length + " categories." });
+    }
+    catch (e) {
+        res.status(500).json({ message: "Internal error.", error: e })
+    } 
+}
 export const articleApi = {
     getCopyArticles,
     getUnapprovedArticles,
+    getCategories,
 }
