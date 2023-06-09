@@ -1,4 +1,5 @@
 import "react-quill/dist/quill.snow.css";
+import "../assets/styles.css"
 
 import { Button } from "@chakra-ui/button";
 import { FormControl, FormLabel } from "@chakra-ui/form-control";
@@ -20,7 +21,7 @@ import { Card } from "@chakra-ui/card";
 
 // react-quill is a bit broken, if this is put directly into the component children
 // the editor area keeps dissapearing
-const customEditArea = <Card h="60vh" overflow="scroll" bgColor="light" border="none"  />
+const customEditArea = <Card h="60vh" overflow="scroll" bgColor="light" borderRadius="0"  />
 
 export const CustomEditor = () => {
   const [value, setValue] = useState("");
