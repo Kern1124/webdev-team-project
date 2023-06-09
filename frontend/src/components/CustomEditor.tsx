@@ -1,27 +1,19 @@
-import "react-quill/dist/quill.snow.css";
-import "../assets/styles.css"
+import '../assets/styles.css';
+import 'react-quill/dist/quill.snow.css';
 
-import { Button } from "@chakra-ui/button";
-import { FormControl, FormLabel } from "@chakra-ui/form-control";
-import { useDisclosure } from "@chakra-ui/hooks";
-import { Input } from "@chakra-ui/input";
-import { Box } from "@chakra-ui/layout";
-import {
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  ModalOverlay,
-} from "@chakra-ui/modal";
-import { ChangeEvent, useCallback, useRef, useState } from "react";
-import ReactQuill from "react-quill";
-import { Card } from "@chakra-ui/card";
+import { Card } from '@chakra-ui/card';
+import { useDisclosure } from '@chakra-ui/hooks';
+import { Box } from '@chakra-ui/layout';
+import { ChangeEvent, useCallback, useRef, useState } from 'react';
+import ReactQuill from 'react-quill';
+
+import { InputModal } from './InputModal';
 
 // react-quill is a bit broken, if this is put directly into the component children
 // the editor area keeps dissapearing
-const customEditArea = <Card h="60vh" overflow="scroll" bgColor="light" borderRadius="0"  />
+const customEditArea = (
+  <Card h="60vh" overflow="scroll" bgColor="light" borderRadius="0" />
+);
 
 export const CustomEditor = () => {
   const [value, setValue] = useState("");
@@ -44,7 +36,9 @@ export const CustomEditor = () => {
   const onCloseHandle = useCallback(() => {
     setImageUrl("");
     onClose();
-  }, [onClose])
+    const quill = reactQuillRef?.current?.getEditor();
+    quill.focus();
+  }, [onClose]);
 
   const inputChangeHandler = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => setImageUrl(e.target.value),
@@ -82,27 +76,14 @@ export const CustomEditor = () => {
           {customEditArea}
         </ReactQuill>
       </Box>
-
-      <Modal isOpen={isOpen} onClose={onClose}>
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>Input image URL</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody pb={6}>
-            <FormControl>
-              <FormLabel>URL</FormLabel>
-              <Input placeholder="url" onChange={inputChangeHandler} />
-            </FormControl>
-          </ModalBody>
-
-          <ModalFooter>
-            <Button bgColor="main" color="light" mr={3} onClick={imageHandler}>
-              Add
-            </Button>
-            <Button onClick={onCloseHandle}>Cancel</Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
+      <InputModal
+        title="Input image URL"
+        isOpen={isOpen}
+        onClose={onClose}
+        onCloseHandler={onCloseHandle}
+        onClickHandler={imageHandler}
+        inputChangeHandler={inputChangeHandler}
+      />
     </>
   );
 };
