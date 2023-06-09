@@ -146,9 +146,12 @@ const getUnpublishedCopies = async (req: Request, res: Response) => {
 const getUnpublishedNewspaperCopies = async (req: Request, res: Response) => {
     try {
         const user = req.session.user;
+        const newspaperId = req.params.id
         
         const copies = await db.newspaper_copy.findMany({
-            where: { published: false },
+            where: { 
+                newspaperId,
+                published: false },
         });
         res.status(200).json({ items: copies, message: "Fetched " + copies.length + " copies to publish.", data: user?.username });
     }

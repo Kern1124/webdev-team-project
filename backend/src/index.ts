@@ -44,8 +44,8 @@ app.get('/articles/approval', auth('MANAGER'), articleApi.getUnapprovedArticles)
 app.get('/newspaper/publish', auth('DIRECTOR'), newspaperApi.getUnpublishedCopies)
 app.post('/article/comment', auth('JOURNALIST'), commentApi.create)
 
-//route for testing newspaperRoles
 app.get('/categories', articleApi.getCategories)
+//Fron now on, when we test something on permission, we need to add for what newspaper
 app.get('newspaper/:id/copies/publish', auth('DIRECTOR'), newspaperApi.getUnpublishedNewspaperCopies)
 app.listen(PORT, () => {
     console.log(`Listening on ${PORT}`);
