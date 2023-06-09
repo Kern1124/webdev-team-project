@@ -7,6 +7,7 @@ import { userApi } from "./api/user/userApi";
 import { newspaperApi } from "./api/newspaper/newspaperApi";
 import { publisherApi } from "./api/publisher/publisherApi";
 import { articleApi } from "./api/article/article.router";
+import { newspaperCopyApi } from "./api/newspaperCopy/newspaperCopyApi"
 import bodyParser from "body-parser";
 import auth from "./middleware/authMiddleware";
 import { commentApi } from "./api/comment/commentApi";
@@ -43,7 +44,7 @@ app.get('/article/:newspaperCopyId/:content', articleApi.getCopyArticles)
 app.get('/articles/approval', auth('MANAGER'), articleApi.getUnapprovedArticles)
 app.get('/newspaper/publish', auth('DIRECTOR'), newspaperApi.getUnpublishedCopies)
 app.post('/article/comment', auth('JOURNALIST'), commentApi.create)
-
+app.get('/copies', newspaperCopyApi.getAllCopies)
 app.get('/categories', articleApi.getCategories)
 //Fron now on, when we test something on permission, we need to add for what newspaper
 app.get('newspaper/:id/copies/publish', auth('DIRECTOR'), newspaperApi.getUnpublishedNewspaperCopies)
