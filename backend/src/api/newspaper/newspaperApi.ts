@@ -9,6 +9,7 @@ import { NewspaperWithCopies } from "../../types/newspaper.types";
 import { db } from "../../utils/db.server";
 import multer from 'multer';
 import path from 'path';
+import {unlink} from 'node:fs'
 
 const getAllNewspaper = async (req: Request, res: Response) => {
     try {
@@ -155,6 +156,7 @@ const updateImage = async (req: Request, res: Response) => {
             },
             filename: async (req, file, cb) => {
                 const newName = Date.now() + path.extname(file.originalname);
+
                 await db.newspaper.update({
                     where: {
                         id: req.params.newspaperId
@@ -166,7 +168,18 @@ const updateImage = async (req: Request, res: Response) => {
                 cb(null, newName);
             },
         });
-        const upload = multer({storage: storage});
+
+        const upload = multer({storage: storage, fileFilter: function (req, file, callback) {
+            var ext = path.extname(file.originalname);
+            if(ext !== '.png' && ext !== '.jpg' && ext !== '.gif' && ext !== '.jpeg') {
+                return callback(Error("Can only upload images!"));
+
+            }
+            callback(null, true);
+        }, limits: {
+            fileSize: 1024 * 1024 * 4, // 4MB
+        }
+        });
     
         // check if newspapers exist
         try{ 
@@ -186,18 +199,20 @@ const updateImage = async (req: Request, res: Response) => {
             .json({message: "Upload unsuccessful", error: e})
             return
         }
-    
+
         const up = upload.single('up');
 
         up(req, res, (err) => {
             if (err) {
-                res.status(500).json({message: "Upload unsuccessful", error: err})
-                return
+                res.status(500).json({message: "Upload unsuccessful", error: err});
+                return err;
             }
-            console.log(1)
+            res.status(200).json({message: "Upload successful"});
         });
 
-        res.status(200).json({message: "Upload successful"});
+    
+
+
     })
 }
 
