@@ -33,7 +33,17 @@ model User {
   passwordHash  String
   articles      Article[]
   comments      Comment[]
-  userRole      String?
+  userRole      String
+  userRoles     Role[]
+}
+
+model Role {
+  id        String    @id @default(uuid())
+  name      String
+  user         User       @relation(fields: [userId], references: [id])
+  userId       String
+  newspaper    Newspaper @relation(fields: [newspaperId], references: [id])
+  newspaperId  String
 }
 
 
@@ -41,8 +51,10 @@ model Newspaper {
   id          String           @id @default(uuid())
   publisher   Publisher        @relation(fields: [publisherId], references: [id])
   publisherId String
-  name        String
+  name        String           @unique
   newspaperCopies Newspaper_copy[]
+  userRoles   Role[]
+  newspaperImg  String         @default("")
 }
 
 model Newspaper_copy {

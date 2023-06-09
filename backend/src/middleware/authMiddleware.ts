@@ -1,10 +1,12 @@
 import { Request, Response, NextFunction } from 'express';
 import { RoleRecordType } from '../models/role';
+import { User } from '@prisma/client';
 
-const isForbiddenUserRole = (users: string | null, required: RoleRecordType) => {
-  if (users == null) {
-    return true;
-  }
+const isForbiddenUserRole = (newspaperId: string, user: User, required: RoleRecordType) => {
+  
+  // here I would get users roles for newspaper and find if there is required
+  // contains role
+  const users = user.userRole
   switch (required) {
     case 'DIRECTOR':
       if (users !== 'DIRECTOR') {
@@ -20,11 +22,13 @@ const isForbiddenUserRole = (users: string | null, required: RoleRecordType) => 
 };
 
 const auth = (role: RoleRecordType) => (req: Request, res: Response, next: NextFunction) => {
-  if (!req.session?.user) {
+  const user = req.session.user
+  if (!user) {
     res.status(401).json({ message: 'Unauthorized' });
     return;
   }
-  if (role.length > 0 && isForbiddenUserRole(req.session.user.userRole, role)) {
+  const newspaperId = req.body
+  if (role.length > 0 && isForbiddenUserRole(newspaperId, user, role)) {
     res.status(403).json({ message: `Forbidden, for this task you need to be at least ${role}` });
     return;
   }

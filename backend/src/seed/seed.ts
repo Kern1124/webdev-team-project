@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import data from "./data";
+import { data, roles } from "./data";
 
 const prisma = new PrismaClient();
 
@@ -17,7 +17,7 @@ const seed = async () => {
       });
 
       console.log(`Created publisher: ${publisher.name}`);
-    
+
       // Create users
       for (const userData of publisherData.users) {
         await prisma.user.create({
@@ -25,21 +25,21 @@ const seed = async () => {
             username: userData.username,
             email: userData.email,
             passwordHash: userData.passwordHash,
-            userRole: userData.role,
             publisher: {
               connect: {
                 id: publisher.id,
               },
             },
+            userRole: userData.role,
           },
         });
       }
-
       // Create newspapers
       for (const newspaperData of publisherData.newspapers) {
         const newspaper = await prisma.newspaper.create({
           data: {
             name: newspaperData.name,
+            newspaperImg: newspaperData.coverPhoto,
             publisher: {
               connect: {
                 id: publisher.id,
@@ -71,8 +71,8 @@ const seed = async () => {
                 username: articleData.comments[0].author.username,
               },
             }); // Fetch a article author for the article's author
-            if (user == null){
-                throw new Error("no user");
+            if (user == null) {
+              throw new Error("no user");
             }
             const categories = articleData.categories.map((category) => ({
               name: category.name,
@@ -128,9 +128,37 @@ const seed = async () => {
   } catch (error) {
     console.error(`[${new Date().toISOString()}] Seed failed`);
     console.error(error);
+  }
+};
+const seedRoles = async () => {
+  try {
+    for (const roleData of roles) {
+      for (const newspaperRole of roleData.userRoles) {
+        prisma.role.create({
+          data: {
+            name: "No clue proc ma mit Role jmeno xdd",
+            user: {
+              connect: {
+                username: roleData.user
+              }
+            },
+            newspaper: {
+              connect: {
+                name: newspaperRole.newspaperName,
+              },
+            },
+          },
+        });
+      }
+    }
+  } catch (error) {
+    console.error(`[${new Date().toISOString()}] Seed failed`);
+    console.error(error);
   } finally {
     await prisma.$disconnect();
   }
-};
+}
+
 
 seed();
+seedRoles();
