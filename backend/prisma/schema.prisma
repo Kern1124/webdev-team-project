@@ -7,7 +7,7 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider      = "prisma-client-js"
   binaryTargets = ["native", "debian-openssl-3.0.x"]
 }
 
@@ -16,12 +16,11 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
 model Publisher {
-  id        String       @id @default(uuid())
-  name      String       @unique 
+  id         String      @id @default(uuid())
+  name       String      @unique
   newspapers Newspaper[]
-  users     User[]
+  users      User[]
 }
 
 model User {
@@ -46,7 +45,6 @@ model Role {
   newspaperId  String
 }
 
-
 model Newspaper {
   id          String           @id @default(uuid())
   publisher   Publisher        @relation(fields: [publisherId], references: [id])
@@ -58,39 +56,37 @@ model Newspaper {
 }
 
 model Newspaper_copy {
-  id          String      @id @default(uuid())
-  date        DateTime    @default(now())
-  newspaper   Newspaper   @relation(fields: [newspaperId], references: [id])
+  id          String    @id @default(uuid())
+  date        DateTime  @default(now())
+  newspaper   Newspaper @relation(fields: [newspaperId], references: [id])
   newspaperId String
   articles    Article[]
-  published   Boolean    @default(false)
-
+  published   Boolean   @default(false)
 }
 
-
 model Article {
-  id             String            @id @default(uuid())
-  contents       String
-  newspaper_copy Newspaper_copy   @relation(fields: [newspaperCopyId], references: [id])
+  id              String         @id @default(uuid())
+  contents        String
+  newspaper_copy  Newspaper_copy @relation(fields: [newspaperCopyId], references: [id])
   newspaperCopyId String
-  author         User              @relation(fields: [authorId], references: [id])
-  authorId       String
-  categories     Category[]
-  comments       Comment[]
-  approved       Boolean    @default(false)
+  author          User           @relation(fields: [authorId], references: [id])
+  authorId        String
+  categories      Category[]
+  comments        Comment[]
+  approved        Boolean        @default(false)
 }
 
 model Category {
-  id          String            @id @default(uuid())
-  name        String
-  articles    Article[]
+  id       String    @id @default(uuid())
+  name     String
+  articles Article[]
 }
 
 model Comment {
-  id         String  @id @default(uuid())
-  content    String
-  article    Article @relation(fields: [articleId], references: [id])
-  articleId  String
-  author     User    @relation(fields: [authorId], references: [id])
-  authorId   String
+  id        String  @id @default(uuid())
+  content   String
+  article   Article @relation(fields: [articleId], references: [id])
+  articleId String
+  author    User    @relation(fields: [authorId], references: [id])
+  authorId  String
 }

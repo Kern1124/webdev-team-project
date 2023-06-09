@@ -1,7 +1,6 @@
 import argon2 from 'argon2';
 import { RoleRecordType } from '../models/role';
 
-
 export const data = async () => {
   const Slavopwd = await argon2.hash('Gugugaga1#');
   const Tylichpwd = await argon2.hash('Tylich123#');
@@ -19,7 +18,8 @@ export const data = async () => {
         newspapers: [
           {
             name: 'The New York Times',
-            coverPhoto: photo,
+
+            newspaperImg: 'placeholder',
             newspaperCopies: [
               {
                 articles: [
@@ -58,7 +58,7 @@ export const data = async () => {
           },
           {
             name: 'The Washington Post',
-            coverPhoto: photo,
+            newspaperImg: 'placeholder',
             newspaperCopies: [
               {
                 articles: [
@@ -121,7 +121,7 @@ export const data = async () => {
         newspapers: [
           {
             name: 'El País',
-            coverPhoto: photo,
+            newspaperImg: 'placeholder',
             newspaperCopies: [
               {
                 articles: [
@@ -175,7 +175,7 @@ export const data = async () => {
         newspapers: [
           {
             name: 'The Washington Post',
-            coverPhoto: photo,
+            newspaperImg: 'placeholder',
             newspaperCopies: [
               {
                 articles: [
@@ -234,7 +234,7 @@ export const data = async () => {
         newspapers: [
           {
             name: 'The Times of India',
-            coverPhoto: photo,
+            newspaperImg: 'placeholder',
             newspaperCopies: [
               {
                 articles: [
@@ -280,7 +280,7 @@ export const data = async () => {
         newspapers: [
           {
             name: 'Le Monde',
-            coverPhoto: photo,
+            newspaperImg: 'placeholder',
             newspaperCopies: [
               {
                 articles: [

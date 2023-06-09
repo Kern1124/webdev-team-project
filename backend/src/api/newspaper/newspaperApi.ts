@@ -7,6 +7,9 @@ import {
 import { Newspaper } from "@prisma/client";
 import { NewspaperWithCopies } from "../../types/newspaper.types";
 import { db } from "../../utils/db.server";
+import multer from 'multer';
+import path from 'path';
+import {unlink} from 'node:fs'
 
 const getAllNewspaper = async (req: Request, res: Response) => {
     try {
@@ -143,6 +146,76 @@ const getUnpublishedCopies = async (req: Request, res: Response) => {
     }
 }
 
+const updateImage = async (req: Request, res: Response) => {
+
+    await db.$transaction(async transaction => {
+
+        const storage = multer.diskStorage({
+            destination: (req, file, cb) => {
+                cb(null, 'images', )  // ../images doesn't work for whatever reason???
+            },
+            filename: async (req, file, cb) => {
+                const newName = Date.now() + path.extname(file.originalname);
+
+                await db.newspaper.update({
+                    where: {
+                        id: req.params.newspaperId
+                    },
+                    data: {
+                        newspaperImg: "images/" + newName //perhaps ../images?
+                    }
+                })
+                cb(null, newName);
+            },
+        });
+
+        const upload = multer({storage: storage, fileFilter: function (req, file, callback) {
+            var ext = path.extname(file.originalname);
+            if(ext !== '.png' && ext !== '.jpg' && ext !== '.gif' && ext !== '.jpeg') {
+                return callback(Error("Can only upload images!"));
+
+            }
+            callback(null, true);
+        }, limits: {
+            fileSize: 1024 * 1024 * 4, // 4MB
+        }
+        });
+    
+        // check if newspapers exist
+        try{ 
+            const newspaper: Newspaper | null = await transaction.newspaper.findFirst({
+                where: {
+                    id: req.params.newspaperId
+                },
+            })
+    
+            if (!newspaper){
+                res.status(400).json({message: "Newspaper with specified id doesn't exist."})
+                return
+            }
+    
+        } catch (e) {
+            res.status(500)
+            .json({message: "Upload unsuccessful", error: e})
+            return
+        }
+
+        const up = upload.single('up');
+
+        up(req, res, (err) => {
+            if (err) {
+                res.status(500).json({message: "Upload unsuccessful", error: err});
+                return err;
+            }
+            res.status(200).json({message: "Upload successful"});
+        });
+
+    
+
+
+    })
+}
+
 const getUnpublishedNewspaperCopies = async (req: Request, res: Response) => {
     try {
         const user = req.session.user;
@@ -186,6 +259,7 @@ export const newspaperApi = {
     getNewspaperByPublisher,
     getNewspapersByIdInverval,
     getUnpublishedCopies,
+    updateImage,
     getUnpublishedNewspaperCopies,
     getNewspaperCopies,
 };

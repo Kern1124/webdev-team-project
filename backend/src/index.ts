@@ -7,9 +7,10 @@ import { userApi } from "./api/user/userApi";
 import { newspaperApi } from "./api/newspaper/newspaperApi";
 import { publisherApi } from "./api/publisher/publisherApi";
 import { articleApi } from "./api/article/article.router";
-import bodyParser from "body-parser";
 import auth from "./middleware/authMiddleware";
 import { commentApi } from "./api/comment/commentApi";
+
+
 
 dotenv.config();
 
@@ -41,13 +42,14 @@ app.get('/publisher', publisherApi.getAllPublishers)
 app.get('/article/content=/:content', articleApi.getCopyArticles)
 app.get('/article/id=/:newspaperCopyId', articleApi.getCopyArticles)
 app.get('/article/:newspaperCopyId/:content', articleApi.getCopyArticles)
+
 app.get('/articles/approval', articleApi.getUnapprovedArticles) //MANAGER
 app.get('/newspaper/publish', newspaperApi.getUnpublishedCopies) //DIRECTOR
 app.post('/article/comment', commentApi.create)
 
 app.get('/categories', articleApi.getCategories)
-//Fron now on, when we test something on permission, we need to add for what newspaper
-app.get('newspaper/:id/copies/publish', auth('DIRECTOR'), newspaperApi.getUnpublishedNewspaperCopies)
+app.post('/upload/:newspaperId', newspaperApi.updateImage)
+
 app.listen(PORT, () => {
     console.log(`Listening on ${PORT}`);
 });
