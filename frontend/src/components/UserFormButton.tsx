@@ -1,5 +1,5 @@
-import { Button } from "@chakra-ui/button";
 import { Spinner } from "@chakra-ui/spinner";
+import { CustomButton } from "./CustomButton";
 
 interface UserFormButtonProps {
   children: string;
@@ -7,18 +7,11 @@ interface UserFormButtonProps {
 }
 
 export const UserFormButton = ({ children, isDisabled }: UserFormButtonProps) => {
+  const label = isDisabled ? <Spinner /> : children
+
   return (
-    <Button
-      w="100%"
-      bgColor="main"
-      color="secondaryLight"
-      _hover={{ bgColor: "mainLight" }}
-      _active={{ bgColor: "secondary" }}
-      type="submit"
-      disabled={isDisabled}
-    >
-      {!isDisabled && children}
-      {isDisabled && <Spinner />}
-    </Button>
+    <CustomButton isDisabled={isDisabled}>
+      {label}
+    </CustomButton>
   );
 };
