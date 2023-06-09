@@ -16,11 +16,8 @@ const customEditArea = (
   <Card h="60vh" overflow="scroll" bgColor="light" borderRadius="0" />
 );
 
-interface CustomEditorProps {
-  onClickHandler: (value: string) => void;
-}
 
-export const CustomEditor = ({ onClickHandler }: CustomEditorProps) => {
+export const CustomEditor = () => {
   const [value, setValue] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   const reactQuillRef: any = useRef(null);
@@ -50,18 +47,9 @@ export const CustomEditor = ({ onClickHandler }: CustomEditorProps) => {
     []
   );
 
-  const buttonClickHandler = useCallback(() => {
-    onClickHandler(value);
-  }, [value, onClickHandler]);
-
   return (
     <>
-      <Flex
-        w={{ base: "1000", md: "70%" }}
-        flexDir="column"
-        alignItems="center"
-        gap="1rem"
-      >
+     
         <Box w="100%">
           <ReactQuill
             value={value}
@@ -91,10 +79,7 @@ export const CustomEditor = ({ onClickHandler }: CustomEditorProps) => {
             {customEditArea}
           </ReactQuill>
         </Box>
-        <CustomButton onClickHandler={buttonClickHandler}>
-          Submit article
-        </CustomButton>
-      </Flex>
+        
 
       <InputModal
         title="Input image URL"
