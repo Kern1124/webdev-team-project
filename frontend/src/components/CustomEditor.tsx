@@ -16,6 +16,11 @@ import {
 } from "@chakra-ui/modal";
 import { ChangeEvent, useCallback, useRef, useState } from "react";
 import ReactQuill from "react-quill";
+import { Card } from "@chakra-ui/card";
+
+// react-quill is a bit broken, if this is put directly into the component children
+// the editor area keeps dissapearing
+const customEditArea = <Card h="60vh" overflow="scroll" bgColor="light" border="none"  />
 
 export const CustomEditor = () => {
   const [value, setValue] = useState("");
@@ -67,7 +72,9 @@ export const CustomEditor = () => {
           }}
           placeholder="Input article content..."
           ref={reactQuillRef}
-        />
+        >
+          {customEditArea}
+        </ReactQuill>
       </Box>
 
       <Modal isOpen={isOpen} onClose={onClose}>
