@@ -47,6 +47,7 @@ app.get('/article/:newspaperCopyId/:content', articleApi.getCopyArticles)
 app.get('/articles/approval', articleApi.getUnapprovedArticles) //MANAGER
 app.get('/newspaper/publish', newspaperApi.getUnpublishedCopies) //DIRECTOR
 app.post('/article/comment', commentApi.create)
+app.post('/article/create', auth('JOURNALIST'), articleApi.create)
 
 app.get('/category', articleApi.getCategories)
 app.post('/upload/:newspaperId', newspaperApi.updateImage)

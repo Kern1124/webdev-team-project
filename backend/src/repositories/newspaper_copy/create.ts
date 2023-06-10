@@ -3,7 +3,7 @@ import { db } from "../../utils/db.server";
 import { Newspaper_copy } from "@prisma/client";
 import { NewspaperCopyCreateData } from "../../types/newspaper_copy.types";
 
-export const create = async (data: NewspaperCopyCreateData): Promise<Result<Newspaper_copy>> => {
+const createCopy = async (data: NewspaperCopyCreateData): Promise<Result<Newspaper_copy>> => {
 
     try {
         //Create a new newspaper_copy and return it
@@ -16,3 +16,5 @@ export const create = async (data: NewspaperCopyCreateData): Promise<Result<News
         return Result.err(err as Error);
     }
 }
+
+export default createCopy

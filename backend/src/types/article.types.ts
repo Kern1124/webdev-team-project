@@ -1,7 +1,9 @@
 export type ArticleCreateData = {
+    heading: string
     contents: string,
-    newspaperCopyId: string,
     authorId: string,
+    categories: string[]
+    newspaperId: string
 }
 
 export type ArticleDeleteData = {

@@ -306,7 +306,7 @@ const getNewspaperCopies = async (req: Request, res: Response) => {
                         }
                     }
                 });
-                return res.status(200).json({ items: all, message: `Sex ${newspaperId}` });
+                return res.status(200).json({ items: all, message: `Copies for ${newspaperId}` });
             }
         }
         return res.status(200).json(all);
