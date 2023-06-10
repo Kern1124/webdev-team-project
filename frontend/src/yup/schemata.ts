@@ -20,3 +20,10 @@ export const UserSignupSchema = UserSchema.shape({
     .email("Incorrect email format")
     .required("Email is required"),
 });
+
+export const ArticleCreateSchema = yup.object().shape({
+  heading: yup.string().min(6, "Article heading has to be at least 6 characters long"),
+  content: yup.string().required("Content cannot be empty"),
+  categories: yup.array().of(yup.string().required()).min(1, "A category must be selected").required("A category must be selected"),
+  newspaper: yup.string().required("Newspaper must be selected")
+})

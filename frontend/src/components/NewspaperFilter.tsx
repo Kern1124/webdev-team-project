@@ -1,11 +1,11 @@
 import { Input } from '@chakra-ui/input';
 import { Flex } from '@chakra-ui/layout';
-import { Select } from '@chakra-ui/select';
 import { useQuery } from '@tanstack/react-query';
 import { ChangeEvent, useCallback, useMemo } from 'react';
 
 import { getAllPublishers } from '../api/requests';
 import { PublisherShortType } from '../types/publisher';
+import { CustomSelect } from './CustomSelect';
 
 interface NewspaperFilterProps {
   onInputChange: (input: string) => void;
@@ -57,15 +57,12 @@ export const NewspaperFilter = ({
       marginTop="1rem"
       gap="1rem"
     >
-      <Select
-        onChange={selectChangeHandler}
-        focusBorderColor="main"
+      <CustomSelect
         placeholder="Select a publisher"
-        variant="filled"
-        bgColor="light"
+        changeHandler={selectChangeHandler}
       >
         {publishers}
-      </Select>
+      </CustomSelect>
       <Input
         focusBorderColor="main"
         variant="filled"
