@@ -138,10 +138,22 @@ const create = async (req: Request, res: Response) => {
         res.status(500).json({ message: "Internal error.", error: e })
     }
 }
+
+const getAll = async (req: Request, res: Response) => {
+    try {
+        const articles = await db.article.findMany();
+        res.status(200).json({ items: articles, message: "Fetched " + articles.length + " articles." });
+    }
+    catch (e) {
+        res.status(500).json({ message: "Internal error.", error: e })
+    }
+}
+
 export const articleApi = {
     getCopyArticles,
     getUnapprovedArticles,
     getCategories,
     getGlobalArticlesByHeading,
     create,
+    getAll,
 }

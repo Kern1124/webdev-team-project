@@ -32,22 +32,25 @@ app.get('/auth', userApi.auth)
 app.post('/register', userApi.register)
 app.post('/login', userApi.login)
 app.post('/logout', userApi.logout)
+
 app.get('/newspaper', newspaperApi.getAllNewspaper)
 app.get('/newspaper/publisher=/:publisherId', newspaperApi.getNewspaperByPublisher)
 app.get('/newspaper/name=/:title', newspaperApi.getNewspaperByPublisher)
 app.get('/newspaper/:publisherId/:title', newspaperApi.getNewspaperByPublisher)
 app.get('/newspaper/:id', newspaperApi.getNewspaperCopies) // and unpublishedCopies and UnapprovedArticles
 app.get('/newspaper/:id/:from/:to', newspaperApi.getNewspapersByIdInverval)
+app.get('/newspaper/publish', newspaperApi.getUnpublishedCopies) //DIRECTOR
+
 app.get('/publisher', publisherApi.getAllPublishers)
+
+app.get('/article', articleApi.getAll)
+app.post('/article/comment', commentApi.create)
+app.post('/article/create', auth('JOURNALIST'), articleApi.create)
 app.get('/article/heading=/:heading', articleApi.getGlobalArticlesByHeading)
 app.get('/article/content=/:content', articleApi.getCopyArticles)
 app.get('/article/id=/:newspaperCopyId', articleApi.getCopyArticles)
 app.get('/article/:newspaperCopyId/:content', articleApi.getCopyArticles)
-
 app.get('/articles/approval', articleApi.getUnapprovedArticles) //MANAGER
-app.get('/newspaper/publish', newspaperApi.getUnpublishedCopies) //DIRECTOR
-app.post('/article/comment', commentApi.create)
-app.post('/article/create', auth('JOURNALIST'), articleApi.create)
 
 app.get('/category', articleApi.getCategories)
 app.post('/upload/:newspaperId', newspaperApi.updateImage)
