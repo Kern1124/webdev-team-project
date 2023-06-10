@@ -1,6 +1,5 @@
 import "react-quill/dist/quill.snow.css";
 
-import { Checkbox } from "@chakra-ui/checkbox";
 import { Flex } from "@chakra-ui/layout";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm, SubmitHandler } from "react-hook-form";
@@ -16,6 +15,7 @@ import { FormEditor } from "../components/FormEditor";
 import { useQuery } from "@tanstack/react-query";
 import { getCategories, getNewspapers } from "../api/requests";
 import { NewspaperShortType } from "../types/newspaper";
+import { CustomCheckbox } from "../components/CustomCheckbox";
 
 export const ArticleCreatePage = () => {
   const {
@@ -59,9 +59,9 @@ export const ArticleCreatePage = () => {
 
     return (
       categories.items?.map((category: CategoryType) => (
-        <Checkbox key={category.id} value={category.id}>
+        <CustomCheckbox key={category.id} value={category.id}>
           {category.name}
-        </Checkbox>
+        </CustomCheckbox>
       )) ?? []
     );
   }, [categories]);
