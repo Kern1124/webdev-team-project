@@ -1,5 +1,6 @@
-import { Box, Button, Flex, Collapse, useDisclosure } from "@chakra-ui/react";
-import { ArticleList } from "./ArticleList";
+import { Box, Flex, useDisclosure } from "@chakra-ui/react";
+import { ApprovalAction } from "./ApprovalAction";
+import { ArticleListCollapse } from "./ArticleListCollapse";
 import { useAuth } from "../hooks/useAuth";
 import { Article } from "../types/article";
 
@@ -15,8 +16,7 @@ export const CopyItem = ({ date, articles, published }: CopyItemProps) => {
   
   const userRole = auth.item.userRole;
   const formattedDate = new Date(date).toLocaleDateString("en-GB");
-  console.log(userRole)
-  console.log(published)
+
   return (
     <Box cursor="pointer" mb={4}>
       <Flex
@@ -24,31 +24,23 @@ export const CopyItem = ({ date, articles, published }: CopyItemProps) => {
         align="center"
         bg="secondary"
         color="main"
-        fontSize={25}
+        fontSize="1.5rem"
         fontWeight="bold"
         p={2}
         borderRadius="md"
         onClick={onToggle}
       >
         <Box>{formattedDate}</Box>
-        <Flex>
+        <Box>
           {published === false && userRole === "DIRECTOR" && (
-            <>
-              <Button mr={2} colorScheme="green" color="secondaryLight">
-                Approve copy
-              </Button>
-              <Button colorScheme="red" color="secondaryLight">
-                Refuse copy
-              </Button>
-            </>
+            <ApprovalAction
+              approve={{ name: "Approve", link: "/approve-link" }}
+              discard={{ name: "Discard", link: "/discard-link" }}
+            />
           )}
-        </Flex>
-      </Flex>
-      <Collapse in={isOpen}>
-        <Box bg="white" color="main" fontSize={20} p={2} borderRadius="md">
-          <ArticleList articles={articles} />
         </Box>
-      </Collapse>
+      </Flex>
+      <ArticleListCollapse isOpen={isOpen} articles={articles} />
     </Box>
   );
 };

@@ -13,7 +13,6 @@ export const NewspaperCard = ({ title, publisher, id }: NewspaperCardProps) => {
   const navigate = useNavigate();
   const onClickHandle = useCallback(
     () => {
-      console.log(`Navigating to /newspaper/${id}`);
       navigate(`/newspaper/${id}`);
     },
     [id, navigate]

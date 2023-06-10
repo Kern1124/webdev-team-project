@@ -1,6 +1,8 @@
-import { Box } from "@chakra-ui/react";
+import { Box, Spinner } from "@chakra-ui/react";
+import { useMemo } from "react";
 import { CopyItem } from "./CopyItem";
 import { Copy } from "../types/copy";
+import { CenteredBanner } from "./CenteredBanner";
 
 interface CopyListProps {
   copies: Copy[];
@@ -8,19 +10,33 @@ interface CopyListProps {
 }
 
 export const CopyList = ({ copies, isLoading }: CopyListProps) => {
+  const renderedCopies = useMemo(() => {
+    if (copies == null) {
+      return [];
+    }
+
+    return copies?.map((copy) => {
+      return (
+        (
+          <CopyItem key={copy.id} date={copy.date} articles={copy.articles} published={copy.published} />
+        ) ?? []
+      );
+    });
+  }, [copies]);
+
   if (isLoading) {
-    return <Box>Loading...</Box>;
+    return <CenteredBanner><Spinner /></CenteredBanner>;
   }
 
-  if (copies == null || copies.length === 0) {
+  if (renderedCopies.length <= 0) {
     return <Box>No copies found</Box>;
   }
 
+
   return (
     <Box>
-      {copies.map((copy) => (
-        <CopyItem date={copy.date} articles={copy.articles} published={copy.published} />
-      ))}
+      {renderedCopies}
     </Box>
   );
 };
+

@@ -4,5 +4,5 @@ export type Copy = {
     articles: Article[]
     date: string
     id: string
-    published: boolean
+    published?: boolean
 }

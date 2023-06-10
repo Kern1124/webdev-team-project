@@ -8,25 +8,26 @@ import { useParams } from 'react-router-dom';
 
 export const CopiesPage = () => {
   const { id: newspaperId } = useParams();
-  const [dateRange, setDateRange] = useState<{ startDate: Date | null; endDate: Date | null }>({
-    startDate: null,
-    endDate: null,
-  });
-  const debouncedDateRange = useDebounce(dateRange, 300);
+  const [startDate, setStartDate] = useState<Date | null>(null);
+  const [endDate, setEndDate] = useState<Date | null>(null);
+  const debouncedStartDate = useDebounce(startDate, 300);
+  const debouncedEndDate = useDebounce(endDate, 300);
 
-  const handleDateRangeChange = (startDate: Date | null, endDate: Date | null) => {
-    setDateRange({ startDate, endDate });
+  const handleDateChange = (startDate: Date | null, endDate: Date | null) => {
+    setStartDate(startDate);
+    setEndDate(endDate);
   };
 
-const { data, isLoading } = useQuery({
-    queryKey: ["copies", newspaperId, debouncedDateRange.startDate, debouncedDateRange.endDate],
+  const { data, isLoading } = useQuery({
+    queryKey: ["copies", newspaperId, debouncedStartDate, debouncedEndDate],
     queryFn: () => getNewspaper(newspaperId ?? ""),
     staleTime: 1000 * 60 * 2,
     refetchOnWindowFocus: false,
   });
+
   return (
     <>
-      <CopiesFilter onDateRangeChange={handleDateRangeChange} />
+      <CopiesFilter onDateRangeChange={handleDateChange} />
       <CopyList copies={data?.newspaperCopies} isLoading={isLoading} />
     </>
   );

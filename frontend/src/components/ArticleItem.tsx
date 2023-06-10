@@ -1,37 +1,28 @@
-import { Article } from '../types/article';
-import { Link, Box, Tag, Button } from '@chakra-ui/react';
+import { Box } from '@chakra-ui/react';
 import { useAuth } from "../hooks/useAuth";
+import { ArticleHeading } from "./ArticleHeading";
+import { ArticleCategories } from "./ArticleCategories";
+import { ApprovalAction } from "./ApprovalAction";
+import { Article } from "../types/article";
 
 type ArticleItemProps = {
   article: Article;
 }
 
-export const ArticleItem = ({ article } : ArticleItemProps) => {
-    const { auth } = useAuth();
-    const userRole = auth.item.userRole;
-  
-    return (
-      <Box mb={5}>
-        <Box as="a" href="/somewhere" display="inline-block" borderRadius="md" p={2} _hover={{ backgroundColor: "purple" }}>
-          {article.heading}
-        </Box>
-        <Box mt={2}>
-          {article.categories.map((category, index) => (
-            <Tag key={index} borderRadius="full" variant="outline" colorScheme="teal" ml={2}>
-              {category.name}
-            </Tag>
-          ))}
-        </Box>
-        {userRole === 'MANAGER' && !article.approved && (
-          <Box mt={2}>
-            <Button colorScheme="green" variant="outline" size="sm" mr={2}>Approve</Button>
-            <Button colorScheme="red" variant="outline" size="sm">Discard</Button>
-          </Box>
-        )}
-      </Box>
-    );
-}
-  
-export default ArticleItem;
-  
+export const ArticleItem = ({ article }: ArticleItemProps) => {
+  const { auth } = useAuth();
+  const userRole = auth.item.userRole;
 
+  return (
+    <Box mb={5}>
+      <ArticleHeading heading={article.heading} />
+      <ArticleCategories categories={article.categories.map(category => category.name)} />
+      {userRole === 'MANAGER' && !article.approved &&
+        <ApprovalAction
+          approve={{name: "Approve", link: "/approve-link"}}
+          discard={{name: "Discard", link: "/discard-link"}}
+        />
+      }
+    </Box>
+  );
+};
