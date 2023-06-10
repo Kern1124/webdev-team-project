@@ -9,7 +9,7 @@ export type Article = {
 
 export interface ArticleFormType {
     heading: string,
-    content: string,
+    contents: string,
     categories: string[]
     newspaper: string
 }

@@ -5,7 +5,7 @@ import { ErrorText } from "./ErrorText";
 
 // TODO: change to generic
 interface FormEditorProps {
-  name: "content";
+  name: "contents";
   control: Control<ArticleFormType>;
   placeholder: string;
   errorMessage?: string;

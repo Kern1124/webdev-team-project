@@ -105,10 +105,10 @@ export const ArticleCreatePage = () => {
           />
 
           <FormEditor
-            name="content"
+            name="contents"
             control={control}
             placeholder="Input article content..."
-            errorMessage={errors.content?.message}
+            errorMessage={errors.contents?.message}
           />
           <CustomButton>Submit article</CustomButton>
         </Flex>
