@@ -25,7 +25,7 @@ const create = async (req: Request, res: Response) => {
             res.status(400).json({ message: comment.error })
             return;
         }
-        res.status(200).json({ item: comment, message: `Comment was created by ${req.session.user?.username} successfully.` });
+        res.status(200).json({ item: comment.value, message: `Comment was created by ${req.session.user?.username} successfully.` });
         return;
     } catch (error) {
         if (error instanceof ValidationError) {
