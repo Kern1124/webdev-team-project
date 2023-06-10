@@ -69,6 +69,7 @@ const seed = async () => {
         for (const newspaperCopyData of newspaperData.newspaperCopies) {
           const newspaperCopy = await prisma.newspaper_copy.create({
             data: {
+              published: newspaperCopyData.published,
               newspaper: {
                 connect: {
                   id: newspaper.id,
@@ -92,6 +93,7 @@ const seed = async () => {
             const article = await prisma.article.create({
               data: {
                 heading: articleData.heading,
+                approved: articleData.approved,
                 contents: articleData.contents,
                 newspaper_copy: {
                   connect: {

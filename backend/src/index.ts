@@ -39,6 +39,7 @@ app.get('/newspaper/:publisherId/:title', newspaperApi.getNewspaperByPublisher)
 app.get('/newspaper/:id', newspaperApi.getNewspaperCopies) // and unpublishedCopies and UnapprovedArticles
 app.get('/newspaper/:id/:from/:to', newspaperApi.getNewspapersByIdInverval)
 app.get('/publisher', publisherApi.getAllPublishers)
+app.get('/article/heading=/:heading', articleApi.getGlobalArticlesByHeading)
 app.get('/article/content=/:content', articleApi.getCopyArticles)
 app.get('/article/id=/:newspaperCopyId', articleApi.getCopyArticles)
 app.get('/article/:newspaperCopyId/:content', articleApi.getCopyArticles)

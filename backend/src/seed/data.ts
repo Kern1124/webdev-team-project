@@ -22,6 +22,7 @@ export const data = async () => {
             newspaperImg: 'placeholder',
             newspaperCopies: [
               {
+                published: true,
                 articles: [
                   {
                     heading: 'Exploring the Wonders of the Grand Canyon',
@@ -31,6 +32,7 @@ export const data = async () => {
                       { content: 'Great article!', author: { username: 'Slavo' } },
                       { content: 'I\'ve always wanted to visit the Grand Canyon.', author: { username: 'Tylich' } },
                     ],
+                    approved: true,
                   },
                   {
                     heading: 'The Impact of Climate Change on Coastal Cities',
@@ -40,10 +42,12 @@ export const data = async () => {
                       { content: 'This is an important topic to discuss.', author: { username: 'Tylich' } },
                       { content: 'We need to take immediate action to mitigate climate change.', author: { username: 'Slavo' } },
                     ],
+                    approved: true,
                   },
                 ],
               },
               {
+                published: true,
                 articles: [
                   {
                     heading: 'The smog',
@@ -53,6 +57,7 @@ export const data = async () => {
                       { content: 'This is We need to take immediate action to mitigate climate change.an important topic to discuss.', author: { username: 'Slavo' } },
                       { content: 'We need to take immediate action to mitigate climate change.', author: { username: 'Jarmil' } },
                     ],
+                    approved: false,
                   },
                 ],
               },
@@ -63,6 +68,7 @@ export const data = async () => {
             newspaperImg: 'placeholder',
             newspaperCopies: [
               {
+                published: true,
                 articles: [
                   {
                     heading: 'Exploring the Wonders of your mom',
@@ -72,6 +78,7 @@ export const data = async () => {
                       { content: 'Great article!', author: { username: 'Slavo' } },
                       { content: 'I\'ve always wanted to visit the Grand Canyon.', author: { username: 'Tylich' } },
                     ],
+                    approved: true,
                   },
                   {
                     heading: 'The Impact of Climate Change on your mom',
@@ -81,10 +88,12 @@ export const data = async () => {
                       { content: 'This is an important topic to discuss.', author: { username: 'Tylich' } },
                       { content: 'We need to take immediate action to mitigate climate change.', author: { username: 'Slavo' } },
                     ],
+                    approved: false,
                   },
                 ],
               },
               {
+                published: false,
                 articles: [
                   {
                     heading: 'The Impact of your mom on Coastal Cities',
@@ -94,6 +103,7 @@ export const data = async () => {
                       { content: 'This is We need to take immediate action to mitigate climate change.an important topic to discuss.', author: { username: 'Slavo' } },
                       { content: 'We need to take immediate action to mitigate climate change.', author: { username: 'Jarmil' } },
                     ],
+                    approved: false,
                   },
                 ],
               },
@@ -129,6 +139,7 @@ export const data = async () => {
             newspaperImg: 'placeholder',
             newspaperCopies: [
               {
+                published: false,
                 articles: [
                   {
                     heading: 'Wouch',
@@ -138,6 +149,7 @@ export const data = async () => {
                       { content: 'Comment 1 for Article 1', author: { username: 'Tylich' } },
                       { content: 'Comment 2 for Article 1', author: { username: 'Slavo' } },
                     ],
+                    approved: true,
                   },
                   {
                     heading: 'Wouch2',
@@ -147,10 +159,12 @@ export const data = async () => {
                       { content: 'Comment 1 for Article 2', author: { username: 'Tylich' } },
                       { content: 'Comment 2 for Article 2', author: { username: 'Jarmil' } },
                     ],
+                    approved: true,
                   },
                 ],
               },
               {
+                published: false,
                 articles: [
                   {
                     heading: 'Wouch3',
@@ -160,6 +174,7 @@ export const data = async () => {
                       { content: 'Comment 1 for Article 1', author: { username: 'Slavo' } },
                       { content: 'Comment 2 for Article 1', author: { username: 'Jarmil' } },
                     ],
+                    approved: true,
                   },
                 ],
               },
@@ -183,6 +198,7 @@ export const data = async () => {
             newspaperImg: 'placeholder',
             newspaperCopies: [
               {
+                published: true,
                 articles: [
                   {
                     heading: 'Wouch4',
@@ -192,6 +208,7 @@ export const data = async () => {
                       { content: 'Comment 1 for Article 1', author: { username: 'Tylich' } },
                       { content: 'Comment 2 for Article 1', author: { username: 'Slavo' } },
                     ],
+                    approved: false,
                   },
                   {
                     heading: 'Wouch5',
@@ -201,10 +218,12 @@ export const data = async () => {
                       { content: 'Comment 1 for Article 2', author: { username: 'Tylich' } },
                       { content: 'Comment 2 for Article 2', author: { username: 'Jarmil' } },
                     ],
+                    approved: false,
                   },
                 ],
               },
               {
+                published: true,
                 articles: [
                   {
                     heading: 'Wouch6',
@@ -214,6 +233,7 @@ export const data = async () => {
                       { content: 'Comment 2 for Article 1', author: { username: 'Jarmil' } },
                       { content: 'Comment 1 for Article 1', author: { username: 'Slavo' } },
                     ],
+                    approved: false,
                   },
                 ],
               },
@@ -243,6 +263,7 @@ export const data = async () => {
             newspaperImg: 'placeholder',
             newspaperCopies: [
               {
+                published: false,
                 articles: [
                   {
                     heading: 'Wouch7',
@@ -252,6 +273,7 @@ export const data = async () => {
                       { content: 'Comment 1 for Article 1', author: { username: 'Tylich' } },
                       { content: 'Comment 2 for Article 1', author: { username: 'Slavo' } },
                     ],
+                    approved: true,
                   },
                   {
                     heading: 'Wouch8',
@@ -261,10 +283,12 @@ export const data = async () => {
                       { content: 'Comment 1 for Article 2', author: { username: 'Tylich' } },
                       { content: 'Comment 2 for Article 2', author: { username: 'Jarmil' } },
                     ],
+                    approved: true,
                   },
                 ],
               },
               {
+                published: true,
                 articles: [
                   {
                     heading: 'Wouch9',
@@ -274,6 +298,7 @@ export const data = async () => {
                       { content: 'Comment 1 for Article 1', author: { username: 'Slavo' } },
                       { content: 'Comment 2 for Article 1', author: { username: 'Jarmil' } },
                     ],
+                    approved: false,
                   },
                 ],
               },
@@ -291,6 +316,7 @@ export const data = async () => {
             newspaperImg: 'placeholder',
             newspaperCopies: [
               {
+                published: true,
                 articles: [
                   {
                     heading: 'Wouch10',
@@ -300,6 +326,7 @@ export const data = async () => {
                       { content: 'Comment 1 for Article 1', author: { username: 'Tylich' } },
                       { content: 'Comment 2 for Article 1', author: { username: 'Slavo' } },
                     ],
+                    approved: false,
                   },
                   {
                     heading: 'Wouch11',
@@ -309,10 +336,12 @@ export const data = async () => {
                       { content: 'Comment 1 for Article 2', author: { username: 'Tylich' } },
                       { content: 'Comment 2 for Article 2', author: { username: 'Jarmil' } },
                     ],
+                    approved: true,
                   },
                 ],
               },
               {
+                published: true,
                 articles: [
                   {
                     heading: 'Wouch12',
@@ -321,8 +350,8 @@ export const data = async () => {
                     comments: [
                       { content: 'Comment 2 for Article 1', author: { username: 'Jarmil' } },
                       { content: 'Comment 1 for Article 1', author: { username: 'Slavo' } },
-
                     ],
+                    approved: true,
                   },
                 ],
               },
@@ -333,7 +362,6 @@ export const data = async () => {
 
         ],
       },
-
       {
         name: 'Sunrise News Network',
         newspapers: [

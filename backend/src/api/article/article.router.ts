@@ -62,22 +62,61 @@ const getUnapprovedArticles = async (req: Request, res: Response) => {
     }
 }
 
-const getCategories =  async (req: Request, res: Response) => {
+const getCategories = async (req: Request, res: Response) => {
     try {
         const categories = await db.category.findMany({
             select: {
                 id: true,
                 name: true,
             }
-});
+        });
         res.status(200).json({ items: categories, message: "Fetched " + categories.length + " categories." });
     }
     catch (e) {
         res.status(500).json({ message: "Internal error.", error: e })
-    } 
+    }
 }
+
+const getGlobalArticlesByHeading = async (req: Request, res: Response) => {
+    try {
+        const heading = req.params.heading;
+        const newspapers = await db.newspaper.findMany({
+            include: {
+                newspaperCopies: {
+                    include: {
+                        articles: {
+                            where: {
+                                heading: {
+                                    contains: heading
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            where: {
+                newspaperCopies: {
+                  some: {
+                    articles: {
+                      some: {
+                        heading: {
+                          contains: heading
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+        });
+        res.status(200).json({ items: newspapers, message: "Fetched " + newspapers.length + " newspapers." });
+    } catch (e) {
+        res.status(500).json({ message: "Internal error.", error: e })
+    }
+}
+
 export const articleApi = {
     getCopyArticles,
     getUnapprovedArticles,
     getCategories,
+    getGlobalArticlesByHeading,
 }

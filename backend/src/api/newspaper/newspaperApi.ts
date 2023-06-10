@@ -251,6 +251,11 @@ const getNewspaperCopies = async (req: Request, res: Response) => {
                             where: {
                                 approved: true
                             },
+                            select: {
+                                id: true,
+                                heading: true,
+                                categories: true,
+                            }
                         }
                     }
                 }
@@ -266,7 +271,14 @@ const getNewspaperCopies = async (req: Request, res: Response) => {
                     include: {
                         newspaperCopies: {
                             include: {
-                                articles: true,
+                                articles: {
+                                    select: {
+                                        id: true,
+                                        heading: true,
+                                        categories: true,
+                                        approved: true,
+                                    }
+                                },
                             }
                         }
                     }
@@ -284,6 +296,11 @@ const getNewspaperCopies = async (req: Request, res: Response) => {
                                     where: {
                                         approved: true
                                     },
+                                    select: {
+                                        id: true,
+                                        heading: true,
+                                        categories: true,
+                                    }
                                 }
                             }
                         }
