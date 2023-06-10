@@ -21,7 +21,6 @@ export const FormCheckboxGroup = ({
 }: FormCheckboxGroupProps) => {
   return (
     <>
-      {" "}
       <Controller
         name={name}
         control={control}

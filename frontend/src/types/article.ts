@@ -5,3 +5,8 @@ export interface ArticleFormType {
     categories: string[]
     newspaper: string
 }
+
+export type CategoryType = {
+    id: string;
+    name: string;
+}

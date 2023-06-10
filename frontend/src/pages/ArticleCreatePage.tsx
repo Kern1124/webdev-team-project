@@ -5,14 +5,17 @@ import { Flex } from "@chakra-ui/layout";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm, SubmitHandler } from "react-hook-form";
 
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
 import { CustomButton } from "../components/CustomButton";
-import { ArticleFormType } from "../types/article";
+import { ArticleFormType, CategoryType } from "../types/article";
 import { ArticleCreateSchema } from "../yup/schemata";
 import { FormInput } from "../components/FormInput";
 import { FormSelect } from "../components/FormSelect";
 import { FormCheckboxGroup } from "../components/FormCheckboxGroup";
 import { FormEditor } from "../components/FormEditor";
+import { useQuery } from "@tanstack/react-query";
+import { getCategories, getNewspapers } from "../api/requests";
+import { NewspaperShortType } from "../types/newspaper";
 
 export const ArticleCreatePage = () => {
   const {
@@ -21,11 +24,51 @@ export const ArticleCreatePage = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<ArticleFormType>({ resolver: yupResolver(ArticleCreateSchema) });
+  const { data: newspapers } = useQuery({
+    queryKey: ["newspaper"],
+    queryFn: () => getNewspapers("", ""),
+    staleTime: 1000 * 60 * 2,
+    refetchOnWindowFocus: false,
+  });
+
+  const { data: categories } = useQuery({
+    queryKey: ["category"],
+    queryFn: () => getCategories(),
+    staleTime: 1000 * 60 * 2,
+    refetchOnWindowFocus: false,
+  });
+
+  const newspaperItems = useMemo(() => {
+    if (newspapers?.item == null) {
+      return [];
+    }
+
+    return (
+      newspapers.item?.map((newspaper: NewspaperShortType) => (
+        <option key={newspaper.id} value={newspaper.id}>
+          {newspaper.name}
+        </option>
+      )) ?? []
+    );
+  }, [newspapers]);
+
+  const categoryItems = useMemo(() => {
+    if (categories?.items == null) {
+      return [];
+    }
+
+    return (
+      categories.items?.map((category: CategoryType) => (
+        <Checkbox key={category.id} value={category.id}>
+          {category.name}
+        </Checkbox>
+      )) ?? []
+    );
+  }, [categories]);
 
   const onSubmit: SubmitHandler<ArticleFormType> = useCallback(async (data) => {
     console.log(data);
   }, []);
-
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -37,13 +80,15 @@ export const ArticleCreatePage = () => {
             placeholder="Select a newspaper"
             errorMessage={errors.newspaper?.message}
           >
-            {[<option>pero</option>]}
+            {newspaperItems}
           </FormSelect>
 
-          <FormCheckboxGroup name="categories" control={control} errorMessage={errors.categories?.message}>
-            <Checkbox value="naruto">Naruto</Checkbox>
-            <Checkbox value="sasuke">Sasuke</Checkbox>
-            <Checkbox value="kakashi">Kakashi</Checkbox>
+          <FormCheckboxGroup
+            name="categories"
+            control={control}
+            errorMessage={errors.categories?.message}
+          >
+            {categoryItems}
           </FormCheckboxGroup>
         </Flex>
         <Flex
