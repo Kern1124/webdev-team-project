@@ -50,6 +50,11 @@ export const getNewspapers = async (publisherId: string, title: string) => {
     return response.data
 }
 
+export const getNewspaper = async (newspaperId: string) => {
+    const response = await serverApi.get(`/newspaper/${newspaperId}`);
+    return response.data;
+}
+
 export const getCategories = async () => {
     const response = await serverApi.get("/category", {})
     return response.data

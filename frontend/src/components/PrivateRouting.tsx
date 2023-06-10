@@ -3,7 +3,6 @@ import { useAuth } from "../hooks/useAuth"
 import { LogoutPage } from "../pages/LogoutPage";
 import { ArticleCreatePage } from "../pages/ArticleCreatePage";
 
-
 export const PrivateRouting = () => {
     const { auth, isLoading, isError } = useAuth();
 

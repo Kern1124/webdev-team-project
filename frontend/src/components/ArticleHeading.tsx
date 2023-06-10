@@ -1,0 +1,21 @@
+import { Box } from "@chakra-ui/react";
+import { useNavigate } from "react-router";
+import { useCallback } from "react";
+
+type ArticleHeadingProps = {
+  heading: string;
+}
+
+export const ArticleHeading = ({ heading }: ArticleHeadingProps) => {
+  const navigate = useNavigate();
+  
+  const handleClick = useCallback(() => {
+    navigate("/somewhere");
+  }, [navigate]);
+
+  return (
+    <Box onClick={handleClick} display="inline-block" borderRadius="md" p={2} _hover={{ backgroundColor: "purple" }}>
+      {heading}
+    </Box>
+  );
+};
