@@ -6,14 +6,17 @@ import { useCallback } from "react";
 interface NewspaperCardProps {
   title: string;
   publisher: string
-  onClickUrl: string;
+  id: string;
 }
 
-export const NewspaperCard = ({ title, publisher, onClickUrl }: NewspaperCardProps) => {
+export const NewspaperCard = ({ title, publisher, id }: NewspaperCardProps) => {
   const navigate = useNavigate();
   const onClickHandle = useCallback(
-    () => navigate(onClickUrl),
-    [onClickUrl, navigate]
+    () => {
+      console.log(`Navigating to /newspaper/${id}`);
+      navigate(`/newspaper/${id}`);
+    },
+    [id, navigate]
   );
 
   return (
@@ -25,6 +28,10 @@ export const NewspaperCard = ({ title, publisher, onClickUrl }: NewspaperCardPro
         w="100%"
         borderRadius={0}
         onClick={onClickHandle}
+        _hover={{
+          transform: "scale(1.1)",
+          cursor: "pointer",
+        }}
       ></Card>
       <Text>{title}</Text>
       <Text color="mainLight" fontSize="sm">{publisher}</Text>

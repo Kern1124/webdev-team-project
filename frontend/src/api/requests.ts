@@ -49,3 +49,8 @@ export const getNewspapers = async (publisherId: string, title: string) => {
     const response = await serverApi.get(url, {})
     return response.data
 }
+
+export const getNewspaper = async (newspaperId: string) => {
+    const response = await serverApi.get(`/newspaper/${newspaperId}`);
+    return response.data;
+};

@@ -4,6 +4,7 @@ import { SignupPage } from "../pages/SignupPage";
 import { LoginPage } from "../pages/LoginPage";
 import { PrivateRouting } from "./PrivateRouting";
 import { NewspaperPage } from "../pages/NewspaperPage";
+import { CopiesPage } from "../pages/CopiesPage";
 
 export const RoutingContent = () => {
   return (
@@ -11,7 +12,7 @@ export const RoutingContent = () => {
       <Routes>
         <Route index path="/" />
         <Route path="/newspapers" element={<NewspaperPage />} />
-        <Route path="/newspapers/:id"/>
+        <Route path="/newspaper/:id" element={<CopiesPage />} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/articles" />

@@ -2,7 +2,6 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth"
 import { LogoutPage } from "../pages/LogoutPage";
 
-
 export const PrivateRouting = () => {
     const { auth, isLoading, isError } = useAuth();
 
