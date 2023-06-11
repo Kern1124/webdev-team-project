@@ -6,6 +6,7 @@ import { CustomButton } from "./CustomButton";
 import { AxiosError } from "axios";
 import { ErrorResponseType } from "../types/response";
 import { useToast } from '@chakra-ui/react'
+import { useErrorToast } from "../hooks/useErrorToast";
 
 interface CommentSubmitProps {
   buttonLabel: string;
@@ -18,7 +19,7 @@ export const CommentSubmit = ({
 }: CommentSubmitProps) => {
   const { submit, isLoading } = useAddComment();
   const [content, setContent] = useState<string>();
-  const toast = useToast();
+  const toast = useErrorToast();
 
   const changeHandler = useCallback((e: ChangeEvent<HTMLTextAreaElement>) => {
     setContent(e.target.value);
@@ -30,15 +31,9 @@ export const CommentSubmit = ({
       setContent("");
     } catch (e) {
       const data = (e as AxiosError)?.response?.data as ErrorResponseType;
-      toast({
-        title: "Error",
-        description: data?.message,
-        status: "error",
-        duration: 9000,
-        isClosable: true
-      })
+      toast(data?.message)
     }
-  }, [articleId, content, submit]);
+  }, [articleId, content, submit, toast]);
 
   return (
     <Flex flexDir="column" gap="0.5rem">
