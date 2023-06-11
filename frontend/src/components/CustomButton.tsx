@@ -7,19 +7,21 @@ interface CustomButtonProps {
   isDisabled?: boolean;
   children: ReactElement<BoxProps> | ReactElement<BoxProps>[] | string;
   onClickHandler?: () => void;
+  width?: string
 }
 
 export const CustomButton = ({
   isDisabled,
   children,
   onClickHandler,
+  width
 }: CustomButtonProps) => {
 
   const label = isDisabled != null && isDisabled ? <Spinner /> : children;
 
   return (
     <Button
-      w="100%"
+      w={width ?? "100%"}
       bgColor="main"
       color="secondaryLight"
       _hover={{ bgColor: "mainLight" }}
