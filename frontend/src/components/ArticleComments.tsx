@@ -16,12 +16,16 @@ const SAMPLE_COMMENTS = [
   { id: "4", content: "Test4", author: "TestUser4", createdAt: "12.5.2022" },
 ];
 
-export const ArticleComments = () => {
+interface ArticleCommentsProps {
+  articleId: string;
+}
+
+export const ArticleComments = ({ articleId }: ArticleCommentsProps) => {
   return (
     <ArticleCommentsWrapper>
       <SubpageHeading heading="Comments" />
       <CommentList comments={SAMPLE_COMMENTS} />
-      <CommentSubmit buttonLabel="Submit comment" />
+      <CommentSubmit articleId={articleId} buttonLabel="Submit comment" />
     </ArticleCommentsWrapper>
   );
 };

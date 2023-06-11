@@ -5,3 +5,8 @@ export type CommentType = {
     author: string,
     createdAt: string,
 }
+
+export type CommentSubmitType = {
+    articleId: string,
+    content: string
+}
