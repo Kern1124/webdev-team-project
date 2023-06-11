@@ -82,7 +82,7 @@ const login = async (req: Request, res: Response) => {
             res.status(400).json({ message: error.message });
             return;
         }
-        res.status(500).json({ message: 'Something went wrong' });
+        res.status(500).json({ message: 'Something went wrong' + error });
     }
 };
 

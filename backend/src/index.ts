@@ -46,10 +46,13 @@ app.get('/publisher', publisherApi.getAllPublishers)
 app.get('/article', articleApi.getAll)
 app.post('/article/comment', commentApi.create)
 app.post('/article/create', auth('JOURNALIST'), articleApi.create)
+app.get('/article/:articleId', articleApi.getArticleWithId)
 app.get('/article/heading=/:heading', articleApi.getGlobalArticlesByHeading)
 app.get('/article/content=/:content', articleApi.getCopyArticles)
 app.get('/article/id=/:newspaperCopyId', articleApi.getCopyArticles)
+app.get('/article/related/:articleId', articleApi.getRelatedArticles)
 app.get('/article/:newspaperCopyId/:content', articleApi.getCopyArticles)
+
 app.get('/articles/approval', articleApi.getUnapprovedArticles) //MANAGER
 
 app.get('/category', articleApi.getCategories)

@@ -81,6 +81,16 @@ export const data = async () => {
                     approved: true,
                   },
                   {
+                    heading: 'Trump\'s path to indictment: \"Isn\'t it better if there are no documents?\"',
+                    contents: '<p><img src="https://www.washingtonpost.com/wp-apps/imrs.php?src=https://arc-anglerfish-washpost-prod-washpost.s3.amazonaws.com/public/KIBJOCUJ6EI6ZAJHUNH3JGYOCI.jpg&amp;w=1440&amp;impolicy=high_res"></p><p><br></p><p>Now, 2 ½ years after Trump’s frenzied departure from the White House, the Justice Department on Friday revealed the first-ever federal indictment of a president of the United States, a 49-page chronicle of allegations that portray the 45th president as the architect of a knowing, underhanded scheme to hide classified documents from the government he had run and to persuade his own attorneys to mislead federal officials.</p><p><br></p><p>Even for a self-proclaimed rogue, who rose to the nation’s highest office by boasting that only he, as a rich and powerful man, could break rules and bust norms that he said were holding the country from reaching its full potential, the trouble Trump now faces is virgin terrain: A former president, now his party’s leading candidate to return to the White House, has been indicted by his successor’s Justice Department and faces trial, at risk of a years-long prison sentence, during the heart of his third campaign for the nation’s highest office.</p><p>Trump has angrily denied wrongdoing and attacked Jack Smith, the special counsel who led the investigation against him, as a “deranged ‘psycho.’” Through half a century in business, Trump always had an unusual relationship with documents. On one hand, he coveted printed evidence of his fame and fortune, hoarding towering stacks of magazines featuring himself on the cover on a table just down the hall from his Trump Tower office in midtown Manhattan.</p><p><br></p><p>On the other, he often hesitated to allow his private actions to be documented in print, directing top aides to make no paper record of certain decisions, three longtime former Trump Organization executives said. For all his years in business and politics, the executives said, Trump maintained a practice of tearing up documents he did not want others to see, ripping them in halves and then in half once more before discarding them in a pail, on the floor or even in the toilet.</p><p>“Donald was always fearless,” Barbara Res, an engineer and attorney who was a top executive at the Trump Organization for two decades,&nbsp;<a href="https://www.washingtonpost.com/national-security/2023/03/30/trump-investigations-history/?itid=lk_inline_manual_15" rel="noopener noreferrer" target="_blank" style="color: rgb(42, 42, 42);">told The Washington Post</a>&nbsp;earlier this year. “He absolutely believed he was above the law. He loved cutting corners.”</p><h3><br></h3><h3>The parade of boxes</h3><p>The road from the last days of the Trump presidency to this first weekend as the nation’s most prominent and powerful criminal defendant began in those chaotic days of the transition between Trump’s frenetic drive to overturn the result of the 2020 election and&nbsp;<a href="https://www.washingtonpost.com/elections/candidates/joe-biden-2024/?itid=lk_inline_manual_18" rel="noopener noreferrer" target="_blank" style="color: rgb(42, 42, 42);">Joe Biden</a>’s inauguration.</p>',
+                    categories: [{ name: 'Politics' }],
+                    comments: [
+                      { content: 'Great article!', author: { username: 'Slavo' } },
+                      { content: 'I\'ve always wanted to visit the Grand Canyon.', author: { username: 'Tylich' } },
+                    ],
+                    approved: true,
+                  },
+                  {
                     heading: 'The Impact of Climate Change on your mom',
                     contents: 'The Impact of Climate Change on Coastal Cities',
                     categories: [{ name: 'Environment' }],
@@ -398,6 +408,7 @@ export const cats = [
     name: 'Politics',
     articles: [
       { id: 'a09fcc8d-df98-4b43-bff4-b3430f80c2cf', },
+      { id: 'a09fcc8d-df98-4b43-bff4-b3430f80c2cd', },
       { id: 'd0892329-f5e8-4242-a129-0cf498de5c00', },
       { id: '8d76f0ea-0845-4bdf-b03c-8846ae9ae096', },
       { id: 'e296c74e-4f46-4fa1-98bb-2b0328cf75bc', },

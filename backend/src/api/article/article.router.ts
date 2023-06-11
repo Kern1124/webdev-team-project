@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { ValidationError } from "yup";
 import auth from '../../middleware/authMiddleware';
 import { ArticleCreateSchema, CopyArticlesSchema } from "../../models/article";
-import { ArticleCreateData, CopyArticlesData } from "../../types/article.types";
+import { ArticleCreateData, ArticleWithAuthor, ArticleWithCategories, CopyArticlesData } from "../../types/article.types";
 import createArticle from "../../repositories/article/create"
 import { db } from "../../utils/db.server";
 import { Article } from "@prisma/client";
@@ -115,6 +115,85 @@ const getGlobalArticlesByHeading = async (req: Request, res: Response) => {
     }
 }
 
+const getArticleWithId = async (req: Request, res: Response) => {
+    try {
+        const article: ArticleWithAuthor | null = await db.article.findFirst({
+            where: {
+                id: req.params.articleId,
+            },
+            select: {
+                author: {
+                    select: {
+                        username: true
+                    }
+                },
+                contents: true,
+                heading: true
+            }
+        })
+
+        if (!article){
+            res.status(400).json({message: "Article with id " + req.params.articleId + " doesn't exist"})
+            return
+        }
+
+        res.status(200).json({item: article, message: "Article fetched."})
+    } catch (e) {
+        res.status(500).json({message: "Something went wrong.", error: e})
+    }
+}
+
+const getRelatedArticles = async (req: Request, res: Response) => {
+    try{
+        return await db.$transaction(async (transaction) => {
+            const article: ArticleWithCategories | null = await transaction.article.findFirst({
+                where: {
+                    id: req.params.articleId
+                },
+                include: {
+                    categories: {
+                        select: {
+                            name: true
+                        }
+                    }
+                }
+            })
+            if (!article){
+                res.status(404).json({message: "Article with the specified id doesn't exist"})
+                return
+            }
+
+            const categories: string[] = article.categories.map((category) => (category.name))
+            console.log(categories);
+            console.log(categories);
+
+            const related = await transaction.article.findMany({
+                where: {
+                    heading: {
+                        not: article.heading
+                    },
+                    categories: {
+                        some: {
+                            name: {
+                                in: categories
+                            }
+                        }
+                    }
+                }, 
+                select: {
+                    categories: true,
+                    heading: true,
+                    id: true,
+                    approved: true
+                }
+            })
+            res.status(200).json({item: related});
+        })
+    } catch (e) {
+        res.status(500).json({message: "Something went wrong", error: e})
+    }
+}
+
 const create = async (req: Request, res: Response) => {
     try {
         const authorId = req.session.user?.id
@@ -154,6 +233,4 @@ export const articleApi = {
     getUnapprovedArticles,
     getCategories,
     getGlobalArticlesByHeading,
-    create,
-    getAll,
 }
