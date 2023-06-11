@@ -7,6 +7,8 @@ import createArticle from "../../repositories/article/create"
 import { ArticleWithAuthor, ArticleWithCategories } from "../../types/article.types";
 import { db } from "../../utils/db.server";
 import { Article } from "@prisma/client";
+
+
 /*
 import { userLoginSchema, userRegistrationSchema } from "../../models/user.ts";
 import type { UserLoginData, UserRegisterData, UserWithRoles } from "./user.types.ts";
@@ -119,24 +121,35 @@ const getGlobalArticlesByHeading = async (req: Request, res: Response) => {
 const create = async (req: Request, res: Response) => {
     try {
         const authorId = req.session.user?.id
-            if (!authorId){
-                res.status(400).json({ message: "Unauthorized request" })
-                return
-            }
-        const validatedData = await ArticleCreateSchema.validate(req.body);
+        if (!authorId) {
+            res.status(400).json({ message: "Unauthorized request" })
+            return
+        }
+
+        // Purifying
+        const sanitizeHtml = require('sanitize-html');
+        const unpurified = req.body.contents;
+        const contents = sanitizeHtml(unpurified);
+        
+        if (contents.length === 0) {
+          res.status(400).json({ message: "No allowed content" });
+          return;
+        }
+
+        const validatedData = await ArticleCreateSchema.validate({ ...req.body, contents });
         const result = await createArticle({ ...validatedData, authorId } as ArticleCreateData)
-        if (result.isOk){
+        if (result.isOk) {
             res.status(200).json({ items: result.value, message: "Article created." });
             return
         }
-        res.status(400).json({ items: result.error , message: `Article failed to create on ${result.error.message}.` });
+        res.status(400).json({ items: result.error, message: `Article failed to create on ${result.error.message}.` });
 
     } catch (e) {
         if (e instanceof ValidationError) {
             res.status(400).json({ message: e.message });
             return;
         }
-        res.status(500).json({ message: "Internal error.", error: e })
+        res.status(500).json({ message: "Internal error.", error: (e as Error).message })
     }
 }
 
@@ -168,19 +181,19 @@ const getArticleWithId = async (req: Request, res: Response) => {
             }
         })
 
-        if (!article){
-            res.status(400).json({message: "Article with id " + req.params.articleId + " doesn't exist"})
+        if (!article) {
+            res.status(400).json({ message: "Article with id " + req.params.articleId + " doesn't exist" })
             return
         }
 
-        res.status(200).json({item: article, message: "Article fetched."})
+        res.status(200).json({ item: article, message: "Article fetched." })
     } catch (e) {
-        res.status(500).json({message: "Something went wrong.", error: e})
+        res.status(500).json({ message: "Something went wrong.", error: e })
     }
 }
 
 const getRelatedArticles = async (req: Request, res: Response) => {
-    try{
+    try {
         return await db.$transaction(async (transaction) => {
             const article: ArticleWithCategories | null = await transaction.article.findFirst({
                 where: {
@@ -194,8 +207,8 @@ const getRelatedArticles = async (req: Request, res: Response) => {
                     }
                 }
             })
-            if (!article){
-                res.status(404).json({message: "Article with the specified id doesn't exist"})
+            if (!article) {
+                res.status(404).json({ message: "Article with the specified id doesn't exist" })
                 return
             }
 
@@ -215,7 +228,7 @@ const getRelatedArticles = async (req: Request, res: Response) => {
                             }
                         }
                     }
-                }, 
+                },
                 select: {
                     categories: true,
                     heading: true,
@@ -223,10 +236,10 @@ const getRelatedArticles = async (req: Request, res: Response) => {
                     approved: true
                 }
             })
-            res.status(200).json({item: related});
+            res.status(200).json({ item: related });
         })
     } catch (e) {
-        res.status(500).json({message: "Something went wrong", error: e})
+        res.status(500).json({ message: "Something went wrong", error: e })
     }
 }
 
