@@ -2,6 +2,7 @@ import { CommentList } from "./CommentList";
 import { ArticleCommentsWrapper } from "./ArticleCommentsWrapper";
 import { CommentSubmit } from "./CommentSubmit";
 import { SubpageHeading } from "./SubpageHeading";
+import { Authorized } from "./Authorized";
 
 const SAMPLE_COMMENTS = [
   {
@@ -25,7 +26,9 @@ export const ArticleComments = ({ articleId }: ArticleCommentsProps) => {
     <ArticleCommentsWrapper>
       <SubpageHeading heading="Comments" />
       <CommentList comments={SAMPLE_COMMENTS} />
-      <CommentSubmit articleId={articleId} buttonLabel="Submit comment" />
+      <Authorized role="JOURNALIST">
+        <CommentSubmit articleId={articleId} buttonLabel="Submit comment" />
+      </Authorized>
     </ArticleCommentsWrapper>
   );
 };
