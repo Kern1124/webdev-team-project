@@ -5,7 +5,6 @@ import { ChangeEvent, useCallback, useState } from "react";
 import { CustomButton } from "./CustomButton";
 import { AxiosError } from "axios";
 import { ErrorResponseType } from "../types/response";
-import { useToast } from '@chakra-ui/react'
 import { useErrorToast } from "../hooks/useErrorToast";
 
 interface CommentSubmitProps {

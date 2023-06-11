@@ -10,6 +10,7 @@ import { useSignup } from '../hooks/useSignup';
 import { ErrorResponseType } from '../types/response';
 import { UserSignupFormType } from '../types/user';
 import { UserSignupSchema } from '../yup/schemata';
+import { useErrorToast } from '../hooks/useErrorToast';
 
 export const SignupPage = () => {
   const {
@@ -21,19 +22,18 @@ export const SignupPage = () => {
   const { signup, isLoading } = useSignup({
     redirect: "/login",
   });
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
-
+  const toast = useErrorToast()
   const onSubmit: SubmitHandler<UserSignupFormType> = useCallback(
     async (data) => {
       try {
         await signup(data);
       } catch (e) {
         const data = (e as AxiosError)?.response?.data as ErrorResponseType;
-        setErrorMessage(data?.message);
+        toast(data?.message);
       }
       reset();
     },
-    [reset, signup]
+    [reset, signup, toast]
   );
   return (
     <UserFormWrapper
@@ -41,7 +41,6 @@ export const SignupPage = () => {
       buttonLabel="SIGN UP"
       heading="Sign up"
       onSubmit={handleSubmit(onSubmit)}
-      errorMessage={errorMessage}
     >
       <FormInput
         {...register("username")}

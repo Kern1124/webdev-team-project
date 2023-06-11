@@ -10,6 +10,7 @@ import { useLogin } from "../hooks/useLogin";
 import { ErrorResponseType } from "../types/response";
 import { UserFormType } from "../types/user";
 import { UserSchema } from "../yup/schemata";
+import { useErrorToast } from "../hooks/useErrorToast";
 
 export const LoginPage = () => {
   const {
@@ -19,7 +20,7 @@ export const LoginPage = () => {
     formState: { errors },
   } = useForm<UserFormType>({ resolver: yupResolver(UserSchema) });
   const { login, isLoading } = useLogin({ redirect: "/" });
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const toast = useErrorToast()
 
   const onSubmit: SubmitHandler<UserFormType> = useCallback(
     async (data) => {
@@ -27,11 +28,11 @@ export const LoginPage = () => {
         await login(data);
       } catch (e) {
         const data = (e as AxiosError)?.response?.data as ErrorResponseType;
-        setErrorMessage(data?.message);
+        toast(data?.message);
       }
       reset();
     },
-    [reset, login]
+    [reset, login, toast]
   );
   return (
     <UserFormWrapper
@@ -39,7 +40,6 @@ export const LoginPage = () => {
       buttonLabel="LOGIN"
       heading="Login"
       onSubmit={handleSubmit(onSubmit)}
-      errorMessage={errorMessage}
     >
       <FormInput
         {...register("username")}
