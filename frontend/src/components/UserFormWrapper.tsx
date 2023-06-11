@@ -4,8 +4,8 @@ import { ScaleFade } from "@chakra-ui/transition";
 import { ReactElement } from "react";
 import { BoxProps } from "@chakra-ui/layout";
 import { FormControl } from "@chakra-ui/form-control";
-import { UserFormButton } from "./UserFormButton";
 import { ErrorText } from "./ErrorText";
+import { CustomButton } from "./CustomButton";
 
 interface UserFormWrapperProps {
   heading: string;
@@ -47,9 +47,9 @@ export const UserFormWrapper = ({
               <FormControl>{children}</FormControl>
             </CardBody>
             <CardFooter flexDir="column" display="flex">
-              <UserFormButton isDisabled={buttonIsDisabled}>
+              <CustomButton isDisabled={buttonIsDisabled}>
                 {buttonLabel}
-              </UserFormButton>
+              </CustomButton>
               <ErrorText message={errorMessage} />
             </CardFooter>
           </form>

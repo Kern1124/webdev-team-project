@@ -1,5 +1,6 @@
 import { Button } from "@chakra-ui/button";
 import { BoxProps } from "@chakra-ui/layout";
+import { Spinner } from "@chakra-ui/spinner";
 import { ReactElement } from "react";
 
 interface CustomButtonProps {
@@ -8,7 +9,14 @@ interface CustomButtonProps {
   onClickHandler?: () => void;
 }
 
-export const CustomButton = ({ isDisabled, children, onClickHandler }: CustomButtonProps) => {
+export const CustomButton = ({
+  isDisabled,
+  children,
+  onClickHandler,
+}: CustomButtonProps) => {
+
+  const label = isDisabled != null && isDisabled ? <Spinner /> : children;
+
   return (
     <Button
       w="100%"
@@ -20,7 +28,7 @@ export const CustomButton = ({ isDisabled, children, onClickHandler }: CustomBut
       disabled={isDisabled}
       onClick={onClickHandler}
     >
-      {children}
+      {label}
     </Button>
   );
 };
