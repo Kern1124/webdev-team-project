@@ -17,11 +17,16 @@ import { getCategories, getNewspapers } from "../api/requests";
 import { NewspaperShortType } from "../types/newspaper";
 import { CustomCheckbox } from "../components/CustomCheckbox";
 import { SubpageHeading } from "../components/SubpageHeading";
+import { useSubmitArticle } from "../hooks/useSubmitArticle";
+import { AxiosError } from "axios";
+import { ErrorResponseType } from "../types/response";
+import { useErrorToast } from "../hooks/useErrorToast";
 
 export const ArticleCreatePage = () => {
   const {
     register,
     control,
+    reset,
     handleSubmit,
     formState: { errors },
   } = useForm<ArticleFormType>({ resolver: yupResolver(ArticleCreateSchema) });
@@ -31,6 +36,8 @@ export const ArticleCreatePage = () => {
     staleTime: 1000 * 60 * 2,
     refetchOnWindowFocus: false,
   });
+  const {submit, isLoading} = useSubmitArticle()
+  const toast = useErrorToast();
 
   const { data: categories } = useQuery({
     queryKey: ["category"],
@@ -68,18 +75,25 @@ export const ArticleCreatePage = () => {
   }, [categories]);
 
   const onSubmit: SubmitHandler<ArticleFormType> = useCallback(async (data) => {
-    console.log(data);
-  }, []);
+   
+      try {
+        await submit(data);
+        reset()
+      } catch (e) {
+        const data = (e as AxiosError)?.response?.data as ErrorResponseType;
+        toast(data?.message);
+      }
+  }, [submit, toast, reset]);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Flex flexDir={{ base: "column", md: "row" }} mt="1rem" gap="2rem">
         <Flex w={{ base: "100%", md: "20%" }} flexDir="column" gap="1rem">
           <FormSelect
-            name="newspaper"
+            name="newspaperId"
             control={control}
             placeholder="Select a newspaper"
-            errorMessage={errors.newspaper?.message}
+            errorMessage={errors.newspaperId?.message}
           >
             {newspaperItems}
           </FormSelect>
@@ -111,7 +125,7 @@ export const ArticleCreatePage = () => {
             placeholder="Input article content..."
             errorMessage={errors.contents?.message}
           />
-          <CustomButton>Submit article</CustomButton>
+          <CustomButton isDisabled={isLoading}>Submit article</CustomButton>
         </Flex>
       </Flex>
     </form>
