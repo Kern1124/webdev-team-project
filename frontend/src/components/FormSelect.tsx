@@ -7,7 +7,7 @@ import { ArticleFormType } from '../types/article';
 import { ErrorText } from './ErrorText';
 
 interface FormSelectProps {
-  name: "newspaper";
+  name: "newspaperId";
   control: Control<ArticleFormType>;
   children?: ReactElement<BoxProps>[];
   errorMessage?: string;

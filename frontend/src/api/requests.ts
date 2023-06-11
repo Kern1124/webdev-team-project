@@ -1,6 +1,7 @@
 import axios from "axios"
 import { UserSignupFormType, UserFormType } from "../types/user"
 import { CommentSubmitType } from "../types/comment"
+import { ArticleFormType } from "../types/article"
 
 // TODO: change baseURL before release
 const serverApi = axios.create({
