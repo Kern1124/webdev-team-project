@@ -15,10 +15,10 @@ const auth = async (req: Request, res: Response) => {
     try {
         const user = req.session.user;
         if (!user) {
-            return res.status(401).json({ error: 'Unauthorized' });
+            return res.status(200).json({ message: 'Unauthorized' });
         }
-
-        res.status(200).json({ item: user, message: `User ${user.username} is authorized` });
+        const {id, username, userRoles, publisherId} = user
+        res.status(200).json({ item: {id, username, publisherId, userRoles }, message: `User ${user.username} is authorized` });
     }
     catch (error) {
         res.status(500).json({ message: (error as Error).message });
