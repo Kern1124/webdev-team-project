@@ -17,15 +17,17 @@ export const Authorized = ({ children, role, condition }: AuthorizedProps) => {
     }
 
     if (!auth) {
-        if (role === "GUEST") {
-            return <>{children}</>
-        }
         return null;
     }
 
+    if (auth.items.length === 0 && role === "GUEST") {
+        return {children}
+    }
 
-    if (!auth.item.userRoles.includes(role)) {
+
+    if (!auth.items.includes(role)) {
         return null;
     }
+
     return <>{children}</>
 }
