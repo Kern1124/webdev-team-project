@@ -7,7 +7,7 @@ interface ArticleHeadingProp {
 
 export const ArticleContentHeading = ({heading, author}: ArticleHeadingProp) => {
     return (
-            <Box textAlign={'center'} margin={[0, 4]} fontSize={28} >
+            <Box textAlign={'center'} margin={['0rem', '1rem']} fontSize={28} >
                 {heading}
                 <Box textAlign={'center'} fontSize={14}>by {author.username}</Box>
             </Box>

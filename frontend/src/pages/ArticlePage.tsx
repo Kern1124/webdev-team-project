@@ -27,9 +27,13 @@ export const ArticlePage = ({articleId}: ArticleProp) => {
       });
 
       const article = articleData?.item
-      const related = relatedData?.item
+      const related = relatedData?.item // TBD, query funguje, ale treba ešte implementovať cez ArticleList
 
-      console.log(related)
+      if (article == null){
+        return <div></div>;
+      }
+
+      console.log(article)
 
     return (
         <Flex alignItems={"center"} width={"full"} flexDirection={"column"}>
