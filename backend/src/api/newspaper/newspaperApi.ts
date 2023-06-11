@@ -5,12 +5,13 @@ import {
     newspaperPublisherRequest,
 } from "../../models/newspaper";
 import { Newspaper, Newspaper_copy } from "@prisma/client";
-import { NewspaperWithCopies } from "../../types/newspaper.types";
+import { NewspaperWithCopies, NewspaperWithCopiesAndRolePermission } from "../../types/newspaper.types";
 import { db } from "../../utils/db.server";
 import multer from 'multer';
 import path from 'path';
 import { unlink } from 'node:fs'
 import { RoleRecordTypeEnumeration } from "../../models/role";
+import { CopyArticlesSchema } from "../../models/article";
 
 const getAllNewspaper = async (req: Request, res: Response) => {
     try {
@@ -239,77 +240,101 @@ const getUnpublishedNewspaperCopies = async (req: Request, res: Response) => {
 const getNewspaperCopies = async (req: Request, res: Response) => {
     try {
         const newspaperId: string = req.params.id;
-        const all = await db.newspaper.findFirst({
+        const user = req.session.user;
+        // To readers and those without manager/director roles, only return approved and published articles
+        if (!user || !user.userRoles.some(role => role.newspaperId === newspaperId && (role.name === RoleRecordTypeEnumeration[1] || role.name === RoleRecordTypeEnumeration[0]))) {
+            const journalist = await db.newspaper.findFirst({
+                where: { id: newspaperId },
+                include: {
+                    newspaperCopies: {
+                        where: {
+                            published: true,
+                        },
+                        include: {
+                            articles: {
+                                where: {
+                                    approved: true,
+                                },
+                                select: {
+                                    id: true,
+                                    authorId: true,
+                                    heading: true,
+                                    categories: true,
+                                },
+                            },
+                        },
+                    },
+                },
+            });
+            return res.status(200).json(journalist);
+        }
+
+        const allAll = await db.newspaper.findFirst({
             where: { id: newspaperId },
             include: {
                 newspaperCopies: {
-                    where: {
-                        published: true,
-                    },
                     include: {
                         articles: {
-                            where: {
-                                approved: true
-                            },
                             select: {
                                 id: true,
+                                authorId: true,
                                 heading: true,
+                                approved: true,
                                 categories: true,
-                            }
-                        }
-                    }
-                }
-            }
+                            },
+                        },
+                    },
+                },
+            },
         });
 
-        const user = req.session.user
+        if (!allAll) {
+            return res.status(200).json(null);
+        }
+
+        let response: NewspaperWithCopiesAndRolePermission = {
+            ...allAll,
+            newspaperCopies: allAll?.newspaperCopies.map((copy) => ({
+                ...copy,
+                isPublishable: false,
+                articles: copy.articles.map((article) => ({
+                    id: article.id,
+                    approved: article.approved,
+                    authorId: article.authorId,
+                    heading: article.heading,
+                    categories: article.categories,
+                    isApprovable: false,
+                })),
+            })),
+        };
+
         if (user) {
             // Manager
-            if (user.userRoles.filter(role => role.newspaperId === newspaperId).some(role => role.name === RoleRecordTypeEnumeration[1])) {
-                const all = await db.newspaper.findFirst({
-                    where: { id: newspaperId },
-                    include: {
-                        newspaperCopies: {
-                            include: {
-                                articles: {
-                                    select: {
-                                        id: true,
-                                        heading: true,
-                                        categories: true,
-                                        approved: true,
-                                    }
-                                },
-                            }
-                        }
-                    }
-                });
-                return res.status(200).json(all);
+            if (user.userRoles.some(role => role.newspaperId === newspaperId && role.name === RoleRecordTypeEnumeration[1])) {
+                response = {
+                    ...response,
+                    newspaperCopies: response.newspaperCopies.map((copy) => ({
+                        ...copy,
+                        articles: copy.articles.map((article) => ({
+                            ...article,
+                            isApprovable: true,
+                        })),
+                    }))
+                }
             }
             // Director
-            if (user.userRoles.filter(role => role.newspaperId === newspaperId).some(role => role.name === RoleRecordTypeEnumeration[0])) {
-                const all = await db.newspaper.findFirst({
-                    where: { id: newspaperId },
-                    include: {
-                        newspaperCopies: {
-                            include: {
-                                articles: {
-                                    where: {
-                                        approved: true
-                                    },
-                                    select: {
-                                        id: true,
-                                        heading: true,
-                                        categories: true,
-                                    }
-                                }
-                            }
-                        }
-                    }
-                });
-                return res.status(200).json({ items: all, message: `Copies for ${newspaperId}` });
+            if (user.userRoles.some(role => role.newspaperId === newspaperId && role.name === RoleRecordTypeEnumeration[0])) {
+                response = {
+                    ...response,
+                    newspaperCopies: response.newspaperCopies.map((copy) => ({
+                        ...copy,
+                        isPublishable: true,
+                    }))
+                }
             }
+
+            return res.status(200).json(response);
         }
-        return res.status(200).json(all);
     }
     catch (e) {
         res.status(500).json([])

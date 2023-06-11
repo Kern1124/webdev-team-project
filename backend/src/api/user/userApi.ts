@@ -6,6 +6,7 @@ import * as UserService from "./user.service"
 import { db } from "../../utils/db.server";
 import { ValidationError } from "yup";
 import { Role, User } from "@prisma/client";
+import { roles } from "../../seed/data";
 
 // We are using express-validator to validate whether requests should be successful.
 // You can read more about it here: https://express-validator.github.io/docs/guides/getting-started
@@ -17,8 +18,8 @@ const auth = async (req: Request, res: Response) => {
         if (!user) {
             return res.status(200).json({ message: 'Unauthorized' });
         }
-        const {id, username, userRoles, publisherId} = user
-        res.status(200).json({ item: {id, username, publisherId, userRoles }, message: `User ${user.username} is authorized` });
+        // user.userRoles.map((roles) => roles.name).nub //like Haskell nub
+        res.status(200).json({items: {...user}, message: `User ${user.username} is authorized` });
     }
     catch (error) {
         res.status(500).json({ message: (error as Error).message });
