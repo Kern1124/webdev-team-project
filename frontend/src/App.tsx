@@ -16,12 +16,6 @@ const App = () => {
           <Authorized role="JOURNALIST">
             <RouteLink to="/auth/article/create">Create article</RouteLink>
           </Authorized>
-          <Authorized role="MANAGER">
-            <RouteLink to="/auth/article/submit">Submit article</RouteLink>
-          </Authorized>
-          <Authorized role="DIRECTOR">
-            <RouteLink to="/auth/newspaper/submit">Submit newspapers</RouteLink>
-          </Authorized>
         </ResponsiveStack>
         <Spacer />
         <ResponsiveStack>
