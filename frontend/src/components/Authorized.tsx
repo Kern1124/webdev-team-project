@@ -18,7 +18,8 @@ export const Authorized = ({ children, role }: AuthorizedProps) => {
         return null;
     }
 
-    if (auth.item.userRole !== role) {
+
+    if (!auth.item.userRoles.includes(role)) {
         return null;
     }
     return <>{children}</>
