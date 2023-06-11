@@ -251,5 +251,5 @@ export const articleApi = {
     create,
     getAll,
     getArticleWithId,
-    getRelatedArticles
+    getRelatedArticles,
 }

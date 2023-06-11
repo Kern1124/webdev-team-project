@@ -12,14 +12,14 @@ import { CreateCommentData } from "../../types/comment.types";
 const create = async (req: Request, res: Response) => {
     try {
         const authorId = req.session.user?.id;
-        if (!authorId){
+        if (!authorId) {
             res.status(401).json({ message: "User is not authenticated" });
             return;
         }
         const validatedData = await commentCreateSchema.validate(req.body);
         const commentData = validatedData as CreateCommentData;
-        
-        const comment = await commentService.default.create({...commentData, authorId});
+
+        const comment = await commentService.default.create({ ...commentData, authorId });
         if (comment.isErr) {
             res.status(400).json({ message: comment.error })
             return;
@@ -35,7 +35,32 @@ const create = async (req: Request, res: Response) => {
     }
 };
 
+const getArticleComments = async (req: Request, res: Response) => {
+    try {
+        const articleId = req.params.articleId
+        const article = await db.article.findFirst({
+            where: {
+                id: articleId,
+            }
+        })
+        if (!article) {
+            return res.status(400).json({ message: "Article with this id doesn't exist." })
+        }
+        const comments = await db.comment.findMany({
+            where: {
+                articleId,
+            },
+        })
+        res.status(200).json({ item: comments, message: "Fetched " + comments.length + " comments." })
+    } catch (e) {
+        res.status(500).json({ message: "Something went wrong.", error: e })
+    }
+}
+
+
+
 
 export const commentApi = {
     create,
+    getArticleComments,
 };
