@@ -53,6 +53,7 @@ app.get('/article/id=/:newspaperCopyId', articleApi.getCopyArticles)
 app.get('/article/related/:articleId', articleApi.getRelatedArticles)
 app.get('/article/:newspaperCopyId/:content', articleApi.getCopyArticles)
 
+
 app.get('/articles/approval', articleApi.getUnapprovedArticles) //MANAGER
 
 app.get('/category', articleApi.getCategories)

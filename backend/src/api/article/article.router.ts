@@ -1,9 +1,10 @@
 import { Request, Response } from "express";
 import { ValidationError } from "yup";
 import auth from '../../middleware/authMiddleware';
-import { ArticleCreateSchema, CopyArticlesSchema } from "../../models/article";
-import { ArticleCreateData, ArticleWithAuthor, ArticleWithCategories, CopyArticlesData } from "../../types/article.types";
+import { ArticleCreateSchema } from "../../models/article";
+import { ArticleCreateData } from "../../types/article.types";
 import createArticle from "../../repositories/article/create"
+import { ArticleWithAuthor, ArticleWithCategories } from "../../types/article.types";
 import { db } from "../../utils/db.server";
 import { Article } from "@prisma/client";
 /*
@@ -115,6 +116,40 @@ const getGlobalArticlesByHeading = async (req: Request, res: Response) => {
     }
 }
 
+const create = async (req: Request, res: Response) => {
+    try {
+        const authorId = req.session.user?.id
+            if (!authorId){
+                res.status(400).json({ message: "Unauthorized request" })
+                return
+            }
+        const validatedData = await ArticleCreateSchema.validate(req.body);
+        const result = await createArticle({ ...validatedData, authorId } as ArticleCreateData)
+        if (result.isOk){
+            res.status(200).json({ items: result.value, message: "Article created." });
+            return
+        }
+        res.status(400).json({ items: result.error , message: `Article failed to create on ${result.error.message}.` });
+
+    } catch (e) {
+        if (e instanceof ValidationError) {
+            res.status(400).json({ message: e.message });
+            return;
+        }
+        res.status(500).json({ message: "Internal error.", error: e })
+    }
+}
+
+const getAll = async (req: Request, res: Response) => {
+    try {
+        const articles = await db.article.findMany();
+        res.status(200).json({ items: articles, message: "Fetched " + articles.length + " articles." });
+    }
+    catch (e) {
+        res.status(500).json({ message: "Internal error.", error: e })
+    }
+}
+
 const getArticleWithId = async (req: Request, res: Response) => {
     try {
         const article: ArticleWithAuthor | null = await db.article.findFirst({
@@ -194,43 +229,13 @@ const getRelatedArticles = async (req: Request, res: Response) => {
     }
 }
 
-const create = async (req: Request, res: Response) => {
-    try {
-        const authorId = req.session.user?.id
-            if (!authorId){
-                res.status(400).json({ message: "Unauthorized request" })
-                return
-            }
-        const validatedData = await ArticleCreateSchema.validate(req.body);
-        const result = await createArticle({ ...validatedData, authorId } as ArticleCreateData)
-        if (result.isOk){
-            res.status(200).json({ items: result.value, message: "Article created." });
-            return
-        }
-        res.status(400).json({ items: result.error , message: `Article failed to create on ${result.error.message}.` });
-
-    } catch (e) {
-        if (e instanceof ValidationError) {
-            res.status(400).json({ message: e.message });
-            return;
-        }
-        res.status(500).json({ message: "Internal error.", error: e })
-    }
-}
-
-const getAll = async (req: Request, res: Response) => {
-    try {
-        const articles = await db.article.findMany();
-        res.status(200).json({ items: articles, message: "Fetched " + articles.length + " articles." });
-    }
-    catch (e) {
-        res.status(500).json({ message: "Internal error.", error: e })
-    }
-}
-
 export const articleApi = {
     getCopyArticles,
     getUnapprovedArticles,
     getCategories,
     getGlobalArticlesByHeading,
+    create,
+    getAll,
+    getArticleWithId,
+    getRelatedArticles
 }
