@@ -16,6 +16,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getCategories, getNewspapers } from "../api/requests";
 import { NewspaperShortType } from "../types/newspaper";
 import { CustomCheckbox } from "../components/CustomCheckbox";
+import { SubpageHeading } from "../components/SubpageHeading";
 
 export const ArticleCreatePage = () => {
   const {
@@ -82,7 +83,7 @@ export const ArticleCreatePage = () => {
           >
             {newspaperItems}
           </FormSelect>
-
+          <SubpageHeading heading="Categories" />
           <FormCheckboxGroup
             name="categories"
             control={control}
