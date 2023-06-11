@@ -4,23 +4,21 @@ import { useAuth } from "../hooks/useAuth";
 
 interface AuthorizedProps {
     role: ("MANAGER" | "DIRECTOR" | "JOURNALIST" | "GUEST"),
-    children: ReactElement<BoxProps> | ReactElement<BoxProps>[] | undefined | ReactNode
+    children: ReactElement<BoxProps> | ReactElement<BoxProps>[] | undefined | ReactNode,
+    condition?: boolean
 }
 
 
-export const Authorized = ({ children, role }: AuthorizedProps) => {
+export const Authorized = ({ children, role, condition }: AuthorizedProps) => {
     const { auth } = useAuth();
-    console.log(auth)
 
-    if (!auth) {
-        if (role === "GUEST") {
-            return <>{children}</>
-        }
-        return null;
+    if ((condition != null && !condition) || !auth) {
+        return null
     }
 
-    if (auth.item.userRole !== role) {
-        return null;
+    if ((auth.items.length === 0 && role === "GUEST") || auth.items.includes(role)) {
+        return <>{children}</>
     }
-    return <>{children}</>
+
+    return null;   
 }

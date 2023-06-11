@@ -1,12 +1,11 @@
-import { Input } from "@chakra-ui/input";
-import { Flex } from "@chakra-ui/layout";
-import { Select } from "@chakra-ui/select";
-import { ChangeEvent, useCallback, useMemo } from "react";
+import { Input } from '@chakra-ui/input';
+import { Flex } from '@chakra-ui/layout';
+import { useQuery } from '@tanstack/react-query';
+import { ChangeEvent, useCallback, useMemo } from 'react';
 
-const SAMPLE_PUBLISHER = [
-  { id: "1", name: "publisher 1" },
-  { id: "2", name: "publisher 2" },
-];
+import { getAllPublishers } from '../api/requests';
+import { PublisherShortType } from '../types/publisher';
+import { CustomSelect } from './CustomSelect';
 
 interface NewspaperFilterProps {
   onInputChange: (input: string) => void;
@@ -17,13 +16,28 @@ export const NewspaperFilter = ({
   onInputChange,
   onSelectChange,
 }: NewspaperFilterProps) => {
-  const publishers = useMemo(
-    () =>
-      SAMPLE_PUBLISHER.map((publisher) => {
-        return <option key={publisher.id} value={publisher.id}>{publisher.name}</option>;
-      }),
-    [SAMPLE_PUBLISHER]
-  );
+  const { data, isLoading } = useQuery({
+    queryKey: ["publisher"],
+    queryFn: () => getAllPublishers(),
+    staleTime: 1000 * 60 * 2,
+    refetchOnWindowFocus: false,
+  });
+
+  const publishers = useMemo(() => {
+    if (isLoading) {
+      return [];
+    }
+
+    return (
+      data?.items?.map((publisher: PublisherShortType) => {
+        return (
+          <option key={publisher.id} value={publisher.id}>
+            {publisher.name}
+          </option>
+        );
+      }) ?? []
+    );
+  }, [data, isLoading]);
 
   const inputChangeHandler = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => onInputChange(e.target.value),
@@ -31,8 +45,8 @@ export const NewspaperFilter = ({
   );
 
   const selectChangeHandler = useCallback(
-    (e: ChangeEvent<HTMLSelectElement>) => onInputChange(e.target.value),
-    [onInputChange]
+    (e: ChangeEvent<HTMLSelectElement>) => onSelectChange(e.target.value),
+    [onSelectChange]
   );
 
   return (
@@ -43,15 +57,12 @@ export const NewspaperFilter = ({
       marginTop="1rem"
       gap="1rem"
     >
-      <Select
-        onChange={selectChangeHandler}
-        focusBorderColor="main"
+      <CustomSelect
         placeholder="Select a publisher"
-        variant="filled"
-        bgColor="light"
+        changeHandler={selectChangeHandler}
       >
         {publishers}
-      </Select>
+      </CustomSelect>
       <Input
         focusBorderColor="main"
         variant="filled"

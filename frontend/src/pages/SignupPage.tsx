@@ -1,11 +1,12 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { AxiosError } from 'axios';
-import { useCallback, useState } from 'react';
+import { useCallback } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { AiOutlineLock, AiOutlineMail, AiOutlineUser } from 'react-icons/ai';
 
 import { FormInput } from '../components/FormInput';
 import { UserFormWrapper } from '../components/UserFormWrapper';
+import { useErrorToast } from '../hooks/useErrorToast';
 import { useSignup } from '../hooks/useSignup';
 import { ErrorResponseType } from '../types/response';
 import { UserSignupFormType } from '../types/user';
@@ -21,19 +22,18 @@ export const SignupPage = () => {
   const { signup, isLoading } = useSignup({
     redirect: "/login",
   });
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
-
+  const toast = useErrorToast()
   const onSubmit: SubmitHandler<UserSignupFormType> = useCallback(
     async (data) => {
       try {
         await signup(data);
       } catch (e) {
         const data = (e as AxiosError)?.response?.data as ErrorResponseType;
-        setErrorMessage(data?.message);
+        toast(data?.message);
       }
       reset();
     },
-    [reset, signup]
+    [reset, signup, toast]
   );
   return (
     <UserFormWrapper
@@ -41,7 +41,6 @@ export const SignupPage = () => {
       buttonLabel="SIGN UP"
       heading="Sign up"
       onSubmit={handleSubmit(onSubmit)}
-      errorMessage={errorMessage}
     >
       <FormInput
         {...register("username")}
