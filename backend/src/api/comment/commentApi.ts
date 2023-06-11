@@ -52,6 +52,7 @@ const getArticleComments = async (req: Request, res: Response) => {
         articleId,
       },
       select: {
+        id: true,
         author: {
           select: {
             username: true,
@@ -61,7 +62,7 @@ const getArticleComments = async (req: Request, res: Response) => {
         content: true,
       },
       orderBy: {
-        createdAt: 'asc'
+        createdAt: 'desc'
       }
     })
     res.status(200).json({ item: comments, message: "Fetched " + comments.length + " comments." })

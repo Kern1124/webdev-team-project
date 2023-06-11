@@ -78,7 +78,7 @@ const login = async (req: Request, res: Response) => {
             return;
         }
 
-        if (!UserService.validatePassword(userData.password, user.passwordHash)) {
+        if (! (await UserService.validatePassword(userData.password, user.passwordHash))) {
             res.status(400).json({ message: "Incorrect password." });
             return;
         }
