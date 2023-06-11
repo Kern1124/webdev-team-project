@@ -1,16 +1,16 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { AxiosError } from 'axios';
-import { useCallback, useState } from 'react';
+import { useCallback } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { AiOutlineLock, AiOutlineMail, AiOutlineUser } from 'react-icons/ai';
 
 import { FormInput } from '../components/FormInput';
 import { UserFormWrapper } from '../components/UserFormWrapper';
+import { useErrorToast } from '../hooks/useErrorToast';
 import { useSignup } from '../hooks/useSignup';
 import { ErrorResponseType } from '../types/response';
 import { UserSignupFormType } from '../types/user';
 import { UserSignupSchema } from '../yup/schemata';
-import { useErrorToast } from '../hooks/useErrorToast';
 
 export const SignupPage = () => {
   const {
