@@ -12,22 +12,13 @@ interface AuthorizedProps {
 export const Authorized = ({ children, role, condition }: AuthorizedProps) => {
     const { auth } = useAuth();
 
-    if (condition != null && !condition) {
+    if ((condition != null && !condition) || !auth) {
         return null
     }
 
-    if (!auth) {
-        return null;
+    if ((auth.items.length === 0 && role === "GUEST") || auth.items.includes(role)) {
+        return <>{children}</>
     }
 
-    if (auth.items.length === 0 && role === "GUEST") {
-        return {children}
-    }
-
-
-    if (!auth.items.includes(role)) {
-        return null;
-    }
-
-    return <>{children}</>
+    return null;   
 }
