@@ -16,11 +16,10 @@ const create = async (req: Request, res: Response) => {
             res.status(401).json({ message: "User is not authenticated" });
             return;
         }
-        const validatedData = await commentCreateSchema.validate({authorId: authorId || req.body.authorId,
-            ...req.body});
+        const validatedData = await commentCreateSchema.validate(req.body);
         const commentData = validatedData as CreateCommentData;
         
-        const comment = await commentService.default.create(commentData);
+        const comment = await commentService.default.create({...commentData, authorId});
         if (comment.isErr) {
             res.status(400).json({ message: comment.error })
             return;

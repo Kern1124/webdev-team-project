@@ -1,5 +1,4 @@
 // Serves as enumeration for validation and permission checking
-// Is Role table necessary? Is there any way how to store only those?
 export const RoleRecordTypeEnumeration = [
   'DIRECTOR',
   'MANAGER',
