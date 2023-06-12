@@ -7,9 +7,10 @@ const createArticle = async (data: ArticleCreateData): Promise<Result<Article>> 
 
   try {
     return Result.ok(await db.$transaction(async transaction => {
-      // Find last unpublished copy
+      // Find last unpublished copy /// OF THE NEWSPAPER XDD
       const unpublished = await db.newspaper_copy.findMany({
         where: {
+          newspaperId: data.newspaperId,
           published: false,
         },
         orderBy: {
