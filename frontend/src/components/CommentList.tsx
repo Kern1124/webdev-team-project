@@ -41,7 +41,7 @@ export const CommentList = ({ comments, isLoading }: CommentListProps) => {
 
   return (
     <>
-      <Collapse in={isShown} startingHeight="20rem">
+      <Collapse in={isShown} startingHeight={mappedComments.length > 3 ? "20rem" : "100%"}>
         <Flex flexDir="column" gap="0.5rem">
           {mappedComments || altContent}
         </Flex>
