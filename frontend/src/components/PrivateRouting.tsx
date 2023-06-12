@@ -7,7 +7,7 @@ export const PrivateRouting = () => {
     const { auth, isLoading, isError } = useAuth();
 
     if (isLoading) return null;
-    if (!auth || isError) return <Navigate to="/login" />;
+    if (!auth || auth.items.length === 0 || isError) return <Navigate to="/login" />;
     return (<Routes> 
         <Route path="article/create" element={<ArticleCreatePage />} />
         <Route path="logout" element={<LogoutPage />} />
