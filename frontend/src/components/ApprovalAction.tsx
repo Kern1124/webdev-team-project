@@ -1,37 +1,36 @@
-import { Box, Button } from "@chakra-ui/react";
-import { useNavigate } from "react-router";
+import { Box } from "@chakra-ui/react";
+import { useApproval } from "../hooks/useApproval";
 import { useCallback } from "react";
+import { CustomButton } from "./CustomButton";
 
 type ApprovalActionProps = {
-  approve: {
-    name: string;
-    link: string;
-  };
-  discard: {
-    name: string;
-    link: string;
-  };
+  approveName: string;
+  discardName: string;
+  approveUrl: string;
+  discardUrl: string;
 }
 
-export const ApprovalAction = ({ approve, discard }: ApprovalActionProps) => {
-  const navigate = useNavigate();
-  
+export const ApprovalAction = ({ approveName, discardName, approveUrl, discardUrl }: ApprovalActionProps) => {
+  const { approval } = useApproval();
+
   const handleApprove = useCallback(() => {
-    navigate(approve.link);
-  }, [approve, navigate]);
-  
+    approval(approveUrl);
+  }, [approval, approveUrl]);
+
   const handleDiscard = useCallback(() => {
-    navigate(discard.link);
-  }, [discard, navigate]);
+    approval(discardUrl);
+  }, [approval, discardUrl]);
 
   return (
-    <Box mt={2}>
-      <Button onClick={handleApprove} bgColor="green" colorScheme="green" variant="outline" size="sm" mr={2}>
-        {approve.name}
-      </Button>
-      <Button onClick={handleDiscard} bgColor="red" colorScheme="red" variant="outline" size="sm">
-        {discard.name}
-      </Button>
+    <Box display="flex" alignItems="center">
+      <Box mr="1rem">
+        <CustomButton onClickHandler={handleApprove}>
+          {approveName}
+        </CustomButton>
+      </Box>
+      <CustomButton onClickHandler={handleDiscard}>
+        {discardName}
+      </CustomButton>
     </Box>
   );
 };

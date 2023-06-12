@@ -1,0 +1,11 @@
+Endpointy
+1. registrace -> server vytvoří uživatele a jeho token
+2. přihlášení -> porovná hesla a zašle token, token se potom příkládá ke všem requestům, které potřebují autentikaci.
+3. v požadavku je záslán title newspaper a publisher name -> server vyfiltruje odpovídající newspapers a pošle je (filtrování normálně přes string contains substring). Ať se neposílá moc dat, tak by tenhle endpoint měl poslat jen jméno a id newspaperu, případně jestli v databází bude mít nějaký podnázev
+4. v požadavku je zasláno id newspaperu a datum od-do -> server pošle daný newspaper spolu s jeho newspaper copies, opět bude stačit short info (název, id a datum). Vyfiltruje jeho newspaper copies podle data, pokud je datumy null tak se pošlou všechny newspaper copies.
+5. v požadavku bude zaslán id newspaper copy a text articlu -> pošle articly newspaper copy , které jsou vyfiltrovány podle textu.
+6. Získání všech articlů vyfiltrovaných podle textu (Možné sloučit s 5.).   
+7. vytváření articlů - work in progress
+8. v požadavku bude id a token uživatele -> pokud má uživatel oprávnění (je manažer), server pošle všechny articly které může approvovat (které ještě nejsou approvlé)
+9. v požadavku bude id a token uživatele -> pokud má uživatel oprávnění (je director), server pošle všechny newspaper copies které může approvovat
+10. v požadavku bude id a token uživatele, text zprávy a id articlu -> server vytvoří komentář na daný article 
