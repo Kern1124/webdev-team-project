@@ -1,26 +1,26 @@
-import "react-quill/dist/quill.snow.css";
+import 'react-quill/dist/quill.snow.css';
 
-import { Flex } from "@chakra-ui/layout";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { Flex } from '@chakra-ui/layout';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useQuery } from '@tanstack/react-query';
+import { AxiosError } from 'axios';
+import { useCallback, useMemo } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
 
-import { useCallback, useMemo } from "react";
-import { CustomButton } from "../components/CustomButton";
-import { ArticleFormType, CategoryType } from "../types/article";
-import { ArticleCreateSchema } from "../yup/schemata";
-import { FormInput } from "../components/FormInput";
-import { FormSelect } from "../components/FormSelect";
-import { FormCheckboxGroup } from "../components/FormCheckboxGroup";
-import { FormEditor } from "../components/FormEditor";
-import { useQuery } from "@tanstack/react-query";
-import { getCategories, getNewspapers } from "../api/requests";
-import { NewspaperShortType } from "../types/newspaper";
-import { CustomCheckbox } from "../components/CustomCheckbox";
-import { SubpageHeading } from "../components/SubpageHeading";
-import { useSubmitArticle } from "../hooks/useSubmitArticle";
-import { AxiosError } from "axios";
-import { ErrorResponseType } from "../types/response";
-import { useErrorToast } from "../hooks/useErrorToast";
+import { getCategories, getNewspapers } from '../api/requests';
+import { CustomButton } from '../components/CustomButton';
+import { CustomCheckbox } from '../components/CustomCheckbox';
+import { FormCheckboxGroup } from '../components/FormCheckboxGroup';
+import { FormEditor } from '../components/FormEditor';
+import { FormInput } from '../components/FormInput';
+import { FormSelect } from '../components/FormSelect';
+import { SubpageHeading } from '../components/SubpageHeading';
+import { useErrorToast } from '../hooks/useErrorToast';
+import { useSubmitArticle } from '../hooks/useSubmitArticle';
+import { ArticleFormType, CategoryType } from '../types/article';
+import { NewspaperShortType } from '../types/newspaper';
+import { ErrorResponseType } from '../types/response';
+import { ArticleCreateSchema } from '../yup/schemata';
 
 export const ArticleCreatePage = () => {
   const {

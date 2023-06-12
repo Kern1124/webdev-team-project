@@ -71,3 +71,8 @@ export const submitArticle = async (data: ArticleFormType) => {
     const response = await serverApi.post("/article/create", data)
     return response.data
 }
+
+export const getComments = async (articleId: string) => {
+    const response = await serverApi.get(`/article/${articleId}/comment`, {})
+    return response.data
+}
