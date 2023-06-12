@@ -1,4 +1,4 @@
-import { Box, Flex, Spacer } from '@chakra-ui/react';
+import { Box, Flex} from '@chakra-ui/react';
 import { ArticleHeading } from "./ArticleHeading";
 import { ArticleCategories } from "./ArticleCategories";
 import { ApprovalAction } from "./ApprovalAction";
@@ -13,15 +13,15 @@ export const ArticleItem = ({ article }: ArticleItemProps) => {
   return (
     <Box>
       <Flex align="center" justifyContent="space-between" flexDir="row">
-        <Box><ArticleHeading heading={article.heading} /></Box>
-        <Box><Authorized role={"MANAGER"} condition={!article.approved}>
+        <ArticleHeading heading={article.heading} id={article.id} />
+        <Authorized role={"MANAGER"} condition={!article.approved}>
           <ApprovalAction
             approveName="Approve"
             discardName="Discard"
             approveUrl={`/articles/${article.id}/approve`}
             discardUrl={`/articles/${article.id}/discard`}
           />
-        </Authorized></Box>
+        </Authorized>
       </Flex>
       <ArticleCategories categories={article.categories.map(category => category.name)} />
     </Box>

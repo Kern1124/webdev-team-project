@@ -5,6 +5,7 @@ import { LoginPage } from "../pages/LoginPage";
 import { PrivateRouting } from "./PrivateRouting";
 import { NewspaperPage } from "../pages/NewspaperPage";
 import { CopiesPage } from "../pages/CopiesPage";
+import { ArticlePage } from "../pages/ArticlePage";
 
 export const RoutingContent = () => {
   return (
@@ -17,6 +18,7 @@ export const RoutingContent = () => {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/articles" />
         <Route path="/auth/*" element={<PrivateRouting />} />
+        <Route path="/article/:id" element={<ArticlePage/>} />
       </Routes>
     </Box>
   );
