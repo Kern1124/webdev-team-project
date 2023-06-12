@@ -30,7 +30,7 @@ export const CommentSubmit = ({
     try {
       await submit({ articleId, content: content ?? "" });
       setContent("");
-      successToast("Article submitted for approval");
+      successToast("Comment submitted");
     } catch (e) {
       const data = (e as AxiosError)?.response?.data as ErrorResponseType;
       errorToast(data?.message);

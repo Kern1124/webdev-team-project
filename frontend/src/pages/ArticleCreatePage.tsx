@@ -21,6 +21,7 @@ import { ArticleFormType, CategoryType } from '../types/article';
 import { NewspaperShortType } from '../types/newspaper';
 import { ErrorResponseType } from '../types/response';
 import { ArticleCreateSchema } from '../yup/schemata';
+import { useSuccessToast } from '../hooks/useSuccessToast';
 
 export const ArticleCreatePage = () => {
   const {
@@ -38,6 +39,7 @@ export const ArticleCreatePage = () => {
   });
   const {submit, isLoading} = useSubmitArticle()
   const toast = useErrorToast();
+  const successToast = useSuccessToast()
 
   const { data: categories } = useQuery({
     queryKey: ["category"],
@@ -78,12 +80,13 @@ export const ArticleCreatePage = () => {
    
       try {
         await submit(data);
+        successToast("Article submitted for approval")
         reset()
       } catch (e) {
         const data = (e as AxiosError)?.response?.data as ErrorResponseType;
         toast(data?.message);
       }
-  }, [submit, toast, reset]);
+  }, [submit, toast, reset, successToast]);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
