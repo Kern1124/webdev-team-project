@@ -197,7 +197,8 @@ const getRelatedArticles = async (req: Request, res: Response) => {
     return await db.$transaction(async (transaction) => {
       const article: ArticleWithCategories | null = await transaction.article.findFirst({
         where: {
-          id: req.params.articleId
+          id: req.params.articleId,
+          approved: true,
         },
         include: {
           categories: {
@@ -205,7 +206,8 @@ const getRelatedArticles = async (req: Request, res: Response) => {
               name: true
             }
           }
-        }
+        },
+        take: 3
       })
       if (!article) {
         res.status(404).json({ message: "Article with the specified id doesn't exist" })
@@ -213,8 +215,6 @@ const getRelatedArticles = async (req: Request, res: Response) => {
       }
 
       const categories: string[] = article.categories.map((category) => (category.name))
-      console.log(categories);
-      console.log(categories);
 
       const related = await transaction.article.findMany({
         where: {
