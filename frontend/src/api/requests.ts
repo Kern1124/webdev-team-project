@@ -67,6 +67,11 @@ export const postComment = async (data: CommentSubmitType) => {
     return response.data
 }
 
+export const postApproval = async (url: string ) => {
+    const response = await serverApi.post(url);
+    return response.data;
+}
+
 export const submitArticle = async (data: ArticleFormType) => {
     const response = await serverApi.post("/article/create", data)
     return response.data

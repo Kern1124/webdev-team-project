@@ -18,7 +18,12 @@ export const CopyList = ({ copies, isLoading }: CopyListProps) => {
     return copies?.map((copy) => {
       return (
         (
-          <CopyItem key={copy.id} date={copy.date} articles={copy.articles} published={copy.published} />
+          <CopyItem
+            key={copy.id}
+            id={copy.id}
+            date={copy.date}
+            articles={copy.articles}
+            published={copy.published} />
         ) ?? []
       );
     });
@@ -29,7 +34,7 @@ export const CopyList = ({ copies, isLoading }: CopyListProps) => {
   }
 
   if (renderedCopies.length <= 0) {
-    return <Box>No copies found</Box>;
+    return <CenteredBanner>No copies found</CenteredBanner>;
   }
 
 

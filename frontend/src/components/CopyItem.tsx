@@ -1,20 +1,11 @@
 import { Box, Flex, useDisclosure } from "@chakra-ui/react";
 import { ApprovalAction } from "./ApprovalAction";
 import { ArticleListCollapse } from "./ArticleListCollapse";
-import { useAuth } from "../hooks/useAuth";
-import { Article } from "../types/article";
+import { Authorized } from "./Authorized";
+import { Copy } from "../types/copy";
 
-interface CopyItemProps {
-  date: string;
-  articles: Article[];
-  published?: boolean;
-}
-
-export const CopyItem = ({ date, articles, published }: CopyItemProps) => {
+export const CopyItem = ({ id, date, articles, published }: Copy) => {
   const { isOpen, onToggle } = useDisclosure();
-  const { auth } = useAuth();
-  
-  const userRole = auth.item.userRole;
   const formattedDate = new Date(date).toLocaleDateString("en-GB");
 
   return (
@@ -29,18 +20,22 @@ export const CopyItem = ({ date, articles, published }: CopyItemProps) => {
         p={2}
         borderRadius="md"
         onClick={onToggle}
+        flexDir="row"
       >
         <Box>{formattedDate}</Box>
-        <Box>
-          {published === false && userRole === "DIRECTOR" && (
+        <Box alignSelf="center" onClick={e => e.stopPropagation()}> 
+          <Authorized role={"DIRECTOR"} condition={published === false}>
             <ApprovalAction
-              approve={{ name: "Approve", link: "/approve-link" }}
-              discard={{ name: "Discard", link: "/discard-link" }}
+              approveName="Approve"
+              discardName="Discard"
+              approveUrl={`/copies/${id}/approve`}
+              discardUrl={`/copies/${id}/discard`}
             />
-          )}
+          </Authorized>
         </Box>
       </Flex>
       <ArticleListCollapse isOpen={isOpen} articles={articles} />
     </Box>
   );
 };
+

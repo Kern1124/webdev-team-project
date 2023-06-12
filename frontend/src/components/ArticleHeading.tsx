@@ -14,7 +14,7 @@ export const ArticleHeading = ({ heading }: ArticleHeadingProps) => {
   }, [navigate]);
 
   return (
-    <Box onClick={handleClick} display="inline-block" borderRadius="md" p={2} _hover={{ backgroundColor: "purple" }}>
+    <Box onClick={handleClick} display="inline-block" borderRadius="md" p="0.5rem" _hover={{ backgroundColor: "secondaryLight" }}>
       {heading}
     </Box>
   );
