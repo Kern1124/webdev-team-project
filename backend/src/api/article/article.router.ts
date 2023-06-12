@@ -198,7 +198,6 @@ const getRelatedArticles = async (req: Request, res: Response) => {
       const article: ArticleWithCategories | null = await transaction.article.findFirst({
         where: {
           id: req.params.articleId,
-          approved: true,
         },
         include: {
           categories: {
@@ -207,7 +206,6 @@ const getRelatedArticles = async (req: Request, res: Response) => {
             }
           }
         },
-        take: 3
       })
       if (!article) {
         res.status(404).json({ message: "Article with the specified id doesn't exist" })
@@ -218,6 +216,7 @@ const getRelatedArticles = async (req: Request, res: Response) => {
 
       const related = await transaction.article.findMany({
         where: {
+          approved: true,
           heading: {
             not: article.heading
           },
@@ -234,7 +233,8 @@ const getRelatedArticles = async (req: Request, res: Response) => {
           heading: true,
           id: true,
           approved: true
-        }
+        },
+        take: 3
       })
       res.status(200).json({ item: related });
     })
