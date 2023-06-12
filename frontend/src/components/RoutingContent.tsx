@@ -11,7 +11,6 @@ export const RoutingContent = () => {
   return (
     <Box padding="2rem" marginTop="5rem">
       <Routes>
-        <Route index path="/" />
         <Route path="/newspapers" element={<NewspaperPage />} />
         <Route path="/newspaper/:id" element={<CopiesPage />} />
         <Route path="/signup" element={<SignupPage />} />
@@ -19,6 +18,7 @@ export const RoutingContent = () => {
         <Route path="/articles" />
         <Route path="/auth/*" element={<PrivateRouting />} />
         <Route path="/article/:id" element={<ArticlePage/>} />
+        <Route index path="/*" element={<NewspaperPage />} />
       </Routes>
     </Box>
   );
