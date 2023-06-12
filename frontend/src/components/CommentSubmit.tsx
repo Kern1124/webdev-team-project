@@ -6,6 +6,7 @@ import { CustomButton } from "./CustomButton";
 import { AxiosError } from "axios";
 import { ErrorResponseType } from "../types/response";
 import { useErrorToast } from "../hooks/useErrorToast";
+import { useSuccessToast } from "../hooks/useSuccessToast";
 
 interface CommentSubmitProps {
   buttonLabel: string;
@@ -18,7 +19,8 @@ export const CommentSubmit = ({
 }: CommentSubmitProps) => {
   const { submit, isLoading } = useAddComment();
   const [content, setContent] = useState<string>();
-  const toast = useErrorToast();
+  const errorToast = useErrorToast();
+  const successToast = useSuccessToast();
 
   const changeHandler = useCallback((e: ChangeEvent<HTMLTextAreaElement>) => {
     setContent(e.target.value);
@@ -28,11 +30,12 @@ export const CommentSubmit = ({
     try {
       await submit({ articleId, content: content ?? "" });
       setContent("");
+      successToast("Article submitted for approval");
     } catch (e) {
       const data = (e as AxiosError)?.response?.data as ErrorResponseType;
-      toast(data?.message)
+      errorToast(data?.message);
     }
-  }, [articleId, content, submit, toast]);
+  }, [articleId, content, submit, errorToast, successToast]);
 
   return (
     <Flex flexDir="column" gap="0.5rem">
