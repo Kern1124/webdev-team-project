@@ -11,6 +11,7 @@ import { useSignup } from '../hooks/useSignup';
 import { ErrorResponseType } from '../types/response';
 import { UserSignupFormType } from '../types/user';
 import { UserSignupSchema } from '../yup/schemata';
+import { useSuccessToast } from '../hooks/useSuccessToast';
 
 export const SignupPage = () => {
   const {
@@ -23,17 +24,19 @@ export const SignupPage = () => {
     redirect: "/login",
   });
   const toast = useErrorToast()
+  const successToast = useSuccessToast()
   const onSubmit: SubmitHandler<UserSignupFormType> = useCallback(
     async (data) => {
       try {
         await signup(data);
+        successToast("Succesfully signed up")
       } catch (e) {
         const data = (e as AxiosError)?.response?.data as ErrorResponseType;
         toast(data?.message);
       }
       reset();
     },
-    [reset, signup, toast]
+    [reset, signup, toast, successToast]
   );
   return (
     <UserFormWrapper
