@@ -1,19 +1,24 @@
-import { Box, Flex} from '@chakra-ui/react';
+import { Box, Flex } from "@chakra-ui/react";
 import { ArticleHeading } from "./ArticleHeading";
 import { ArticleCategories } from "./ArticleCategories";
 import { ApprovalAction } from "./ApprovalAction";
 import { Article } from "../types/article";
-import { Authorized } from './Authorized';
+import { Authorized } from "./Authorized";
 
 type ArticleItemProps = {
   article: Article;
-}
+};
 
 export const ArticleItem = ({ article }: ArticleItemProps) => {
   return (
     <Box>
       <Flex align="center" justifyContent="space-between" flexDir="row">
-        <ArticleHeading heading={article.heading} id={article.id} />
+        <Flex flexDir="column">
+          <ArticleHeading heading={article.heading} id={article.id} />
+          <ArticleCategories
+            categories={article.categories.map((category) => category.name)}
+          />
+        </Flex>
         <Authorized role={"MANAGER"} condition={!article.approved}>
           <ApprovalAction
             approveName="Approve"
@@ -23,7 +28,6 @@ export const ArticleItem = ({ article }: ArticleItemProps) => {
           />
         </Authorized>
       </Flex>
-      <ArticleCategories categories={article.categories.map(category => category.name)} />
     </Box>
   );
-}
+};
