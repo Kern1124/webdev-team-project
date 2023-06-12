@@ -4,7 +4,7 @@ import { ResponsiveHeader } from "./components/ResponsiveHeader";
 import { ResponsiveStack } from "./components/ResponsiveStack";
 import { RouteLink } from "./components/RouteLink";
 import { RoutingContent } from "./components/RoutingContent";
-import { SearchLink } from "./components/SeachLink";
+import { SearchLink } from "./components/SearchLink";
 import { Authorized } from "./components/Authorized";
 
 const App = () => {
