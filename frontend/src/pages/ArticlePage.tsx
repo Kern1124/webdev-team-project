@@ -33,14 +33,17 @@ export const ArticlePage = ({articleId}: ArticleProp) => {
         return <div></div>;
       }
 
+      const contentProp = {contents: article.contents, related: related}
+
       console.log(article)
+      console.log(related)
 
     return (
         <Flex alignItems={"center"} width={"full"} flexDirection={"column"}>
             <Divider borderColor={'main'}/>
             <ArticleContentHeading {...article}/>
             <Divider borderColor={'main'}/>
-            <ArticleContent {...article}/>
+            <ArticleContent {...contentProp}/>
         </Flex>
     );
 }
