@@ -11,7 +11,7 @@ export interface ArticleFormType {
     heading: string,
     contents: string,
     categories: string[]
-    newspaper: string
+    newspaperId: string
 }
 
 export type CategoryType = {

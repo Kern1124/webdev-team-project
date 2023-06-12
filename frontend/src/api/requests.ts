@@ -1,6 +1,7 @@
 import axios from "axios"
 import { UserSignupFormType, UserFormType } from "../types/user"
 import { CommentSubmitType } from "../types/comment"
+import { ArticleFormType } from "../types/article"
 
 // TODO: change baseURL before release
 const serverApi = axios.create({
@@ -63,6 +64,16 @@ export const getCategories = async () => {
 
 export const postComment = async (data: CommentSubmitType) => {
     const response = await serverApi.post("/article/comment", data)
+    return response.data
+}
+
+export const postApproval = async (url: string ) => {
+    const response = await serverApi.post(url);
+    return response.data;
+}
+
+export const submitArticle = async (data: ArticleFormType) => {
+    const response = await serverApi.post("/article/create", data)
     return response.data
 }
 export const getArticleWithId = async (articleId: string) => {
