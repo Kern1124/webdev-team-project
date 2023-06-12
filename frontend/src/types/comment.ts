@@ -6,6 +6,13 @@ export type CommentType = {
     createdAt: string,
 }
 
+export type CommentQueryType = {
+    id: string,
+    author: { username: string },
+    createdAt: Date,
+    content: string
+}
+
 export type CommentSubmitType = {
     articleId: string,
     content: string

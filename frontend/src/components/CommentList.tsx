@@ -1,14 +1,16 @@
-import { CommentType } from "../types/comment";
+import { CommentQueryType } from "../types/comment";
 import { useCallback, useMemo, useState } from "react";
 import { CommentItem } from "./CommentItem";
 import { Center, Flex } from "@chakra-ui/layout";
 import { Collapse } from "@chakra-ui/transition";
 import { CustomButton } from "./CustomButton";
+import { Spinner } from "@chakra-ui/spinner";
 interface CommentListProps {
-  comments: CommentType[] | undefined;
+  comments: CommentQueryType[] | undefined;
+  isLoading: boolean;
 }
 
-export const CommentList = ({ comments }: CommentListProps) => {
+export const CommentList = ({ comments, isLoading }: CommentListProps) => {
   const [isShown, setIsShown] = useState<boolean>(false);
 
   const mappedComments = useMemo(() => {
@@ -21,7 +23,7 @@ export const CommentList = ({ comments }: CommentListProps) => {
         (
           <CommentItem
             key={comment.id}
-            author={comment.author}
+            author={comment.author.username}
             date={comment.createdAt}
           >
             {comment.content}
@@ -35,17 +37,21 @@ export const CommentList = ({ comments }: CommentListProps) => {
     setIsShown((prev) => !prev);
   }, []);
 
+  const altContent = isLoading ? <Spinner /> : "No comments";
+
   return (
     <>
       <Collapse in={isShown} startingHeight="20rem">
         <Flex flexDir="column" gap="0.5rem">
-          {mappedComments}
+          {mappedComments || altContent}
         </Flex>
       </Collapse>
       <Center>
-        <CustomButton onClickHandler={clickHandler} width="10rem">
-          {isShown ? "Show less" : "Show more"}
-        </CustomButton>
+        {mappedComments.length > 3 && (
+          <CustomButton onClickHandler={clickHandler} width="10rem">
+            {isShown ? "Show less" : "Show more"}
+          </CustomButton>
+        )}
       </Center>
     </>
   );

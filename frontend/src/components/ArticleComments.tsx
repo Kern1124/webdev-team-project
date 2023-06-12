@@ -3,6 +3,8 @@ import { ArticleCommentsWrapper } from "./ArticleCommentsWrapper";
 import { CommentSubmit } from "./CommentSubmit";
 import { SubpageHeading } from "./SubpageHeading";
 import { Authorized } from "./Authorized";
+import { getComments } from "../api/requests";
+import { useQuery } from "@tanstack/react-query";
 
 const SAMPLE_COMMENTS = [
   {
@@ -22,10 +24,18 @@ interface ArticleCommentsProps {
 }
 
 export const ArticleComments = ({ articleId }: ArticleCommentsProps) => {
+
+  const { data, isLoading } = useQuery({
+    queryKey: ["article", articleId],
+    queryFn: () => getComments(articleId),
+    staleTime: 1000 * 60 * 2,
+    refetchOnWindowFocus: false,
+  });
+
   return (
     <ArticleCommentsWrapper>
       <SubpageHeading heading="Comments" />
-      <CommentList comments={SAMPLE_COMMENTS} />
+      <CommentList comments={data?.item} isLoading={isLoading} />
       <Authorized role="JOURNALIST">
         <CommentSubmit articleId={articleId} buttonLabel="Submit comment" />
       </Authorized>

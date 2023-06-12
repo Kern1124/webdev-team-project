@@ -2,7 +2,7 @@ import { Flex, Text } from "@chakra-ui/layout";
 
 interface CommentHeaderProps {
   author: string;
-  date: string;
+  date: Date;
 }
 
 export const CommentHeader = ({ author, date }: CommentHeaderProps) => {

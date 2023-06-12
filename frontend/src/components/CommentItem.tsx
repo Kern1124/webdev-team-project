@@ -5,7 +5,7 @@ import { CommentHeader } from "./CommentHeader";
 interface CommentItemProps {
   author: string;
   children: string;
-  date: string;
+  date: Date;
 }
 
 export const CommentItem = ({ author, children, date }: CommentItemProps) => {
