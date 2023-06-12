@@ -9,6 +9,8 @@ import { publisherApi } from "./api/publisher/publisherApi";
 import { articleApi } from "./api/article/article.router";
 import auth from "./middleware/authMiddleware";
 import { commentApi } from "./api/comment/commentApi";
+import { copyApi } from "./api/copy/copyApi";
+
 
 
 
@@ -44,7 +46,7 @@ app.get('/newspaper/publish', newspaperApi.getUnpublishedCopies) //DIRECTOR
 app.get('/publisher', publisherApi.getAllPublishers)
 
 app.get('/article', articleApi.getAll)
-app.post('/article/comment', commentApi.create)
+app.post('/article/comment', auth('JOURNALIST'), commentApi.create)
 app.post('/article/create', auth('JOURNALIST'), articleApi.create)
 app.get('/article/:articleId', articleApi.getArticleWithId)
 app.get('/article/:articleId/comment', commentApi.getArticleComments)
@@ -54,6 +56,12 @@ app.get('/article/id=/:newspaperCopyId', articleApi.getCopyArticles)
 app.get('/article/related/:articleId', articleApi.getRelatedArticles)
 app.get('/article/:newspaperCopyId/:content', articleApi.getCopyArticles)
 
+
+// Approval / Discard
+app.delete('/article/:articleId/discard', auth('JOURNALIST'), articleApi.discard)
+app.patch('/article/:articleId/approve', auth('JOURNALIST'), articleApi.approve)
+app.delete('/copy/:id/discard', auth('JOURNALIST'), copyApi.discard)
+app.patch('/copy/:id/approve', auth('JOURNALIST'), copyApi.approve)
 
 app.get('/articles/approval', articleApi.getUnapprovedArticles) //MANAGER
 

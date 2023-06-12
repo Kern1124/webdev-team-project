@@ -68,7 +68,7 @@ model Article {
   id              String         @id @default(uuid())
   heading         String
   contents        String
-  newspaper_copy  Newspaper_copy @relation(fields: [newspaperCopyId], references: [id])
+  newspaper_copy  Newspaper_copy @relation(fields: [newspaperCopyId], references: [id], onDelete: Cascade)
   newspaperCopyId String
   author          User           @relation(fields: [authorId], references: [id])
   authorId        String
