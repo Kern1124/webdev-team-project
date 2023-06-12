@@ -41,6 +41,7 @@ export const CommentSubmit = ({
         bgColor="light"
         variant="filled"
         focusBorderColor="main"
+        value={content}
         onChange={changeHandler}
       />
       <CustomButton onClickHandler={submitHandler} isDisabled={isLoading}>
