@@ -35,7 +35,7 @@ export const LoginPage = () => {
       }
       reset();
     },
-    [reset, login, toast]
+    [reset, login, toast, successToast]
   );
   return (
     <UserFormWrapper
