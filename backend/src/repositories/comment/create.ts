@@ -15,6 +15,16 @@ export const create = async (data: CreateCommentData) => {
                 author: { connect: { id: data.authorId } },
                 article: { connect: { id: data.articleId } },
             },
+            select: {
+                id: true,
+                author: {
+                    select: {
+                        username: true,
+                    }
+                },
+                createdAt: true,
+                content: true,
+            }
         }));
     } catch (err) {
         return Result.err(err as Error);
