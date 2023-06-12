@@ -96,10 +96,13 @@ const getNewspapersByIdInverval = async (req: Request, res: Response) => {
 
     if (Date.parse(from)) {
         fromDate = new Date(from);
+        fromDate.setHours(0, 0, 0, 0);
+
     }
 
     if (Date.parse(to)) {
         toDate = new Date(to);
+        toDate.setHours(23, 59, 59, 999); 
     }
 
     try {
