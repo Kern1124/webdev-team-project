@@ -54,7 +54,7 @@ export const getNewspapers = async (publisherId: string, title: string) => {
 
 export const getNewspaper = async (newspaperId: string) => {
     const response = await serverApi.get(`/newspaper/${newspaperId}`);
-    return response.data;
+    return response.data
 }
 
 export const getCategories = async () => {
@@ -74,5 +74,14 @@ export const postApproval = async (url: string ) => {
 
 export const submitArticle = async (data: ArticleFormType) => {
     const response = await serverApi.post("/article/create", data)
+    return response.data
+}
+export const getArticleWithId = async (articleId: string) => {
+    const response = await serverApi.get(`/article/${articleId}`)
+    return response.data
+}
+
+export const getRelatedArticles = async (articleId: string) => {
+    const response = await serverApi.get(`/article/related/${articleId}`)
     return response.data
 }
