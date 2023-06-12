@@ -5,6 +5,7 @@ import { useQuery } from "@tanstack/react-query"
 import { RelatedSidebar } from "../components/RelatedSidebar"
 import { ArticleContent } from "../components/ArticleContent"
 import { ArticleContentHeading } from "../components/ArticleContentHeading"
+import { ArticleComments } from "../components/ArticleComments"
 
 interface ArticleProp {
     articleId: string
@@ -44,6 +45,7 @@ export const ArticlePage = ({articleId}: ArticleProp) => {
             <ArticleContentHeading {...article}/>
             <Divider borderColor={'main'}/>
             <ArticleContent {...contentProp}/>
+            <ArticleComments articleId={articleId} />
         </Flex>
     );
 }
