@@ -29,7 +29,7 @@ const getCopyArticles = async (req: Request, res: Response) => {
     const newspaperCopyId: string = req.params.newspaperCopyId;
     const content: string = req.params.content;
 
-    const articles: Article[] = await db.article.findMany({
+    const articles: ArticleWithCategories[] = await db.article.findMany({
       where: {
         AND: [
           {
@@ -38,8 +38,10 @@ const getCopyArticles = async (req: Request, res: Response) => {
               contains: content
             }
           },
-
         ],
+      },
+      include: {
+        categories: true,
       }
     })
 
