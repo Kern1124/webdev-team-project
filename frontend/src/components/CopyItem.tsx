@@ -19,8 +19,8 @@ export const CopyItem = ({
       <Flex
         justify="space-between"
         align="center"
-        bg="secondary"
-        color="main"
+        bg={published ? "secondary" : "mainLight"}
+        color={published ? "main" : "secondaryLight"}
         fontSize="1.5rem"
         fontWeight="bold"
         p={2}
@@ -28,7 +28,10 @@ export const CopyItem = ({
         onClick={onToggle}
         flexDir="row"
       >
-        <Box>{formattedDate}</Box>
+        <Box>
+          {formattedDate}
+          {published ? "" : " (Not published)"}
+        </Box>
         <Box alignSelf="center" onClick={(e) => e.stopPropagation()}>
           <Authorized
             role={"DIRECTOR"}
