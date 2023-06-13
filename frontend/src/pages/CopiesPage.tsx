@@ -23,7 +23,7 @@ export const CopiesPage = () => {
   };
 
   const { data, isLoading } = useQuery({
-    queryKey: ["copies", newspaperId, debouncedStartDate, debouncedEndDate],
+    queryKey: ["copies", newspaperId, debouncedStartDate, debouncedEndDate, debouncedHeading],
     queryFn: () =>
       getNewspaper(
         newspaperId ?? "",
