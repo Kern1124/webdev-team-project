@@ -61,6 +61,31 @@ export const data = async () => {
                   },
                 ],
               },
+              {
+                published: false,
+                articles: [
+                  {
+                    heading: 'Testing Article',
+                    contents: 'Testing Testing Testing Testing ',
+                    categories: [{ name: 'Travel' }, { name: 'Environment' }],
+                    comments: [
+                      { content: 'Testing Comment', author: { username: 'Slavo' } },
+                      { content: 'Testing Testing Comment', author: { username: 'Tylich' } },
+                    ],
+                    approved: false,
+                  },
+                  {
+                    heading: 'Testing Article2',
+                    contents: 'Testing Testing Testing Testing ',
+                    categories: [{ name: 'Environment' }],
+                    comments: [
+                      { content: 'This is an important topic to discuss.', author: { username: 'Tylich' } },
+                      { content: 'We need to take immediate action to mitigate climate change.', author: { username: 'Slavo' } },
+                    ],
+                    approved: true,
+                  },
+                ],
+              },
             ],
           },
           {
@@ -447,9 +472,24 @@ export const roles = [
     user: 'Tylich',
     userRoles: [
       {
-
         name: 'MANAGER' as RoleRecordType,
         newspaperName: 'The New York Times'
+      },
+      {
+        name: 'MANAGER' as RoleRecordType,
+        newspaperName: 'The Washington Post'
+      },
+      {
+        name: 'MANAGER' as RoleRecordType,
+        newspaperName: 'El País'
+      },
+      {
+        name: 'MANAGER' as RoleRecordType,
+        newspaperName: 'The Times of India'
+      },
+      {
+        name: 'MANAGER' as RoleRecordType,
+        newspaperName: 'Le Monde'
       },
       {
         name: 'DIRECTOR' as RoleRecordType,
