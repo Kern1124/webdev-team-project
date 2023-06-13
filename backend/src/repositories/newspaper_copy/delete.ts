@@ -4,7 +4,7 @@ import { NewspaperCopyDeleteData } from "../../types/newspaper_copy.types";
 import { Result } from "@badrap/result";
 
 
-export const create = async (data: NewspaperCopyDeleteData): Promise<Result<Newspaper_copy>> => {
+export const remove = async (data: NewspaperCopyDeleteData): Promise<Result<Newspaper_copy>> => {
 
     try {
         //Delete a newspaper_copy and return it

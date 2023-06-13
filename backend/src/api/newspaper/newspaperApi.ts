@@ -157,7 +157,7 @@ const updateImage = async (req: Request, res: Response) => {
 
     const storage = multer.diskStorage({
       destination: (req, file, cb) => {
-        cb(null, 'images',)  // ../images doesn't work for whatever reason???
+        cb(null, 'public/images',)  // ../images doesn't work for whatever reason???
       },
       filename: async (req, file, cb) => {
         const newName = Date.now() + path.extname(file.originalname);
@@ -179,7 +179,6 @@ const updateImage = async (req: Request, res: Response) => {
         var ext = path.extname(file.originalname);
         if (ext !== '.png' && ext !== '.jpg' && ext !== '.gif' && ext !== '.jpeg') {
           return callback(Error("Can only upload images!"));
-
         }
         callback(null, true);
       }, limits: {
@@ -210,7 +209,7 @@ const updateImage = async (req: Request, res: Response) => {
 
     up(req, res, (err) => {
       if (err) {
-        res.status(500).json({ message: "Upload unsuccessful", error: err });
+        res.status(500).json({ message: "Upload unsuccessful - " + err.message });
         return err;
       }
       res.status(200).json({ message: "Upload successful" });
