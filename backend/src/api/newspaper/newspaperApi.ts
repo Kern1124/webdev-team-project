@@ -254,13 +254,15 @@ const getNewspaperByIntervalHeadingRoles = async (req: Request, res: Response) =
       if (!newspaper) {
         return res.status(400).json({ message: "Invalid newspaper!" })
       }
-      newspaper.newspaperCopies = newspaper.newspaperCopies.map((copy) => ({
-        ...copy,
-        articles: copy.articles.filter((article) =>
-          article.heading.includes(headingPart)
-        ),
-      }));
-      // for role get result
+      newspaper.newspaperCopies = newspaper.newspaperCopies
+        .map((copy) => ({
+          ...copy,
+          articles: copy.articles.filter((article) =>
+            article.heading.toLowerCase().includes(headingPart.toLowerCase())
+          ),
+        }))
+        .filter((copy) => !copy.published || copy.articles.length > 0);
+        // for role get result
       const result = getResultForRoles(newspaper, user?.userRoles)
       if (result.isErr) {
         return res.status(500).json({ message: "Internal error!" })
