@@ -254,7 +254,12 @@ const getNewspaperByIntervalHeadingRoles = async (req: Request, res: Response) =
       if (!newspaper) {
         return res.status(400).json({ message: "Invalid newspaper!" })
       }
-      newspaper.newspaperCopies.map((copy) => copy.articles.filter((article) => article.heading.includes(headingPart)))
+      newspaper.newspaperCopies = newspaper.newspaperCopies.map((copy) => ({
+        ...copy,
+        articles: copy.articles.filter((article) =>
+          article.heading.includes(headingPart)
+        ),
+      }));
       // for role get result
       const result = getResultForRoles(newspaper, user?.userRoles)
       if (result.isErr) {
