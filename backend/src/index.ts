@@ -62,7 +62,7 @@ app.delete('/article/:articleId/discard', auth('JOURNALIST'), articleApi.discard
 app.patch('/article/:articleId/approve', auth('JOURNALIST'), articleApi.approve)
 app.delete('/copy/:id/discard', auth('JOURNALIST'), copyApi.discard)
 app.patch('/copy/:id/approve', auth('JOURNALIST'), copyApi.approve)
-app.delete('comment/:id/delete', auth('JOURNALIST'), commentApi.deleteComment)
+app.delete('/comment/:id/delete', auth('JOURNALIST'), commentApi.deleteComment)
 
 app.get('/articles/approval', articleApi.getUnapprovedArticles) //MANAGER
 

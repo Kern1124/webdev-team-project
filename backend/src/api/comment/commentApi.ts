@@ -75,15 +75,25 @@ const deleteComment = async (req: Request, res: Response) => {
   try {
     const id = req.params.id
     // check that comment exist
-    const commentToDelete = db.comment.findFirst({
+    const commentToDelete = await db.comment.findFirst({
       where: {
         id,
-      }
+      },
     })
     if (!commentToDelete) {
       return res.status(400).json({ message: "Comment does not exist" })
     }
-    const deletedComment = db.comment.delete({
+    
+    // Check that 
+    const user = req.session.user
+    if (!user) {
+      res.status(401).json({ message: 'Unauthorized' });
+      return;
+    }
+    if (commentToDelete.authorId !== user.id) {
+      return res.status(400).json({ message: "Only author can delete his comment" })
+    }
+    const deletedComment = await db.comment.delete({
       where: {
         id,
       }
