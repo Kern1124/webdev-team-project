@@ -13,7 +13,6 @@ export const CopiesPage = () => {
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);
   const [heading, setHeading] = useState<string | null>(null);
-  const [pageTitle, setPageTitle] = useState<string>("")
   const debouncedHeading = useDebounce(heading, 300);
   const debouncedStartDate = useDebounce(startDate, 300);
   const debouncedEndDate = useDebounce(endDate, 300);
@@ -36,13 +35,11 @@ export const CopiesPage = () => {
     refetchOnWindowFocus: false,
   });
 
-  if (data?.name) {
-    setPageTitle(data?.name)
-  }
+
 
   return (
     <Box marginTop="1rem">
-      <SubpageHeading heading={pageTitle} />
+      <SubpageHeading heading={data?.name ?? ""} />
       <CopiesFilter onDateRangeChange={handleDateChange} setInput={setHeading} />
       <CopyList copies={data?.newspaperCopies} isLoading={isLoading} />
     </Box>
