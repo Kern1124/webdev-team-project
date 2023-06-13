@@ -12,7 +12,7 @@ interface CommentListProps {
 
 export const CommentList = ({ comments, isLoading }: CommentListProps) => {
   const [isShown, setIsShown] = useState<boolean>(false);
-
+  console.log(comments)
   const mappedComments = useMemo(() => {
     if (comments == null) {
       return [];
@@ -24,6 +24,7 @@ export const CommentList = ({ comments, isLoading }: CommentListProps) => {
           <CommentItem
             key={comment.id}
             id={comment.id}
+            authorId={comment.author.id}
             author={comment.author.username}
             date={comment.createdAt}
           >

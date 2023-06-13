@@ -24,14 +24,14 @@ export const Authorized = ({
   if (
     (condition != null && !condition) ||
     !auth ||
-    (id && auth.items.id !== id)
+    (id && auth.items.userId !== id)
   ) {
     return null;
   }
 
   if (
-    (auth.items.length === 0 && role === "GUEST") ||
-    auth.items.includes(role)
+    (auth.items.roles.length === 0 && role === "GUEST") ||
+    auth.items.roles.includes(role)
   ) {
     return <>{children}</>;
   }

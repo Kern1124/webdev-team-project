@@ -4,11 +4,12 @@ import { Authorized } from "./Authorized";
 
 interface CommentHeaderProps {
   id: string;
+  authorId: string;
   author: string;
   date: Date;
 }
 
-export const CommentHeader = ({ author, date, id }: CommentHeaderProps) => {
+export const CommentHeader = ({ author, date, id, authorId }: CommentHeaderProps) => {
   const formattedDate = new Date(date).toLocaleDateString("en-GB");
 
   return (
@@ -19,7 +20,7 @@ export const CommentHeader = ({ author, date, id }: CommentHeaderProps) => {
           {formattedDate}
         </Text>
       </Flex>
-      <Authorized role="JOURNALIST" >
+      <Authorized role="JOURNALIST" id={authorId} >
         <CommentDeleter id={id} />
       </Authorized>
     </Flex>
