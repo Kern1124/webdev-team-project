@@ -8,7 +8,7 @@ export const useApproval = () => {
         mutationFn: postApproval,
         retry: false,
         onSuccess: () => {
-            queryClient.invalidateQueries(["copies"]);
+            queryClient.invalidateQueries({ queryKey: ["copies"] });
         },
     })
     
