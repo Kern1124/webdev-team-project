@@ -4,14 +4,15 @@ import {
   newspaperById,
   newspaperPublisherRequest,
 } from "../../models/newspaper";
-import { Newspaper, Newspaper_copy } from "@prisma/client";
-import { NewspaperWithCopies, NewspaperWithCopiesAndRolePermission } from "../../types/newspaper.types";
+import { Newspaper, Newspaper_copy, Role, User } from "@prisma/client";
+import { NewspaperWithCopies, NewspaperWithCopiesAndRolePermission, NewspaperWithCopiesArticles } from "../../types/newspaper.types";
 import { db } from "../../utils/db.server";
 import multer from 'multer';
 import path from 'path';
 import { unlink } from 'node:fs'
 import { RoleRecordTypeEnumeration } from "../../models/role";
 import { CopyArticlesSchema } from "../../models/article";
+import { Result } from "@badrap/result";
 
 const getAllNewspaper = async (req: Request, res: Response) => {
   try {
@@ -83,10 +84,7 @@ const getNewspaperByPublisher = async (req: Request, res: Response) => {
 // Vyfiltruje jeho newspaper copies podle data, pokud je datum
 // null tak se pošlou všechny newspaper copies.
 
-const getNewspapersByIdInverval = async (req: Request, res: Response) => {
-  const id: string = req.params.id;
-  const from: string = req.params.from;
-  const to: string = req.params.to;
+const getNewspapersByIdInverval = async (id: string, from: string, to: string) => {
   let fromDate: Date | undefined;
   let toDate: Date | undefined;
 
@@ -106,7 +104,7 @@ const getNewspapersByIdInverval = async (req: Request, res: Response) => {
   }
 
   try {
-    const newspaper: NewspaperWithCopies | null = await db.newspaper.findFirst({
+    const newspaper: NewspaperWithCopiesArticles | null = await db.newspaper.findFirst({
       where: {
         id: id,
       },
@@ -122,19 +120,23 @@ const getNewspapersByIdInverval = async (req: Request, res: Response) => {
               },
             ],
           },
+          include: {
+            articles: {
+              select: {
+                id: true,
+                authorId: true,
+                heading: true,
+                approved: true,
+                categories: true,
+              },
+            }
+          }
         },
       },
     });
-
-    if (!newspaper) {
-      res.status(200).json([]);
-      return;
-    }
-
-    res.status(200).json({ item: newspaper, message: "Newspaper found." });
+    return Result.ok(newspaper)
   } catch (e) {
-
-    res.status(500).json([]);
+    return Result.err(e as Error)
   }
 };
 
@@ -214,10 +216,6 @@ const updateImage = async (req: Request, res: Response) => {
       }
       res.status(200).json({ message: "Upload successful" });
     });
-
-
-
-
   })
 }
 
@@ -239,106 +237,126 @@ const getUnpublishedNewspaperCopies = async (req: Request, res: Response) => {
   }
 }
 
-const getNewspaperCopies = async (req: Request, res: Response) => {
+// well this function returns all filtered copies and articles and if you have role, also if approvable publishable
+const getNewspaperByIntervalHeadingRoles = async (req: Request, res: Response) => {
   try {
     return await db.$transaction(async (db) => {
-      const newspaperId: string = req.params.id;
-      const user = req.session.user;
-      // To readers and those without manager/director roles, only return approved and published articles
-      if (!user || !user.userRoles.some(role => role.newspaperId === newspaperId && (role.name === RoleRecordTypeEnumeration[1] || role.name === RoleRecordTypeEnumeration[0]))) {
-        const journalist = await db.newspaper.findFirst({
-          where: { id: newspaperId },
-          include: {
-            newspaperCopies: {
-              where: {
-                published: true,
-              },
-              include: {
-                articles: {
-                  where: {
-                    approved: true,
-                  },
-                  select: {
-                    id: true,
-                    authorId: true,
-                    heading: true,
-                    categories: true,
-                  },
-                },
-              },
-            },
-          },
-        });
-        return res.status(200).json(journalist);
+      const id: string = req.params.id;
+      const from: string = req.params.from;
+      const to: string = req.params.to;
+      const headingPart: string = req.params.heading
+      const user = req.session.user
+      const copies = await getNewspapersByIdInverval(id, from, to)
+      if (copies.isErr) {
+        return res.status(500).json({ message: "Internal error" })
       }
-
-      const allAll = await db.newspaper.findFirst({
-        where: { id: newspaperId },
-        include: {
-          newspaperCopies: {
-            include: {
-              articles: {
-                select: {
-                  id: true,
-                  authorId: true,
-                  heading: true,
-                  approved: true,
-                  categories: true,
-                },
-              },
-            },
-          },
-        },
-      });
-
-      if (!allAll) {
-        return res.status(200).json(null);
+      let newspaper = copies.value
+      if (!newspaper) {
+        return res.status(400).json({ message: "Invalid newspaper!" })
       }
+      newspaper.newspaperCopies.map((copy) => copy.articles.filter((article) => article.heading.includes(headingPart)))
+      // for role get result
+      const result = getResultForRoles(newspaper, user?.userRoles)
+      if (result.isErr) {
+        return res.status(500).json({ message: "Internal error!" })
+      }
+      return res.status(200).json(result.value)
 
-      let response: NewspaperWithCopiesAndRolePermission = {
-        ...allAll,
-        newspaperCopies: allAll?.newspaperCopies.map((copy) => ({
-          ...copy,
-          isPublishable: false,
-          articles: copy.articles.map((article) => ({
-            id: article.id,
-            approved: article.approved,
-            authorId: article.authorId,
-            heading: article.heading,
-            categories: article.categories,
-            isApprovable: false,
+    })
+  }
+  catch (e) {
+    res.status(500).json([])
+  }
+}
+
+const getResultForRoles = (newspaper: NewspaperWithCopiesArticles, roles: Role[] | undefined) => {
+  // newspaper with filtered copies and articles
+  try {
+    if (!roles || !(roles.some(role => role.newspaperId === newspaper.id && (role.name === RoleRecordTypeEnumeration[1] || role.name === RoleRecordTypeEnumeration[0])))) {
+      // filter published and approved
+      newspaper.newspaperCopies
+      const basicUser = {
+        ...newspaper,
+        newspaperCopies: newspaper.newspaperCopies
+          .filter((copy) => copy.published === true)
+          .map((copy) => ({
+            ...copy,
+            articles: copy.articles.filter((article) => article.approved === true),
           })),
-        })),
       };
+      return Result.ok(basicUser)
+    }
 
-      if (user) {
-        // Manager
-        if (user.userRoles.some(role => role.newspaperId === newspaperId && role.name === RoleRecordTypeEnumeration[1])) {
-          response = {
-            ...response,
-            newspaperCopies: response.newspaperCopies.map((copy) => ({
-              ...copy,
-              articles: copy.articles.map((article) => ({
-                ...article,
-                isApprovable: !article.approved,
-              })),
-            }))
-          }
-        }
-        // Director
-        if (user.userRoles.some(role => role.newspaperId === newspaperId && role.name === RoleRecordTypeEnumeration[0])) {
-          response = {
-            ...response,
-            newspaperCopies: response.newspaperCopies.map((copy) => ({
-              ...copy,
-              isPublishable: !copy.published,
-            }))
-          }
-        }
+    let response: NewspaperWithCopiesAndRolePermission = {
+      ...newspaper,
+      newspaperCopies: newspaper?.newspaperCopies.map((copy) => ({
+        ...copy,
+        isPublishable: false,
+        articles: copy.articles.map((article) => ({
+          id: article.id,
+          approved: article.approved,
+          authorId: article.authorId,
+          heading: article.heading,
+          categories: article.categories,
+          isApprovable: false,
+        })),
+      })),
+    };
 
-        return res.status(200).json(response);
+
+    // Manager
+    if (roles.some(role => role.newspaperId === newspaper.id && role.name === RoleRecordTypeEnumeration[1])) {
+      response = {
+        ...response,
+        newspaperCopies: response.newspaperCopies.map((copy) => ({
+          ...copy,
+          articles: copy.articles.map((article) => ({
+            ...article,
+            isApprovable: !article.approved,
+          })),
+        }))
       }
-    });
+    }
+    // Director
+    if (roles.some(role => role.newspaperId === newspaper.id && role.name === RoleRecordTypeEnumeration[0])) {
+      response = {
+        ...response,
+        newspaperCopies: response.newspaperCopies.map((copy) => ({
+          ...copy,
+          isPublishable: !copy.published,
+        }))
+      }
+    }
+
+    return Result.ok(response)
+  }
+  catch (e) {
+    return Result.err(e as Error)
+  }
+}
+const getNewspapersByIdInvervalRoles = async (req: Request, res: Response) => {
+  try {
+    return await db.$transaction(async (db) => {
+      const id: string = req.params.id;
+      const from: string = req.params.from;
+      const to: string = req.params.to;
+      const user = req.session.user
+      const copies = await getNewspapersByIdInverval(id, from, to)
+      if (copies.isErr) {
+        return res.status(500).json({ message: "Internal error" })
+      }
+      const newspaper = copies.value
+      if (!newspaper) {
+        return res.status(400).json({ message: "Invalid newspaper!" })
+      }
+      // for role get result
+      const result = getResultForRoles(newspaper, user?.userRoles)
+      if (result.isErr) {
+        return res.status(500).json({ message: "Internal error!" })
+      }
+      return res.status(200).json(result.value)
+
+    })
   }
   catch (e) {
     res.status(500).json([])
@@ -351,5 +369,6 @@ export const newspaperApi = {
   getUnpublishedCopies,
   updateImage,
   getUnpublishedNewspaperCopies,
-  getNewspaperCopies,
+  getNewspaperByIntervalHeadingRoles,
+  getNewspapersByIdInvervalRoles,
 };

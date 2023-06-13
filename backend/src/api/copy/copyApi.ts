@@ -213,8 +213,6 @@ const getRelatedArticles = async (req: Request, res: Response) => {
             }
 
             const categories: string[] = article.categories.map((category) => (category.name))
-            console.log(categories);
-            console.log(categories);
 
             const related = await transaction.article.findMany({
                 where: {

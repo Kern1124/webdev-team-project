@@ -40,8 +40,8 @@ app.get('/newspaper', newspaperApi.getAllNewspaper)
 app.get('/newspaper/publisher=/:publisherId', newspaperApi.getNewspaperByPublisher)
 app.get('/newspaper/name=/:title', newspaperApi.getNewspaperByPublisher)
 app.get('/newspaper/:publisherId/:title', newspaperApi.getNewspaperByPublisher)
-app.get('/newspaper/:id', newspaperApi.getNewspaperCopies) // and unpublishedCopies and UnapprovedArticles
-app.get('/newspaper/:id/:from/:to', newspaperApi.getNewspapersByIdInverval)
+app.get('/newspaper/:id/:from/:to', newspaperApi.getNewspapersByIdInvervalRoles)
+app.get('/newspaper/:id/:from/:to/:heading', newspaperApi.getNewspaperByIntervalHeadingRoles)
 app.get('/newspaper/publish', newspaperApi.getUnpublishedCopies) //DIRECTOR
 
 app.get('/publisher', publisherApi.getAllPublishers)
