@@ -1,6 +1,6 @@
 import { useParams } from "react-router";
 import { SubpageHeading } from "../components/SubpageHeading";
-import { Divider } from "@chakra-ui/layout";
+import { Box, Divider } from "@chakra-ui/layout";
 import { useQuery } from "@tanstack/react-query";
 import { getArticlesByContent } from "../api/requests";
 import { ArticleList } from "../components/ArticleList";
@@ -19,9 +19,7 @@ export const ArticleSearchPage = () => {
     refetchOnWindowFocus: false,
   });
 
-
-  const articles = useMemo(() => data?.items ?? [], [data])
-  console.log(articles)
+  const articles = useMemo(() => data?.items ?? [], [data]);
 
   const renderedContent = isLoading ? (
     <CenteredBanner>
@@ -32,12 +30,10 @@ export const ArticleSearchPage = () => {
   );
 
   return (
-    <>
-      <SubpageHeading heading="Article results" />
+    <Box mt={{ base: "0", md: "2rem" }}>
+      <SubpageHeading heading={`Article results for "${content}"`} />
       <Divider mt="1rem" mb="2rem" borderColor="main" />
-      <Card>
-      {renderedContent}
-      </Card>
-    </>
+      <Card>{renderedContent}</Card>
+    </Box>
   );
 };
