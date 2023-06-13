@@ -4,7 +4,13 @@ import { ArticleListCollapse } from "./ArticleListCollapse";
 import { Authorized } from "./Authorized";
 import { Copy } from "../types/copy";
 
-export const CopyItem = ({ id, date, articles, published }: Copy) => {
+export const CopyItem = ({
+  id,
+  date,
+  articles,
+  published,
+  isPublishable,
+}: Copy) => {
   const { isOpen, onToggle } = useDisclosure();
   const formattedDate = new Date(date).toLocaleDateString("en-GB");
 
@@ -23,8 +29,11 @@ export const CopyItem = ({ id, date, articles, published }: Copy) => {
         flexDir="row"
       >
         <Box>{formattedDate}</Box>
-        <Box alignSelf="center" onClick={e => e.stopPropagation()}> 
-          <Authorized role={"DIRECTOR"} condition={published === false}>
+        <Box alignSelf="center" onClick={(e) => e.stopPropagation()}>
+          <Authorized
+            role={"DIRECTOR"}
+            condition={published === false && isPublishable === true}
+          >
             <ApprovalAction
               approveName="Approve"
               discardName="Discard"
@@ -38,4 +47,3 @@ export const CopyItem = ({ id, date, articles, published }: Copy) => {
     </Box>
   );
 };
-

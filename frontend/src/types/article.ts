@@ -4,7 +4,8 @@ export type Article = {
     categories: Category[]
     heading: string,
     id: string,
-    approved?: boolean
+    approved?: boolean,
+    isApprovable?: boolean,
 }
 
 export interface ArticleFormType {

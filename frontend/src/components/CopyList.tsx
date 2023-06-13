@@ -23,7 +23,8 @@ export const CopyList = ({ copies, isLoading }: CopyListProps) => {
             id={copy.id}
             date={copy.date}
             articles={copy.articles}
-            published={copy.published} />
+            published={copy.published}
+            isPublishable={copy.isPublishable} />
         ) ?? []
       );
     });

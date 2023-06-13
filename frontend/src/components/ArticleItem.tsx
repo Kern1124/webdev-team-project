@@ -19,7 +19,7 @@ export const ArticleItem = ({ article }: ArticleItemProps) => {
             categories={article.categories.map((category) => category.name)}
           />
         </Flex>
-        <Authorized role={"MANAGER"} condition={!article.approved}>
+        <Authorized role={"MANAGER"} condition={!article.approved && article.isApprovable}>
           <ApprovalAction
             approveName="Approve"
             discardName="Discard"

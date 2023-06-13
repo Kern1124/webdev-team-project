@@ -32,6 +32,8 @@ export const CopiesPage = () => {
     refetchOnWindowFocus: false,
   });
 
+  console.log(data)
+
   return (
     <>
       <Flex justifyContent="space-between" alignItems="center">

@@ -5,4 +5,5 @@ export type Copy = {
     date: string
     id: string
     published?: boolean
+    isPublishable?: boolean
 }
