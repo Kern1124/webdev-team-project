@@ -23,6 +23,7 @@ export const CommentList = ({ comments, isLoading }: CommentListProps) => {
         (
           <CommentItem
             key={comment.id}
+            id={comment.id}
             author={comment.author.username}
             date={comment.createdAt}
           >
