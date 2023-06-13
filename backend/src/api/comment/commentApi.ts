@@ -71,10 +71,31 @@ const getArticleComments = async (req: Request, res: Response) => {
   }
 }
 
-
-
+const deleteComment = async (req: Request, res: Response) => {
+  try {
+    const id = req.params.id
+    // check that comment exist
+    const commentToDelete = db.comment.findFirst({
+      where: {
+        id,
+      }
+    })
+    if (!commentToDelete) {
+      return res.status(400).json({ message: "Comment does not exist" })
+    }
+    const deletedComment = db.comment.delete({
+      where: {
+        id,
+      }
+    })
+    return res.status(200).json({ item: deleteComment, message: 'Deleted succesfully' })
+  } catch (e) {
+    res.status(500).json({ message: "Something went wrong.", error: e })
+  }
+}
 
 export const commentApi = {
   create,
   getArticleComments,
+  deleteComment,
 };

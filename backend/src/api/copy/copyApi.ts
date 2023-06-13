@@ -242,9 +242,7 @@ const getRelatedArticles = async (req: Request, res: Response) => {
         res.status(500).json({ message: "Something went wrong", error: e })
     }
 }
-const validateDirectorRole =  async (req: Request, res: Response) => {
-  
-}
+
 const approve = async (req: Request, res: Response) => {
     try {
         ///DUPLICATED
@@ -278,7 +276,7 @@ const approve = async (req: Request, res: Response) => {
             },
             data: {
                 published: true,
-                date: new Date().toISOString()
+                date: new Date()
             }
         })
         res.status(200).json({ item: copy, message: 'Copy succesfully approved.' });
