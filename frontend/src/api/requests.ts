@@ -104,3 +104,8 @@ export const deleteCommentById = async (commentId: string) => {
   const response = await serverApi.post(`/comment/${commentId}/delete`)
   return response.data;
 }
+
+export const getArticlesByContent = async (content: string) => {
+  const response = await serverApi.get(`/article/content=/${content}`)
+  return response.data;
+}

@@ -26,7 +26,7 @@ const App = () => {
           <Authorized role="JOURNALIST">
             <RouteLink to="auth/logout">Log out</RouteLink>
           </Authorized>
-          <SearchLink placeholder="Search articles" to="/articles" />
+          <SearchLink placeholder="Search articles" to="/article/search" />
         </ResponsiveStack>
       </ResponsiveHeader>
       <RoutingContent />
