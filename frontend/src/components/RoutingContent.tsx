@@ -6,6 +6,7 @@ import { PrivateRouting } from "./PrivateRouting";
 import { NewspaperPage } from "../pages/NewspaperPage";
 import { CopiesPage } from "../pages/CopiesPage";
 import { ArticlePage } from "../pages/ArticlePage";
+import { ArticleSearchPage } from "../pages/ArticleSearchPage";
 
 export const RoutingContent = () => {
   return (
@@ -15,7 +16,7 @@ export const RoutingContent = () => {
         <Route path="/newspaper/:id" element={<CopiesPage />} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/articles" />
+        <Route path="/article/search/:content" element={<ArticleSearchPage />} />
         <Route path="/auth/*" element={<PrivateRouting />} />
         <Route path="/article/:id" element={<ArticlePage/>} />
         <Route index path="/*" element={<NewspaperPage />} />
