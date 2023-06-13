@@ -8,7 +8,7 @@ export type CommentType = {
 
 export type CommentQueryType = {
     id: string,
-    author: { username: string },
+    author: { username: string, id: string },
     createdAt: Date,
     content: string
 }
