@@ -20,8 +20,10 @@ export const SearchLink = ({ to, placeholder }: SeachLinkProps) => {
   }, []);
 
   const clickHandler = useCallback(() => {
-    navigate(to + "/" + content);
-    setContent("");
+    if (content) {
+      navigate(to + "/" + content);
+      setContent("");
+    }
   }, [to, content, navigate]);
 
   return (
