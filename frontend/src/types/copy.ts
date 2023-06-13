@@ -6,4 +6,5 @@ export type Copy = {
     id: string
     published?: boolean
     isPublishable?: boolean
+    isOpenInitially?: boolean
 }

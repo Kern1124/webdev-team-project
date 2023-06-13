@@ -3,6 +3,7 @@ import { ApprovalAction } from "./ApprovalAction";
 import { ArticleListCollapse } from "./ArticleListCollapse";
 import { Authorized } from "./Authorized";
 import { Copy } from "../types/copy";
+import { useLayoutEffect } from "react";
 
 export const CopyItem = ({
   id,
@@ -10,9 +11,16 @@ export const CopyItem = ({
   articles,
   published,
   isPublishable,
+  isOpenInitially
 }: Copy) => {
   const { isOpen, onToggle } = useDisclosure();
   const formattedDate = new Date(date).toLocaleDateString("en-GB");
+
+  useLayoutEffect(() => {
+    if (isOpenInitially) {
+      onToggle()
+    }
+  }, [])
 
   return (
     <Box cursor="pointer" mb="1rem">

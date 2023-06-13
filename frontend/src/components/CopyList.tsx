@@ -15,7 +15,7 @@ export const CopyList = ({ copies, isLoading }: CopyListProps) => {
       return [];
     }
 
-    return copies?.map((copy) => {
+    return copies?.map((copy, index) => {
       return (
         (
           <CopyItem
@@ -24,7 +24,8 @@ export const CopyList = ({ copies, isLoading }: CopyListProps) => {
             date={copy.date}
             articles={copy.articles}
             published={copy.published}
-            isPublishable={copy.isPublishable} />
+            isPublishable={copy.isPublishable}
+            isOpenInitially={index === 0 ? true : false} />
         ) ?? []
       );
     });
