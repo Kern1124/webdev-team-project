@@ -20,7 +20,7 @@ export const NewspaperGrid = ({ newspapers, isLoading }: NewspaperGridProps) => 
       return (
         (
           <GridItem key={newspaper.id}>
-            <NewspaperCard title={newspaper.name} publisher={newspaper.publisher?.name}  id={newspaper.id} />
+            <NewspaperCard newspaperImg={newspaper.newspaperImg}  title={newspaper.name} publisher={newspaper.publisher?.name}  id={newspaper.id} />
           </GridItem>
         ) ?? []
       );

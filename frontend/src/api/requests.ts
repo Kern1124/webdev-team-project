@@ -3,9 +3,11 @@ import { UserSignupFormType, UserFormType } from "../types/user";
 import { CommentSubmitType } from "../types/comment";
 import { ArticleFormType } from "../types/article";
 
+export const serverURL = "http://localhost:8000"
+
 // TODO: change baseURL before release
 const serverApi = axios.create({
-  baseURL: "http://localhost:8000",
+  baseURL: serverURL,
   headers: {
     "Access-Control-Allow-Credentials": true,
   },

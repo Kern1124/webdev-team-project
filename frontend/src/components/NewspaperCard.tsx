@@ -2,14 +2,17 @@ import { Card } from "@chakra-ui/card";
 import { Flex, Text } from "@chakra-ui/layout";
 import { useNavigate } from "react-router";
 import { useCallback } from "react";
+import { Image } from "@chakra-ui/image";
+import { serverURL } from "../api/requests";
 
 interface NewspaperCardProps {
   title: string;
-  publisher: string
+  newspaperImg: string,
+  publisher: string,
   id: string;
 }
 
-export const NewspaperCard = ({ title, publisher, id }: NewspaperCardProps) => {
+export const NewspaperCard = ({ title, publisher, id, newspaperImg }: NewspaperCardProps) => {
   const navigate = useNavigate();
   const onClickHandle = useCallback(
     () => {
@@ -31,7 +34,9 @@ export const NewspaperCard = ({ title, publisher, id }: NewspaperCardProps) => {
           transform: "scale(1.1)",
           cursor: "pointer",
         }}
-      ></Card>
+      >
+        <Image src={`${serverURL}/${newspaperImg}`} alt="COVER" objectFit="cover" />
+      </Card>
       <Text>{title}</Text>
       <Text color="mainLight" fontSize="sm">{publisher}</Text>
     </Flex>

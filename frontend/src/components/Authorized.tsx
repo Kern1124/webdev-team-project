@@ -20,7 +20,7 @@ export const Authorized = ({
   id,
 }: AuthorizedProps) => {
   const { auth } = useAuth();
-
+  console.log(auth)
   if (
     (condition != null && !condition) ||
     !auth ||

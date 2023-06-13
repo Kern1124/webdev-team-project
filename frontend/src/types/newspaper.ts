@@ -4,6 +4,7 @@ import { Copy } from "./copy"
 export type NewspaperShortType = {
     id: string,
     name: string,
+    newspaperImg: string,
     publisher: PublisherNameType
 }
 
