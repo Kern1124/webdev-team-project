@@ -21,6 +21,10 @@ export const DatePicker = ({ placeholder, onDateChange }: DatePickerProps) => {
       placeholder={placeholder}
       size="md"
       type="date"
+      variant="filled"
+      focusBorderColor="main"
+      bgColor="light"
+      borderColor="main"
       value={date ? date.toISOString().slice(0, 10) : ''}
       onChange={handleDateChange}
     />

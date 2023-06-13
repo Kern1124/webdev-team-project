@@ -15,7 +15,7 @@ export const CopyItem = ({
   const formattedDate = new Date(date).toLocaleDateString("en-GB");
 
   return (
-    <Box cursor="pointer" mb={4}>
+    <Box cursor="pointer" mb="1rem">
       <Flex
         justify="space-between"
         align="center"
@@ -23,7 +23,7 @@ export const CopyItem = ({
         color={published ? "main" : "secondaryLight"}
         fontSize="1.5rem"
         fontWeight="bold"
-        p={2}
+        p="0.5rem"
         borderRadius="md"
         onClick={onToggle}
         flexDir="row"
