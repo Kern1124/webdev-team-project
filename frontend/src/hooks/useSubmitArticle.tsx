@@ -15,7 +15,8 @@ export const useSubmitArticle = () => {
     mutationFn: (data: ArticleFormType) => submitArticle(data),
     retry: false,
     onSuccess: () => {
-      queryClient.invalidateQueries(["article", "copies"]);
+      queryClient.invalidateQueries({ queryKey: ["copies"] });
+      queryClient.invalidateQueries({ queryKey: ["article"] });
     },
   });
 

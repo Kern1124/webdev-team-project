@@ -10,7 +10,7 @@ export const useDeleteComment = (id: string) => {
         mutationFn: () => deleteCommentById(id),
         retry: false,
         onSuccess: () => {
-            queryClient.invalidateQueries(['comment']);
+            queryClient.invalidateQueries({ queryKey: ["comment"] });
         },
     })
     

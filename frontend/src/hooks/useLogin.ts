@@ -16,7 +16,7 @@ export const useLogin = ({ redirect }: UseLoginProps) => {
         retry: false,
         onSuccess: () => {
             navigate(redirect);
-            queryClient.invalidateQueries(['auth']);
+            queryClient.invalidateQueries({ queryKey: ["auth"] });
         },
     })
     
