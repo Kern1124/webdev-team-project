@@ -1,4 +1,4 @@
-import { Box, Divider, Flex } from "@chakra-ui/react";
+import { Box, Divider, Flex, Spinner } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { getArticleWithId, getRelatedArticles } from "../api/requests";
 import { useQuery } from "@tanstack/react-query";
@@ -7,11 +7,12 @@ import { ArticleContent } from "../components/ArticleContent";
 import { ArticleContentHeading } from "../components/ArticleContentHeading";
 import { ArticleComments } from "../components/ArticleComments";
 import { useParams } from "react-router-dom";
+import { CenteredBanner } from "../components/CenteredBanner";
 
 export const ArticlePage = () => {
   const { id: articleId } = useParams();
 
-  const { data: articleData } = useQuery({
+  const { data: articleData, isLoading } = useQuery({
     queryKey: ["article", articleId],
     queryFn: () => getArticleWithId(articleId ?? ""),
     staleTime: 1000 * 60 * 2,
@@ -28,8 +29,8 @@ export const ArticlePage = () => {
   const article = articleData?.item;
   const related = relatedData?.item; // TBD, query funguje, ale treba ešte implementovať cez ArticleList
 
-  if (article == null) {
-    return <div></div>;
+  if (isLoading) {
+    return <CenteredBanner><Spinner /></CenteredBanner>;
   }
 
   const contentProp = { contents: article.contents, related: related };
@@ -39,7 +40,7 @@ export const ArticlePage = () => {
 
   return (
     <>
-      <Flex alignItems={"center"} width={"full"} flexDirection={"column"}>
+      <Flex alignItems={"center"} width={"full"} flexDirection={"column"} marginBottom="2rem">
         <Divider borderColor={"main"} />
         <ArticleContentHeading {...article} />
         <Divider borderColor={"main"} />
