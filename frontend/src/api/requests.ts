@@ -51,8 +51,16 @@ export const getNewspapers = async (publisherId: string, title: string) => {
   return response.data;
 };
 
-export const getNewspaper = async (newspaperId: string) => {
-  const response = await serverApi.get(`/newspaper/${newspaperId}`);
+export const getNewspaper = async (
+  newspaperId: string,
+  dateFrom: string,
+  dateTo: string,
+  heading: string | null
+) => {
+  const response = await serverApi.get(
+    `/newspaper/${newspaperId}/${dateFrom}/${dateTo}` +
+      (heading ? `/${heading}` : "")
+  );
   return response.data;
 };
 

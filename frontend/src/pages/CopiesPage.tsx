@@ -3,15 +3,18 @@ import { useDebounce } from 'usehooks-ts';
 import { useQuery } from '@tanstack/react-query';
 import { CopiesFilter } from '../components/CopiesFilter';
 import { CopyList } from '../components/CopyList';
-import { SearchLink } from '../components/SearchLink';
 import { getNewspaper } from '../api/requests';
 import { useParams } from 'react-router-dom';
-import { Flex } from '@chakra-ui/react';
+import { SubpageHeading } from '../components/SubpageHeading';
+import { Box } from '@chakra-ui/layout';
 
 export const CopiesPage = () => {
   const { id: newspaperId } = useParams();
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);
+  const [heading, setHeading] = useState<string | null>(null);
+  const [pageTitle, setPageTitle] = useState<string>("")
+  const debouncedHeading = useDebounce(heading, 300);
   const debouncedStartDate = useDebounce(startDate, 300);
   const debouncedEndDate = useDebounce(endDate, 300);
 
@@ -25,22 +28,23 @@ export const CopiesPage = () => {
     queryFn: () =>
       getNewspaper(
         newspaperId ?? "",
-        debouncedStartDate?.toISOString() ?? "",
-        debouncedEndDate?.toISOString() ?? ""
+        debouncedStartDate?.toISOString() ?? "null",
+        debouncedEndDate?.toISOString() ?? "null",
+        debouncedHeading
       ),
     staleTime: 1000 * 60 * 2,
     refetchOnWindowFocus: false,
   });
 
-  console.log(data)
+  if (data?.name) {
+    setPageTitle(data?.name)
+  }
 
   return (
-    <>
-      <Flex justifyContent="space-between" alignItems="center">
-        <CopiesFilter onDateRangeChange={handleDateChange} />
-        <SearchLink to="/TODO" placeholder="Filter articles by name" />
-      </Flex>
+    <Box marginTop="1rem">
+      <SubpageHeading heading={pageTitle} />
+      <CopiesFilter onDateRangeChange={handleDateChange} setInput={setHeading} />
       <CopyList copies={data?.newspaperCopies} isLoading={isLoading} />
-    </>
+    </Box>
   );
 };

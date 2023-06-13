@@ -2,6 +2,10 @@ import { Box, Flex } from "@chakra-ui/react";
 import { useApproval } from "../hooks/useApproval";
 import { useCallback } from "react";
 import { CustomButton } from "./CustomButton";
+import { AxiosError } from "axios";
+import { ErrorResponseType } from "../types/response";
+import { useSuccessToast } from "../hooks/useSuccessToast";
+import { useErrorToast } from "../hooks/useErrorToast";
 
 type ApprovalActionProps = {
   approveName: string;
@@ -17,14 +21,27 @@ export const ApprovalAction = ({
   discardUrl,
 }: ApprovalActionProps) => {
   const { approval } = useApproval();
+  const successToast = useSuccessToast()
+  const toast = useErrorToast()
+
+  const sendApproval = useCallback(async (url: string) => {
+    try {
+        await approval(url);
+        successToast("Operation succesful")
+      } catch (e) {
+        const data = (e as AxiosError)?.response?.data as ErrorResponseType;
+        toast(data?.message);
+      }
+  }, [approval, toast, successToast])
+
 
   const handleApprove = useCallback(() => {
-    approval(approveUrl);
-  }, [approval, approveUrl]);
+    sendApproval(approveUrl);
+  }, [sendApproval, approveUrl]);
 
   const handleDiscard = useCallback(() => {
-    approval(discardUrl);
-  }, [approval, discardUrl]);
+    sendApproval(discardUrl);
+  }, [sendApproval, discardUrl]);
 
   return (
     <Flex flexDir={{ base: "column", md: "row" }} gap="0.5rem">
