@@ -1,12 +1,12 @@
-import { useState } from 'react';
-import { useDebounce } from 'usehooks-ts';
-import { useQuery } from '@tanstack/react-query';
-import { CopiesFilter } from '../components/CopiesFilter';
-import { CopyList } from '../components/CopyList';
-import { getNewspaper } from '../api/requests';
-import { useParams } from 'react-router-dom';
-import { SubpageHeading } from '../components/SubpageHeading';
-import { Box } from '@chakra-ui/layout';
+import { useEffect, useState } from "react";
+import { useDebounce } from "usehooks-ts";
+import { useQuery } from "@tanstack/react-query";
+import { CopiesFilter } from "../components/CopiesFilter";
+import { CopyList } from "../components/CopyList";
+import { getNewspaper } from "../api/requests";
+import { useParams } from "react-router-dom";
+import { SubpageHeading } from "../components/SubpageHeading";
+import { Box } from "@chakra-ui/layout";
 
 export const CopiesPage = () => {
   const { id: newspaperId } = useParams();
@@ -21,9 +21,16 @@ export const CopiesPage = () => {
     setStartDate(startDate);
     setEndDate(endDate);
   };
+  const [pageTitle, setPageTitle] = useState<string>("");
 
   const { data, isLoading } = useQuery({
-    queryKey: ["copies", newspaperId, debouncedStartDate, debouncedEndDate, debouncedHeading],
+    queryKey: [
+      "copies",
+      newspaperId,
+      debouncedStartDate,
+      debouncedEndDate,
+      debouncedHeading,
+    ],
     queryFn: () =>
       getNewspaper(
         newspaperId ?? "",
@@ -35,12 +42,19 @@ export const CopiesPage = () => {
     refetchOnWindowFocus: false,
   });
 
-
+  useEffect(() => {
+    if (data?.name) {
+      setPageTitle(data?.name);
+    }
+  }, [data?.name]);
 
   return (
     <Box marginTop="1rem">
-      <SubpageHeading heading={data?.name ?? ""} />
-      <CopiesFilter onDateRangeChange={handleDateChange} setInput={setHeading} />
+      <SubpageHeading heading={pageTitle} />
+      <CopiesFilter
+        onDateRangeChange={handleDateChange}
+        setInput={setHeading}
+      />
       <CopyList copies={data?.newspaperCopies} isLoading={isLoading} />
     </Box>
   );
