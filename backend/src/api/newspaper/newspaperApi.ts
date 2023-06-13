@@ -320,7 +320,7 @@ const getNewspaperCopies = async (req: Request, res: Response) => {
                         ...copy,
                         articles: copy.articles.map((article) => ({
                             ...article,
-                            isApprovable: true,
+                            isApprovable: !article.approved,
                         })),
                     }))
                 }
@@ -331,7 +331,7 @@ const getNewspaperCopies = async (req: Request, res: Response) => {
                     ...response,
                     newspaperCopies: response.newspaperCopies.map((copy) => ({
                         ...copy,
-                        isPublishable: true,
+                        isPublishable: !copy.published,
                     }))
                 }
             }
