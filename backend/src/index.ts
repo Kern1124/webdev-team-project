@@ -58,11 +58,11 @@ app.get('/article/:newspaperCopyId/:content', articleApi.getCopyArticles)
 
 
 // Approval / Discard
-app.delete('/article/:articleId/discard', auth('JOURNALIST'), articleApi.discard)
-app.patch('/article/:articleId/approve', auth('JOURNALIST'), articleApi.approve)
-app.delete('/copy/:id/discard', auth('JOURNALIST'), copyApi.discard)
-app.patch('/copy/:id/approve', auth('JOURNALIST'), copyApi.approve)
-app.delete('/comment/:id/delete', auth('JOURNALIST'), commentApi.deleteComment)
+app.post('/article/:articleId/discard', auth('JOURNALIST'), articleApi.discard)
+app.post('/article/:articleId/approve', auth('JOURNALIST'), articleApi.approve)
+app.post('/copy/:id/discard', auth('JOURNALIST'), copyApi.discard)
+app.post('/copy/:id/approve', auth('JOURNALIST'), copyApi.approve)
+app.post('/comment/:id/delete', auth('JOURNALIST'), commentApi.deleteComment)
 
 app.get('/articles/approval', articleApi.getUnapprovedArticles) //MANAGER
 
