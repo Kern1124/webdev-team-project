@@ -29,7 +29,7 @@ export const CopiesFilter = ({ onDateRangeChange }: CopiesFilterProps) => {
   return (
     <Box backgroundColor="white" padding="0.1rem 0.5rem 0rem" marginBottom="1rem" marginTop="1rem" borderRadius="md" display="inline-block">
       <Text fontSize="lg" marginBottom="0.2rem" color="Main">
-        Ranged selection
+        Select a date
       </Text>
       <Flex w="100%" flexDir="row" marginBottom="1rem" gap="1rem">
         <DatePicker placeholder="Start Date" onDateChange={handleStartDateChange} />
