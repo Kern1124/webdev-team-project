@@ -9,7 +9,7 @@ interface ArticleListProp {
 
 export const RelatedSidebar = (articleListProp: ArticleListProp) => {
   return (
-    <Flex flex={1} minWidth={"20%"} borderColor={"main"}>
+    <Flex flex={1} minWidth={"20%"} borderColor={"main"} alignItems="flex-start">
       <Divider orientation="vertical" marginLeft={"0.5rem"} />
       <Card flex={1} p="0.8rem" overflow="auto" marginLeft={{base: "0", md: "1rem"}} >
         <SubpageHeading heading="Related articles:" />
