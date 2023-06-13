@@ -6,7 +6,7 @@ import userSession from "./api/user/user.session";
 import { userApi } from "./api/user/userApi";
 import { newspaperApi } from "./api/newspaper/newspaperApi";
 import { publisherApi } from "./api/publisher/publisherApi";
-import { articleApi } from "./api/article/article.router";
+import { articleApi } from "./api/article/articleApi";
 import auth from "./middleware/authMiddleware";
 import { commentApi } from "./api/comment/commentApi";
 import { copyApi } from "./api/copy/copyApi";
