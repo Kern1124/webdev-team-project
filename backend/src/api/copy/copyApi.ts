@@ -255,19 +255,27 @@ const approve = async (req: Request, res: Response) => {
               select: {
                 name: true,
               }
-            }
+            },
+            articles: true,
           }
         })
         if (!relatedCopy) {
-          res.status(400).json({ message: 'Invalid copy' });
+          res.status(400).json({ error: 'Invalid copy' });
           return
         }
         const newspaperId = relatedCopy.newspaperId
         if (!(req.session.user?.userRoles.filter(role => role.newspaperId === newspaperId).some(role => role.name === RoleRecordTypeEnumeration[0]))) {
-          res.status(400).json({ message: `Cannot perform operation. You need to be at least ${RoleRecordTypeEnumeration[0]} in ${relatedCopy.newspaper.name}` });
+          res.status(400).json({ error: `Cannot perform operation. You need to be at least ${RoleRecordTypeEnumeration[0]} in ${relatedCopy.newspaper.name}` });
           return
         }
         ///
+        // check if all relatedArticles are discard / approved
+        if (relatedCopy.articles.length == 0){
+            res.status(400).json({ error: `Cannot publish empty newspaper copy` });
+        }
+        if (relatedCopy.articles.some((article) => !article.approved)){
+            res.status(400).json({ error: `All articles must be approved or discarded` });
+        }
         const copy = await db.newspaper_copy.update({
             where: {
                 id,

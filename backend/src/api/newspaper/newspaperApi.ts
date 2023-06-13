@@ -130,6 +130,9 @@ const getNewspapersByIdInverval = async (id: string, from: string, to: string) =
                 categories: true,
               },
             }
+          },
+          orderBy: {
+            date: 'desc'
           }
         },
       },
