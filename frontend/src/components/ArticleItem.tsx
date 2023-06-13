@@ -23,8 +23,8 @@ export const ArticleItem = ({ article }: ArticleItemProps) => {
           <ApprovalAction
             approveName="Approve"
             discardName="Discard"
-            approveUrl={`/articles/${article.id}/approve`}
-            discardUrl={`/articles/${article.id}/discard`}
+            approveUrl={`/article/${article.id}/approve`}
+            discardUrl={`/article/${article.id}/discard`}
           />
         </Authorized>
       </Flex>

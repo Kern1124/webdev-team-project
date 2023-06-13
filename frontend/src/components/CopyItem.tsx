@@ -40,8 +40,8 @@ export const CopyItem = ({
             <ApprovalAction
               approveName="Approve"
               discardName="Discard"
-              approveUrl={`/copies/${id}/approve`}
-              discardUrl={`/copies/${id}/discard`}
+              approveUrl={`/copy/${id}/approve`}
+              discardUrl={`/copy/${id}/discard`}
             />
           </Authorized>
         </Box>
