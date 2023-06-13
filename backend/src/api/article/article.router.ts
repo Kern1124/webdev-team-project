@@ -177,7 +177,6 @@ const getArticleWithId = async (req: Request, res: Response) => {
         },
         contents: true,
         heading: true,
-        comments: true,
       }
     })
 

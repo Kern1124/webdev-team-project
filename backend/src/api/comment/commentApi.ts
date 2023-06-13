@@ -56,6 +56,7 @@ const getArticleComments = async (req: Request, res: Response) => {
         author: {
           select: {
             username: true,
+            id: true,
           },
         },
         createdAt: true,
