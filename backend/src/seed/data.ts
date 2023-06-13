@@ -8,6 +8,10 @@ export const data = async () => {
   const hashedPassword4 = await argon2.hash('hashed_password4');
   const hashedPassword5 = await argon2.hash('hashed_password5');
   const hashedPassword6 = await argon2.hash('hashed_password6');
+  let tommorow = new Date()
+  tommorow.setDate(tommorow.getDate() + 1);
+  let twoDaysInFuture = new Date()
+  twoDaysInFuture.setDate(twoDaysInFuture.getDate() + 2);
   const photo = 'https://www.freepik.com/free-vector/business-magazine-with-image_2447935.htm#query=newspaper%20cover&position=12&from_view=search&track=ais'
 
 
@@ -22,6 +26,7 @@ export const data = async () => {
             newspaperImg: 'placeholder',
             newspaperCopies: [
               {
+                date: new Date(),
                 published: true,
                 articles: [
                   {
@@ -47,6 +52,7 @@ export const data = async () => {
                 ],
               },
               {
+                date: tommorow,
                 published: true,
                 articles: [
                   {
@@ -62,6 +68,7 @@ export const data = async () => {
                 ],
               },
               {
+                date: twoDaysInFuture,
                 published: false,
                 articles: [
                   {
@@ -93,6 +100,7 @@ export const data = async () => {
             newspaperImg: 'placeholder',
             newspaperCopies: [
               {
+                date: new Date(),
                 published: true,
                 articles: [
                   {
@@ -128,6 +136,7 @@ export const data = async () => {
                 ],
               },
               {
+                date: twoDaysInFuture,
                 published: false,
                 articles: [
                   {
@@ -174,6 +183,7 @@ export const data = async () => {
             newspaperImg: 'placeholder',
             newspaperCopies: [
               {
+                date: new Date(),
                 published: false,
                 articles: [
                   {
@@ -199,6 +209,7 @@ export const data = async () => {
                 ],
               },
               {
+                date: tommorow,
                 published: false,
                 articles: [
                   {
@@ -233,6 +244,7 @@ export const data = async () => {
             newspaperImg: 'placeholder',
             newspaperCopies: [
               {
+                date: new Date(),
                 published: true,
                 articles: [
                   {
@@ -258,6 +270,7 @@ export const data = async () => {
                 ],
               },
               {
+                date: tommorow,
                 published: true,
                 articles: [
                   {
@@ -298,6 +311,7 @@ export const data = async () => {
             newspaperImg: 'placeholder',
             newspaperCopies: [
               {
+                date: new Date(),
                 published: false,
                 articles: [
                   {
@@ -323,6 +337,7 @@ export const data = async () => {
                 ],
               },
               {
+                date: tommorow,
                 published: true,
                 articles: [
                   {
@@ -351,6 +366,7 @@ export const data = async () => {
             newspaperImg: 'placeholder',
             newspaperCopies: [
               {
+                date: tommorow,
                 published: true,
                 articles: [
                   {
@@ -376,6 +392,7 @@ export const data = async () => {
                 ],
               },
               {
+                date: twoDaysInFuture,
                 published: true,
                 articles: [
                   {

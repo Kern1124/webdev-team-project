@@ -1,5 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import { data, roles, cats } from "./data";
+import { newspaperCreateData } from "../models/newspaper";
 
 const prisma = new PrismaClient();
 
@@ -69,6 +70,7 @@ const seed = async () => {
         for (const newspaperCopyData of newspaperData.newspaperCopies) {
           const newspaperCopy = await prisma.newspaper_copy.create({
             data: {
+              date: newspaperCopyData.date,
               published: newspaperCopyData.published,
               newspaper: {
                 connect: {
