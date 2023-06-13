@@ -1,27 +1,27 @@
-import 'react-quill/dist/quill.snow.css';
+import "react-quill/dist/quill.snow.css";
 
-import { Flex } from '@chakra-ui/layout';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { useQuery } from '@tanstack/react-query';
-import { AxiosError } from 'axios';
-import { useCallback, useMemo } from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { Flex } from "@chakra-ui/layout";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useQuery } from "@tanstack/react-query";
+import { AxiosError } from "axios";
+import { useCallback, useMemo } from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
 
-import { getCategories, getNewspapers } from '../api/requests';
-import { CustomButton } from '../components/CustomButton';
-import { CustomCheckbox } from '../components/CustomCheckbox';
-import { FormCheckboxGroup } from '../components/FormCheckboxGroup';
-import { FormEditor } from '../components/FormEditor';
-import { FormInput } from '../components/FormInput';
-import { FormSelect } from '../components/FormSelect';
-import { SubpageHeading } from '../components/SubpageHeading';
-import { useErrorToast } from '../hooks/useErrorToast';
-import { useSubmitArticle } from '../hooks/useSubmitArticle';
-import { ArticleFormType, CategoryType } from '../types/article';
-import { NewspaperShortType } from '../types/newspaper';
-import { ErrorResponseType } from '../types/response';
-import { ArticleCreateSchema } from '../yup/schemata';
-import { useSuccessToast } from '../hooks/useSuccessToast';
+import { getCategories, getNewspapers } from "../api/requests";
+import { CustomButton } from "../components/CustomButton";
+import { CustomCheckbox } from "../components/CustomCheckbox";
+import { FormCheckboxGroup } from "../components/FormCheckboxGroup";
+import { FormEditor } from "../components/FormEditor";
+import { FormInput } from "../components/FormInput";
+import { FormSelect } from "../components/FormSelect";
+import { SubpageHeading } from "../components/SubpageHeading";
+import { useErrorToast } from "../hooks/useErrorToast";
+import { useSubmitArticle } from "../hooks/useSubmitArticle";
+import { ArticleFormType, CategoryType } from "../types/article";
+import { NewspaperShortType } from "../types/newspaper";
+import { ErrorResponseType } from "../types/response";
+import { ArticleCreateSchema } from "../yup/schemata";
+import { useSuccessToast } from "../hooks/useSuccessToast";
 
 export const ArticleCreatePage = () => {
   const {
@@ -37,9 +37,9 @@ export const ArticleCreatePage = () => {
     staleTime: 1000 * 60 * 2,
     refetchOnWindowFocus: false,
   });
-  const {submit, isLoading} = useSubmitArticle()
+  const { submit, isLoading } = useSubmitArticle();
   const toast = useErrorToast();
-  const successToast = useSuccessToast()
+  const successToast = useSuccessToast();
 
   const { data: categories } = useQuery({
     queryKey: ["category"],
@@ -76,17 +76,22 @@ export const ArticleCreatePage = () => {
     );
   }, [categories]);
 
-  const onSubmit: SubmitHandler<ArticleFormType> = useCallback(async (data) => {
-   
+  const onSubmit: SubmitHandler<ArticleFormType> = useCallback(
+    async (data) => {
       try {
         await submit(data);
-        successToast("Article submitted for approval")
-        reset()
+        successToast("Article submitted for approval");
+        reset({
+          newspaperId: "",
+          categories: [],
+        });
       } catch (e) {
         const data = (e as AxiosError)?.response?.data as ErrorResponseType;
         toast(data?.message);
       }
-  }, [submit, toast, reset, successToast]);
+    },
+    [submit, toast, reset, successToast]
+  );
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
