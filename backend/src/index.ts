@@ -35,6 +35,7 @@ app.get('/auth', userApi.auth)
 app.post('/register', userApi.register)
 app.post('/login', userApi.login)
 app.post('/logout', userApi.logout)
+app.get('/user/article', userApi.getUserArticles)
 
 app.get('/newspaper', newspaperApi.getAllNewspaper)
 app.get('/newspaper/publisher=/:publisherId', newspaperApi.getNewspaperByPublisher)
