@@ -33,7 +33,7 @@ export const NewspaperCard = ({
         <CoverImage filename={newspaperImg} />
       </ZoomCard>
       <Flex flexDir="row" gap="1rem">
-        {isEditable && <FileUpload />}
+        {isEditable && <FileUpload id={id} />}
         <HeadingSub
           alignLeft={isEditable == true}
           heading={title}

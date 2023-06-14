@@ -114,3 +114,9 @@ export const getUsersArticles = async () => {
   const response = await serverApi.get("user/article");
   return response.data;
 };
+
+
+export const postNewspaperImage = async (id: string, imageFile: File) => {
+  const response = await serverApi.post(`/upload/${id}`, { up: imageFile })
+  return response.data
+}

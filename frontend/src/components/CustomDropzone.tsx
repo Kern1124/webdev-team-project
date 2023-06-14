@@ -3,13 +3,11 @@ import { useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
 
 interface CustomDropzoneProps {
-  uploadHandler: (file: File) => void;
-  errorHandler: (message: string) => void;
+  uploadHandler: (file: File | null) => void;
 }
 
 export const CustomDropzone = ({
   uploadHandler,
-  errorHandler,
 }: CustomDropzoneProps) => {
   const [errorMessages, setErrorMessages] = useState<string>();
   const [uploadedFilename, setUploadedFilename] = useState<string>();
@@ -27,11 +25,13 @@ export const CustomDropzone = ({
     if (acceptedFiles.length > 0) {
       uploadHandler(acceptedFiles[0]);
       setUploadedFilename("Uploaded file: " + acceptedFiles[0].name)
+      setErrorMessages("")
     }
   }, [acceptedFiles, uploadHandler]);
 
   useEffect(() => {
     if (fileRejections.length > 0) {
+      uploadHandler(null)
       setErrorMessages(
         fileRejections[0].errors.reduce(
           (last, error) => last + "\n" + error.message,
@@ -39,7 +39,7 @@ export const CustomDropzone = ({
         )
       );
     }
-  }, [fileRejections, errorHandler]);
+  }, [fileRejections, uploadHandler]);
 
  
   return (
@@ -60,8 +60,7 @@ export const CustomDropzone = ({
         </Center>
       </Box>
       <Text>
-        {uploadedFilename ||
-          (errorMessages && "Errors: " + errorMessages)}
+        {(errorMessages && "Errors: " + errorMessages) || uploadedFilename}
       </Text>
     </>
   );
