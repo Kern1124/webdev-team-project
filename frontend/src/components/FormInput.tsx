@@ -34,7 +34,7 @@ export const FormInput = React.forwardRef(
   ) => {
     return (
       <>
-        <FormLabel marginLeft="-0.9rem">{children}</FormLabel>
+        <FormLabel htmlFor={name} marginLeft="-0.9rem">{children}</FormLabel>
         <InputGroup flexDir="column">
           {icon && (
             <InputLeftElement
