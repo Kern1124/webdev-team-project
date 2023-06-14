@@ -98,15 +98,15 @@ export const data = async () => {
           },
           {
             name: 'The Washington Post',
-            newspaperImg: `./public/images/${ourPhotot}`,
+            newspaperImg: `${ourPhotot}`,
             newspaperCopies: [
               {
                 date: new Date(),
                 published: true,
                 articles: [
                   {
-                    heading: 'Exploring the Wonders of your mom',
-                    contents: 'Exploring the Wonders of the Grand Canyon',
+                    heading: 'Trump’s political fight is his legal fight',
+                    contents: '<p>Former president <a href="https://www.washingtonpost.com/elections/candidates/donald-trump-2024/?itid=lk_inline_manual_2" target="_blank">Donald Trump</a> began his first prepared remarks following his arraignment on federal criminal charges on Tuesday the way he so often does: with dishonesty and hyperbole.</p><p>“Today,” he said, “we witness the most evil and heinous abuse of power in the history of our country. Very sad thing to watch. A corrupt sitting president had his top political opponent arrested on fake and fabricated charges of which he and numerous other presidents would be guilty.”</p><p>As exhaustingly familiar as this patter is to outside observers, it remains energizing to some substantial portion of his base. <a href="https://www.washingtonpost.com/elections/candidates/joe-biden-2024/?itid=lk_inline_manual_5" target="_blank"><em>President Biden</em></a><em> </em>is<em> corrupt! </em>they’re invited to think. <em>This whole thing </em>is <em>unfair!</em><span>﻿</span></p><p>So by the time Trump gets into the next phase of his speech — the criminal defendant’s explanation of the legal failings of the case against him — they’re already nodding along. He ropes them in with the cozy familiarity of “everyone is out to get me, by which I mean us” and then outlines the scattershot arguments they can deploy in his defense. The indictment details numerous examples of Trump allegedly seeking to avoid turning over documents? Well: <em>Presidential Records Act!</em> Check and mate.</p>',
                     categories: [{ name: 'Travel' }],
                     comments: [
                       { content: 'Great article!', author: { username: 'Slavo' } },
@@ -125,9 +125,9 @@ export const data = async () => {
                     approved: true,
                   },
                   {
-                    heading: 'The Impact of Climate Change on your mom',
-                    contents: 'The Impact of Climate Change on Coastal Cities',
-                    categories: [{ name: 'Environment' }],
+                    heading: 'House to consider GOP measure to censure Schiff as early as Wednesday',
+                    contents: '<p><span>The Republican-led House is expected to consider a measure as early as Wednesday that would censure Rep. Adam B. Schiff (D-Calif.) for pressing allegations that former president Donald Trump’s 2016 campaign colluded with Russia.</span></p><p>The resolution also seeks to fine Schiff, the former House Intelligence Committee chairman, $16 million, which its sponsor, Rep. Anna Paulina Luna (R-Fla.), says is half the cost of an investigation into the alleged collusion.<span>﻿</span></p><p>Luna introduced the measure Tuesday, the same day Trump was arraigned in a federal courthouse in Miami on charges that he broke the law dozens of times by keeping and hiding classified documents in his Florida home. Luna’s measure is a privileged resolution, which means that under House rules it must be considered by Thursday.</p>',
+                    categories: [{ name: 'Politics' }],
                     comments: [
                       { content: 'This is an important topic to discuss.', author: { username: 'Tylich' } },
                       { content: 'We need to take immediate action to mitigate climate change.', author: { username: 'Slavo' } },
@@ -181,7 +181,7 @@ export const data = async () => {
         newspapers: [
           {
             name: 'El País',
-            newspaperImg: `public/images/${ourPhotot}`,
+            newspaperImg: `${ourPhotot}`,
             newspaperCopies: [
               {
                 date: new Date(),
@@ -242,7 +242,7 @@ export const data = async () => {
         newspapers: [
           {
             name: 'The Washington Post',
-            newspaperImg: `../../public/images/${ourPhotot}`,
+            newspaperImg: `${ourPhotot}`,
             newspaperCopies: [
               {
                 date: new Date(),
@@ -309,7 +309,7 @@ export const data = async () => {
         newspapers: [
           {
             name: 'The Times of India',
-            newspaperImg: `../../public/images/${ourPhotot}`,
+            newspaperImg: `${ourPhotot}`,
             newspaperCopies: [
               {
                 date: new Date(),
@@ -364,7 +364,7 @@ export const data = async () => {
         newspapers: [
           {
             name: 'Le Monde',
-            newspaperImg: `../../public/images/${ourPhotot}`,
+            newspaperImg: `${ourPhotot}`,
             newspaperCopies: [
               {
                 date: tommorow,

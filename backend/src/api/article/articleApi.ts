@@ -137,7 +137,7 @@ const create = async (req: Request, res: Response) => {
       res.status(400).json({ message: "No allowed content" });
       return;
     }
-
+    console.log(contents)
     const validatedData = await ArticleCreateSchema.validate({ ...req.body, contents });
     const result = await createArticle({ ...validatedData, authorId } as ArticleCreateData)
     if (result.isOk) {
