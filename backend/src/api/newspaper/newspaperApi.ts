@@ -183,7 +183,7 @@ const updateImage = async (req: Request, res: Response) => {
             id: req.params.newspaperId
           },
           data: {
-            newspaperImg: "images/" + newName //perhaps ../images?
+            newspaperImg: newName
           }
         })
         cb(null, newName);
