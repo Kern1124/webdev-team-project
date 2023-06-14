@@ -9,6 +9,7 @@ export const useApproval = () => {
         retry: false,
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ["copies"] });
+            queryClient.invalidateQueries({ queryKey: ["article"] });
         },
     })
     
