@@ -14,6 +14,7 @@ interface NewspaperCardProps {
   newspaperImg: string;
   publisher: string;
   id: string;
+  isEditable?: boolean;
 }
 
 export const NewspaperCard = ({
@@ -21,6 +22,7 @@ export const NewspaperCard = ({
   publisher,
   id,
   newspaperImg,
+  isEditable,
 }: NewspaperCardProps) => {
   const navigate = useNavigate();
   const onClickHandle = useCallback(() => {
@@ -33,10 +35,16 @@ export const NewspaperCard = ({
         <CoverImage filename={newspaperImg} />
       </ZoomCard>
       <Flex flexDir="row" gap="1rem">
-        <CustomButton borderRadius="1.5rem" width="1rem">
-          <Icon ringColor="secondaryLight" as={FiEdit2} />
-        </CustomButton>
-        <HeadingSub heading={title} subheading={publisher} />
+        {isEditable && (
+          <CustomButton borderRadius="1.5rem" width="1rem">
+            <Icon ringColor="secondaryLight" as={FiEdit2} />
+          </CustomButton>
+        )}
+        <HeadingSub
+          alignLeft={isEditable == true}
+          heading={title}
+          subheading={publisher}
+        />
       </Flex>
     </Flex>
   );

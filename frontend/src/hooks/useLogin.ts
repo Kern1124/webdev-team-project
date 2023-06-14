@@ -22,6 +22,9 @@ export const useLogin = ({ redirect }: UseLoginProps) => {
     onSuccess: () => {
       navigate(redirect);
       queryClient.invalidateQueries({ queryKey: ["auth"] });
+      queryClient.invalidateQueries({ queryKey: ["newspaper"] });
+      queryClient.invalidateQueries({ queryKey: ["copies"] });
+      queryClient.invalidateQueries({ queryKey: ["article"] });
     },
   });
 

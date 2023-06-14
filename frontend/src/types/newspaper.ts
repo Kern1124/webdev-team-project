@@ -6,6 +6,7 @@ export type NewspaperShortType = {
   name: string;
   newspaperImg: string;
   publisher: PublisherNameType;
+  isEditable?: boolean
 };
 
 export type Newspaper = {

@@ -28,6 +28,7 @@ export const NewspaperGrid = ({
               title={newspaper.name}
               publisher={newspaper.publisher?.name}
               id={newspaper.id}
+              isEditable={newspaper.isEditable}
             />
           </GridItem>
         ) ?? []
