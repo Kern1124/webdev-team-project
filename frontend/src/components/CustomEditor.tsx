@@ -1,19 +1,18 @@
-import "../assets/styles.css";
-import "react-quill/dist/quill.snow.css";
+import '../assets/styles.css';
+import 'react-quill/dist/quill.snow.css';
 
-import { Card } from "@chakra-ui/card";
-import { useDisclosure } from "@chakra-ui/hooks";
-import { Box, Flex } from "@chakra-ui/layout";
-import { ChangeEvent, useCallback, useRef, useState } from "react";
-import ReactQuill from "react-quill";
+import { Card } from '@chakra-ui/card';
+import { useDisclosure } from '@chakra-ui/hooks';
+import { Box } from '@chakra-ui/layout';
+import { ChangeEvent, useCallback, useRef, useState } from 'react';
+import ReactQuill from 'react-quill';
 
-import { CustomButton } from "./CustomButton";
-import { InputModal } from "./InputModal";
+import { InputModal } from './InputModal';
 
 // react-quill is a bit broken, if this is put directly into the component children
 // the editor area keeps dissapearing
 const customEditArea = (
-  <Card h="55vh" overflow="scroll" bgColor="light" borderRadius="0" />
+  <Card h="55vh" overflow="auto" bgColor="light" borderRadius="0" />
 );
 
 interface CustomEditorProps {

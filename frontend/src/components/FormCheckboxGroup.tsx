@@ -23,7 +23,7 @@ export const FormCheckboxGroup = ({
     <Flex
       flexDir={{ base: "row", md: "column" }}
       gap={{ base: "1rem", md: "0" }}
-      overflow="scroll"
+      overflow="auto"
       h={{ base: "6rem", md: "15rem" }}
     >
       <Controller
