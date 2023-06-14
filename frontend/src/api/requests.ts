@@ -117,6 +117,8 @@ export const getUsersArticles = async () => {
 
 
 export const postNewspaperImage = async (id: string, imageFile: File) => {
-  const response = await serverApi.post(`/upload/${id}`, { up: imageFile })
+  const formData = new FormData()
+  formData.append('up', imageFile)
+  const response = await serverApi.post(`/upload/${id}`, formData)
   return response.data
 }
