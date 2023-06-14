@@ -22,7 +22,7 @@ export const ArticleList = ({ articles }: ArticleListProps) => {
   }, [articles]);
 
   return (
-    <Box bg="white" p={4}>
+    <Box bg="light" p={4}>
       {mappedArticles.length > 0 ? mappedArticles : "No articles"}
     </Box>
   );

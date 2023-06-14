@@ -13,7 +13,7 @@ export const ArticleListCollapse = ({
 }: ArticleListCollapseProps) => {
   return (
     <Collapse in={isOpen}>
-      <Box bg="white" color="main" fontSize={20} p={2} borderRadius="md">
+      <Box bg="light" color="main" fontSize={20} p={2} borderRadius="md">
         <ArticleList articles={articles} />
       </Box>
     </Collapse>
