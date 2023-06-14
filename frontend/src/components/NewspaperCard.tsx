@@ -1,13 +1,11 @@
-import { Icon } from "@chakra-ui/icon";
-import { Flex } from "@chakra-ui/layout";
-import { useCallback } from "react";
-import { FiEdit2 } from "react-icons/fi";
-import { useNavigate } from "react-router";
+import { Flex } from '@chakra-ui/layout';
+import { useCallback } from 'react';
+import { useNavigate } from 'react-router';
 
-import { CoverImage } from "./CoverImage";
-import { CustomButton } from "./CustomButton";
-import { HeadingSub } from "./HeadingSub";
-import { ZoomCard } from "./ZoomCard";
+import { CoverImage } from './CoverImage';
+import { FileUpload } from './FileUpload';
+import { HeadingSub } from './HeadingSub';
+import { ZoomCard } from './ZoomCard';
 
 interface NewspaperCardProps {
   title: string;
@@ -35,11 +33,7 @@ export const NewspaperCard = ({
         <CoverImage filename={newspaperImg} />
       </ZoomCard>
       <Flex flexDir="row" gap="1rem">
-        {isEditable && (
-          <CustomButton borderRadius="1.5rem" width="1rem">
-            <Icon ringColor="secondaryLight" as={FiEdit2} />
-          </CustomButton>
-        )}
+        {isEditable && <FileUpload />}
         <HeadingSub
           alignLeft={isEditable == true}
           heading={title}
