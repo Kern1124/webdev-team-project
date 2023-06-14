@@ -272,9 +272,11 @@ const approve = async (req: Request, res: Response) => {
         // check if all relatedArticles are discard / approved
         if (relatedCopy.articles.length == 0){
             res.status(400).json({ error: `Cannot publish empty newspaper copy` });
+            return 
         }
         if (relatedCopy.articles.some((article) => !article.approved)){
             res.status(400).json({ error: `All articles must be approved or discarded` });
+            return
         }
         const copy = await db.newspaper_copy.update({
             where: {

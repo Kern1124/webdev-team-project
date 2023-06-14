@@ -13,6 +13,7 @@ export const data = async () => {
   let twoDaysInFuture = new Date()
   twoDaysInFuture.setDate(twoDaysInFuture.getDate() + 2);
   const photo = 'https://www.freepik.com/free-vector/business-magazine-with-image_2447935.htm#query=newspaper%20cover&position=12&from_view=search&track=ais'
+  const ourPhotot = '1686321773632.png'
 
 
   return {
@@ -23,7 +24,7 @@ export const data = async () => {
           {
             name: 'The New York Times',
 
-            newspaperImg: 'placeholder',
+            newspaperImg: `${ourPhotot}`,
             newspaperCopies: [
               {
                 date: new Date(),
@@ -97,7 +98,7 @@ export const data = async () => {
           },
           {
             name: 'The Washington Post',
-            newspaperImg: 'placeholder',
+            newspaperImg: `./public/images/${ourPhotot}`,
             newspaperCopies: [
               {
                 date: new Date(),
@@ -180,7 +181,7 @@ export const data = async () => {
         newspapers: [
           {
             name: 'El País',
-            newspaperImg: 'placeholder',
+            newspaperImg: `public/images/${ourPhotot}`,
             newspaperCopies: [
               {
                 date: new Date(),
@@ -241,7 +242,7 @@ export const data = async () => {
         newspapers: [
           {
             name: 'The Washington Post',
-            newspaperImg: 'placeholder',
+            newspaperImg: `../../public/images/${ourPhotot}`,
             newspaperCopies: [
               {
                 date: new Date(),
@@ -308,7 +309,7 @@ export const data = async () => {
         newspapers: [
           {
             name: 'The Times of India',
-            newspaperImg: 'placeholder',
+            newspaperImg: `../../public/images/${ourPhotot}`,
             newspaperCopies: [
               {
                 date: new Date(),
@@ -363,7 +364,7 @@ export const data = async () => {
         newspapers: [
           {
             name: 'Le Monde',
-            newspaperImg: 'placeholder',
+            newspaperImg: `../../public/images/${ourPhotot}`,
             newspaperCopies: [
               {
                 date: tommorow,
