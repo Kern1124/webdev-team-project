@@ -46,7 +46,7 @@ export const CopiesFilter = ({
 
   return (
     <Box
-      backgroundColor="white"
+      backgroundColor="light"
       padding="1rem"
       marginBottom="1rem"
       marginTop="1rem"

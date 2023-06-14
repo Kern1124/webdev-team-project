@@ -18,7 +18,10 @@ const useLogout = ({ redirect }: UseLoginProps) => {
     mutationFn: () => userLogout(),
     onSuccess: () => {
       navigate(redirect);
-      queryClient.resetQueries(["auth"]);
+      queryClient.invalidateQueries({ queryKey: ["auth"] });
+      queryClient.invalidateQueries({ queryKey: ["newspaper"] });
+      queryClient.invalidateQueries({ queryKey: ["copies"] });
+      queryClient.invalidateQueries({ queryKey: ["article"] });
     },
   });
 

@@ -8,6 +8,7 @@ interface CustomButtonProps {
   children: ReactElement<BoxProps> | ReactElement<BoxProps>[] | string;
   onClickHandler?: () => void;
   width?: string;
+  borderRadius?: string
 }
 
 export const CustomButton = ({
@@ -15,12 +16,14 @@ export const CustomButton = ({
   children,
   onClickHandler,
   width,
+  borderRadius
 }: CustomButtonProps) => {
   const label = isDisabled != null && isDisabled ? <Spinner /> : children;
 
   return (
     <Button
       w={width ?? "100%"}
+      borderRadius={borderRadius ?? "0.4rem"}
       bgColor="main"
       color="secondaryLight"
       _hover={{ bgColor: "mainLight" }}

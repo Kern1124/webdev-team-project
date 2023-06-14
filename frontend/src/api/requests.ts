@@ -114,3 +114,11 @@ export const getUsersArticles = async () => {
   const response = await serverApi.get("user/article");
   return response.data;
 };
+
+
+export const postNewspaperImage = async (id: string, imageFile: File) => {
+  const formData = new FormData()
+  formData.append('up', imageFile)
+  const response = await serverApi.post(`/upload/${id}`, formData)
+  return response.data
+}

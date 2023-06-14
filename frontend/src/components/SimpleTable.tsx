@@ -10,7 +10,7 @@ export const SimpleTable = ({ children }: SimpleTableProps) => {
   return (
     <TableContainer
       mt="0.5rem"
-      bgColor="white"
+      bgColor="light"
       borderRadius="0.3rem"
       width={{ base: "100%", md: "50%" }}
     >

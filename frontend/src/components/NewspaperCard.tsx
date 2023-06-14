@@ -1,15 +1,18 @@
-import { Card } from "@chakra-ui/card";
-import { Flex, Text } from "@chakra-ui/layout";
-import { useNavigate } from "react-router";
-import { useCallback } from "react";
-import { Image } from "@chakra-ui/image";
-import { serverURL } from "../api/requests";
+import { Flex } from '@chakra-ui/layout';
+import { useCallback } from 'react';
+import { useNavigate } from 'react-router';
+
+import { CoverImage } from './CoverImage';
+import { FileUpload } from './FileUpload';
+import { HeadingSub } from './HeadingSub';
+import { ZoomCard } from './ZoomCard';
 
 interface NewspaperCardProps {
   title: string;
   newspaperImg: string;
   publisher: string;
   id: string;
+  isEditable?: boolean;
 }
 
 export const NewspaperCard = ({
@@ -17,6 +20,7 @@ export const NewspaperCard = ({
   publisher,
   id,
   newspaperImg,
+  isEditable,
 }: NewspaperCardProps) => {
   const navigate = useNavigate();
   const onClickHandle = useCallback(() => {
@@ -25,28 +29,17 @@ export const NewspaperCard = ({
 
   return (
     <Flex alignItems="center" h="100%" flexDir="column">
-      <Card
-        bgColor="main"
-        marginBottom="1.5rem"
-        h={{ base: "30rem", md: "20rem" }}
-        w="100%"
-        borderRadius={0}
-        onClick={onClickHandle}
-        _hover={{
-          transform: "scale(1.1)",
-          cursor: "pointer",
-        }}
-      >
-        <Image
-          src={`${serverURL}/${newspaperImg}`}
-          alt="COVER"
-          objectFit="cover"
+      <ZoomCard onClickHandle={onClickHandle}>
+        <CoverImage filename={newspaperImg} />
+      </ZoomCard>
+      <Flex flexDir="row" gap="1rem">
+        {isEditable && <FileUpload id={id} />}
+        <HeadingSub
+          alignLeft={isEditable == true}
+          heading={title}
+          subheading={publisher}
         />
-      </Card>
-      <Text>{title}</Text>
-      <Text color="mainLight" fontSize="sm">
-        {publisher}
-      </Text>
+      </Flex>
     </Flex>
   );
 };
