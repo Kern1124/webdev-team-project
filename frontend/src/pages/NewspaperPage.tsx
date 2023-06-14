@@ -1,9 +1,10 @@
-import { useState } from 'react';
-import { useDebounce } from 'usehooks-ts';
-import { useQuery } from '@tanstack/react-query';
-import { NewspaperFilter } from '../components/NewspaperFilter';
-import { NewspaperGrid } from '../components/NewspaperGrid';
-import { getNewspapers } from '../api/requests';
+import { useState } from "react";
+import { useDebounce } from "usehooks-ts";
+import { useQuery } from "@tanstack/react-query";
+import { NewspaperFilter } from "../components/NewspaperFilter";
+import { NewspaperGrid } from "../components/NewspaperGrid";
+import { getNewspapers } from "../api/requests";
+import { SubpageHeading } from "../components/SubpageHeading";
 
 export const NewspaperPage = () => {
   const [publisher, setPublisher] = useState<string | null>(null);
@@ -15,9 +16,10 @@ export const NewspaperPage = () => {
     staleTime: 1000 * 60 * 2,
     refetchOnWindowFocus: false,
   });
-  console.log(data)
+  console.log(data);
   return (
     <>
+      <SubpageHeading heading="Newspapers" />
       <NewspaperFilter onInputChange={setTitle} onSelectChange={setPublisher} />
       <NewspaperGrid isLoading={isLoading} newspapers={data?.item} />
     </>

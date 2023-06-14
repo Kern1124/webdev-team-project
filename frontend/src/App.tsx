@@ -24,6 +24,7 @@ const App = () => {
             <RouteLink to="/login">Log in</RouteLink>
           </Authorized>
           <Authorized role="JOURNALIST">
+            <RouteLink to="auth/profile">Profile</RouteLink>
             <RouteLink to="auth/logout">Log out</RouteLink>
           </Authorized>
           <SearchLink placeholder="Search articles" to="/article/search" />

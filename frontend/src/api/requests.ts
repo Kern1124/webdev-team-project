@@ -3,7 +3,7 @@ import { UserSignupFormType, UserFormType } from "../types/user";
 import { CommentSubmitType } from "../types/comment";
 import { ArticleFormType } from "../types/article";
 
-export const serverURL = "http://localhost:8000"
+export const serverURL = "http://localhost:8000";
 
 // TODO: change baseURL before release
 const serverApi = axios.create({
@@ -101,11 +101,16 @@ export const getComments = async (articleId: string) => {
 };
 
 export const deleteCommentById = async (commentId: string) => {
-  const response = await serverApi.post(`/comment/${commentId}/delete`)
+  const response = await serverApi.post(`/comment/${commentId}/delete`);
   return response.data;
-}
+};
 
 export const getArticlesByContent = async (content: string) => {
-  const response = await serverApi.get(`/article/content=/${content}`)
+  const response = await serverApi.get(`/article/content=/${content}`);
   return response.data;
-}
+};
+
+export const getUsersArticles = async () => {
+  const response = await serverApi.get("user/article");
+  return response.data;
+};

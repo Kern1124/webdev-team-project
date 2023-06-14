@@ -1,12 +1,12 @@
-import { useEffect, useState } from "react";
-import { useDebounce } from "usehooks-ts";
-import { useQuery } from "@tanstack/react-query";
-import { CopiesFilter } from "../components/CopiesFilter";
-import { CopyList } from "../components/CopyList";
-import { getNewspaper } from "../api/requests";
-import { useParams } from "react-router-dom";
-import { SubpageHeading } from "../components/SubpageHeading";
-import { Box } from "@chakra-ui/layout";
+import { useQuery } from '@tanstack/react-query';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { useDebounce } from 'usehooks-ts';
+
+import { getNewspaper } from '../api/requests';
+import { CopiesFilter } from '../components/CopiesFilter';
+import { CopyList } from '../components/CopyList';
+import { SubpageHeading } from '../components/SubpageHeading';
 
 export const CopiesPage = () => {
   const { id: newspaperId } = useParams();
@@ -49,13 +49,13 @@ export const CopiesPage = () => {
   }, [data?.name]);
 
   return (
-    <Box marginTop="1rem">
+    <>
       <SubpageHeading heading={pageTitle} />
       <CopiesFilter
         onDateRangeChange={handleDateChange}
         setInput={setHeading}
       />
       <CopyList copies={data?.newspaperCopies} isLoading={isLoading} />
-    </Box>
+    </>
   );
 };
