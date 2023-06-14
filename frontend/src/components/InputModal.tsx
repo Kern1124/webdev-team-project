@@ -1,19 +1,34 @@
-import { Button } from '@chakra-ui/button';
-import { FormControl } from '@chakra-ui/form-control';
-import { Input } from '@chakra-ui/input';
-import { Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay } from '@chakra-ui/modal';
-import { ChangeEventHandler } from 'react';
+import { Button } from "@chakra-ui/button";
+import { FormControl } from "@chakra-ui/form-control";
+import { Input } from "@chakra-ui/input";
+import {
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+} from "@chakra-ui/modal";
+import { ChangeEventHandler } from "react";
 
 interface InputModalProps {
-    title: string;
-    isOpen: boolean;
-    onClose: () => void;
-    onClickHandler: () => void;
-    onCloseHandler: () => void;
-    inputChangeHandler: ChangeEventHandler<HTMLInputElement>;
+  title: string;
+  isOpen: boolean;
+  onClose: () => void;
+  onClickHandler: () => void;
+  onCloseHandler: () => void;
+  inputChangeHandler: ChangeEventHandler<HTMLInputElement>;
 }
 
-export const InputModal = ({isOpen, onClose, inputChangeHandler, onClickHandler, onCloseHandler, title}: InputModalProps) => {
+export const InputModal = ({
+  isOpen,
+  onClose,
+  inputChangeHandler,
+  onClickHandler,
+  onCloseHandler,
+  title,
+}: InputModalProps) => {
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />

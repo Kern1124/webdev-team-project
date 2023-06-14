@@ -20,7 +20,12 @@ export const FormCheckboxGroup = ({
   errorMessage,
 }: FormCheckboxGroupProps) => {
   return (
-    <Flex flexDir={{ base:"row", md:"column"}} gap={{ base: "1rem", md: "0"}} overflow="scroll" h={{base:"6rem", md:"15rem"}}>
+    <Flex
+      flexDir={{ base: "row", md: "column" }}
+      gap={{ base: "1rem", md: "0" }}
+      overflow="scroll"
+      h={{ base: "6rem", md: "15rem" }}
+    >
       <Controller
         name={name}
         control={control}

@@ -1,12 +1,11 @@
-import { Input } from "@chakra-ui/input";
-import { Flex } from "@chakra-ui/layout";
-import { useQuery } from "@tanstack/react-query";
-import { ChangeEvent, useCallback, useMemo } from "react";
+import { Flex } from '@chakra-ui/layout';
+import { useQuery } from '@tanstack/react-query';
+import { ChangeEvent, useCallback, useMemo } from 'react';
 
-import { getAllPublishers } from "../api/requests";
-import { PublisherShortType } from "../types/publisher";
-import { CustomSelect } from "./CustomSelect";
-import { CustomInput } from "./CustomInput";
+import { getAllPublishers } from '../api/requests';
+import { PublisherShortType } from '../types/publisher';
+import { CustomInput } from './CustomInput';
+import { CustomSelect } from './CustomSelect';
 
 interface NewspaperFilterProps {
   onInputChange: (input: string) => void;
@@ -64,7 +63,10 @@ export const NewspaperFilter = ({
       >
         {publishers}
       </CustomSelect>
-      <CustomInput placeholder="Type in a newspaper name" inputChangeHandler={inputChangeHandler} />
+      <CustomInput
+        placeholder="Type in a newspaper name"
+        inputChangeHandler={inputChangeHandler}
+      />
     </Flex>
   );
 };

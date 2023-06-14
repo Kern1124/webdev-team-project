@@ -3,7 +3,7 @@ import { useMemo } from "react";
 
 type ArticleCategoriesProps = {
   categories: string[];
-}
+};
 
 export const ArticleCategories = ({ categories }: ArticleCategoriesProps) => {
   const mappedCategories = useMemo(() => {
@@ -12,10 +12,10 @@ export const ArticleCategories = ({ categories }: ArticleCategoriesProps) => {
     }
 
     return categories.map((category, index) => (
-      <Tag 
-        key={index} 
-        borderRadius="full" 
-        variant="outline" 
+      <Tag
+        key={index}
+        borderRadius="full"
+        variant="outline"
         colorScheme="teal"
         ml={2}
       >
@@ -24,9 +24,5 @@ export const ArticleCategories = ({ categories }: ArticleCategoriesProps) => {
     ));
   }, [categories]);
 
-  return (
-    <Box mt={2}>
-      {mappedCategories}
-    </Box>
-  );
+  return <Box mt={2}>{mappedCategories}</Box>;
 };

@@ -11,14 +11,12 @@ interface ArticleCommentsProps {
 }
 
 export const ArticleComments = ({ articleId }: ArticleCommentsProps) => {
-
   const { data, isLoading } = useQuery({
     queryKey: ["comment", articleId],
     queryFn: () => getComments(articleId),
     staleTime: 1000 * 60 * 2,
     refetchOnWindowFocus: false,
   });
-  console.log(data)
 
   return (
     <ArticleCommentsWrapper>

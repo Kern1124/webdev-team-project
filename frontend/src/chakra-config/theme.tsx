@@ -7,7 +7,7 @@ const theme = extendTheme({
         padding: 0,
         margin: 0,
         fontFamily: `'Roboto', sans-serif`,
-        bgColor: "secondaryLight"
+        bgColor: "secondaryLight",
       },
     },
   },
@@ -17,7 +17,7 @@ const theme = extendTheme({
     secondary: "#A27B5C",
     secondaryLight: "#DCD7C9",
     light: "#FFFFFF",
-    error: "#CC0000"
+    error: "#CC0000",
   },
 });
 

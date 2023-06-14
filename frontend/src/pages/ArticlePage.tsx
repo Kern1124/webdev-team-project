@@ -30,17 +30,23 @@ export const ArticlePage = () => {
   const related = relatedData?.item; // TBD, query funguje, ale treba ešte implementovať cez ArticleList
 
   if (isLoading) {
-    return <CenteredBanner><Spinner /></CenteredBanner>;
+    return (
+      <CenteredBanner>
+        <Spinner />
+      </CenteredBanner>
+    );
   }
 
   const contentProp = { contents: article.contents, related: related };
 
-  console.log(article);
-  console.log(related);
-
   return (
     <>
-      <Flex alignItems={"center"} width={"full"} flexDirection={"column"} marginBottom="2rem">
+      <Flex
+        alignItems={"center"}
+        width={"full"}
+        flexDirection={"column"}
+        marginBottom="2rem"
+      >
         <Divider borderColor={"main"} />
         <ArticleContentHeading {...article} />
         <Divider borderColor={"main"} />

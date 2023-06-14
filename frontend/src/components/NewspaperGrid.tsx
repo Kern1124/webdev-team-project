@@ -10,7 +10,10 @@ interface NewspaperGridProps {
   isLoading: boolean;
 }
 
-export const NewspaperGrid = ({ newspapers, isLoading }: NewspaperGridProps) => {
+export const NewspaperGrid = ({
+  newspapers,
+  isLoading,
+}: NewspaperGridProps) => {
   const mappedNewspapers = useMemo(() => {
     if (newspapers == null) {
       return [];
@@ -20,7 +23,12 @@ export const NewspaperGrid = ({ newspapers, isLoading }: NewspaperGridProps) => 
       return (
         (
           <GridItem key={newspaper.id}>
-            <NewspaperCard newspaperImg={newspaper.newspaperImg}  title={newspaper.name} publisher={newspaper.publisher?.name}  id={newspaper.id} />
+            <NewspaperCard
+              newspaperImg={newspaper.newspaperImg}
+              title={newspaper.name}
+              publisher={newspaper.publisher?.name}
+              id={newspaper.id}
+            />
           </GridItem>
         ) ?? []
       );
@@ -28,13 +36,16 @@ export const NewspaperGrid = ({ newspapers, isLoading }: NewspaperGridProps) => 
   }, [newspapers]);
 
   if (isLoading) {
-    return <CenteredBanner><Spinner /></CenteredBanner>
+    return (
+      <CenteredBanner>
+        <Spinner />
+      </CenteredBanner>
+    );
   }
-  
+
   if (mappedNewspapers.length <= 0) {
-    return <CenteredBanner>No newspapers found</CenteredBanner>
+    return <CenteredBanner>No newspapers found</CenteredBanner>;
   }
-  
 
   return (
     <Grid gap={14} templateColumns="repeat(auto-fill, minmax(200px, 1fr))">

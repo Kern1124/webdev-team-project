@@ -5,7 +5,7 @@ import {
   withDefaultColorScheme,
   withDefaultProps,
   withDefaultSize,
-  withDefaultVariant
+  withDefaultVariant,
 } from "./chunk-XTSWJVST.js";
 import "./chunk-AC2VUBZ6.js";
 export {
@@ -15,6 +15,6 @@ export {
   withDefaultColorScheme,
   withDefaultProps,
   withDefaultSize,
-  withDefaultVariant
+  withDefaultVariant,
 };
 //# sourceMappingURL=@chakra-ui_theme-utils.js.map

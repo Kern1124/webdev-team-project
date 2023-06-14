@@ -1,9 +1,9 @@
-import { Box, BoxProps } from '@chakra-ui/react';
-import { useState } from 'react';
-import { ReactElement } from 'react';
+import { Box, BoxProps } from "@chakra-ui/react";
+import { useState } from "react";
+import { ReactElement } from "react";
 
-import { HeaderHideButton } from './HeaderHideButton';
-import { ResponsiveFlex } from './ResponsiveFlex';
+import { HeaderHideButton } from "./HeaderHideButton";
+import { ResponsiveFlex } from "./ResponsiveFlex";
 
 interface ResponsiveHeaderProps {
   children: ReactElement | ReactElement<BoxProps> | ReactElement<BoxProps>[];

@@ -6,10 +6,8 @@ import { ProfilePage } from "../pages/ProfilePage";
 
 export const PrivateRouting = () => {
   const { auth, isLoading, isError } = useAuth();
-  console.log(auth)
   if (isLoading) return null;
-  if (!auth || !auth?.items?.userId || isError)
-    return <Navigate to="/login" />;
+  if (!auth || !auth?.items?.userId || isError) return <Navigate to="/login" />;
   return (
     <Routes>
       <Route path="article/create" element={<ArticleCreatePage />} />

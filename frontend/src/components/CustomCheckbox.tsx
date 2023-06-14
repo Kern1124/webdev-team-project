@@ -6,5 +6,9 @@ interface CustomCheckbox {
 }
 
 export const CustomCheckbox = ({ value, children }: CustomCheckbox) => {
-  return <Checkbox colorScheme="gray" value={value}>{children}</Checkbox>;
+  return (
+    <Checkbox colorScheme="gray" value={value}>
+      {children}
+    </Checkbox>
+  );
 };

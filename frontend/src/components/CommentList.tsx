@@ -12,7 +12,6 @@ interface CommentListProps {
 
 export const CommentList = ({ comments, isLoading }: CommentListProps) => {
   const [isShown, setIsShown] = useState<boolean>(false);
-  console.log(comments)
   const mappedComments = useMemo(() => {
     if (comments == null) {
       return [];
@@ -43,7 +42,10 @@ export const CommentList = ({ comments, isLoading }: CommentListProps) => {
 
   return (
     <>
-      <Collapse in={isShown} startingHeight={mappedComments.length > 3 ? "20rem" : "100%"}>
+      <Collapse
+        in={isShown}
+        startingHeight={mappedComments.length > 3 ? "20rem" : "100%"}
+      >
         <Flex flexDir="column" gap="0.5rem">
           {mappedComments || altContent}
         </Flex>

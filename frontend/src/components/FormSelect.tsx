@@ -1,10 +1,10 @@
-import { BoxProps } from '@chakra-ui/layout';
-import { Select } from '@chakra-ui/select';
-import { ReactElement } from 'react';
-import { Control, Controller } from 'react-hook-form';
+import { BoxProps } from "@chakra-ui/layout";
+import { Select } from "@chakra-ui/select";
+import { ReactElement } from "react";
+import { Control, Controller } from "react-hook-form";
 
-import { ArticleFormType } from '../types/article';
-import { ErrorText } from './ErrorText';
+import { ArticleFormType } from "../types/article";
+import { ErrorText } from "./ErrorText";
 
 interface FormSelectProps {
   name: "newspaperId";

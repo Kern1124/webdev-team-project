@@ -21,19 +21,21 @@ export const ApprovalAction = ({
   discardUrl,
 }: ApprovalActionProps) => {
   const { approval } = useApproval();
-  const successToast = useSuccessToast()
-  const toast = useErrorToast()
+  const successToast = useSuccessToast();
+  const toast = useErrorToast();
 
-  const sendApproval = useCallback(async (url: string) => {
-    try {
+  const sendApproval = useCallback(
+    async (url: string) => {
+      try {
         await approval(url);
-        successToast("Operation succesful")
+        successToast("Operation succesful");
       } catch (e) {
         const data = (e as AxiosError)?.response?.data as ErrorResponseType;
         toast(data?.message);
       }
-  }, [approval, toast, successToast])
-
+    },
+    [approval, toast, successToast]
+  );
 
   const handleApprove = useCallback(() => {
     sendApproval(approveUrl);

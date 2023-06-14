@@ -1,8 +1,8 @@
-export interface UserSignupFormType extends UserFormType{
-    email: string,
+export interface UserSignupFormType extends UserFormType {
+  email: string;
 }
 
 export interface UserFormType {
-    username: string,
-    password: string
+  username: string;
+  password: string;
 }

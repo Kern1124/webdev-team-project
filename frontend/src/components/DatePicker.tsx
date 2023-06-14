@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Input } from '@chakra-ui/input';
+import { useState } from "react";
+import { Input } from "@chakra-ui/input";
 
 interface DatePickerProps {
   placeholder: string;
@@ -25,7 +25,7 @@ export const DatePicker = ({ placeholder, onDateChange }: DatePickerProps) => {
       focusBorderColor="main"
       bgColor="light"
       borderColor="main"
-      value={date ? date.toISOString().slice(0, 10) : ''}
+      value={date ? date.toISOString().slice(0, 10) : ""}
       onChange={handleDateChange}
     />
   );

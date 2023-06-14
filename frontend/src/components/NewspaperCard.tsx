@@ -7,19 +7,21 @@ import { serverURL } from "../api/requests";
 
 interface NewspaperCardProps {
   title: string;
-  newspaperImg: string,
-  publisher: string,
+  newspaperImg: string;
+  publisher: string;
   id: string;
 }
 
-export const NewspaperCard = ({ title, publisher, id, newspaperImg }: NewspaperCardProps) => {
+export const NewspaperCard = ({
+  title,
+  publisher,
+  id,
+  newspaperImg,
+}: NewspaperCardProps) => {
   const navigate = useNavigate();
-  const onClickHandle = useCallback(
-    () => {
-      navigate(`/newspaper/${id}`);
-    },
-    [id, navigate]
-  );
+  const onClickHandle = useCallback(() => {
+    navigate(`/newspaper/${id}`);
+  }, [id, navigate]);
 
   return (
     <Flex alignItems="center" h="100%" flexDir="column">
@@ -35,10 +37,16 @@ export const NewspaperCard = ({ title, publisher, id, newspaperImg }: NewspaperC
           cursor: "pointer",
         }}
       >
-        <Image src={`${serverURL}/${newspaperImg}`} alt="COVER" objectFit="cover" />
+        <Image
+          src={`${serverURL}/${newspaperImg}`}
+          alt="COVER"
+          objectFit="cover"
+        />
       </Card>
       <Text>{title}</Text>
-      <Text color="mainLight" fontSize="sm">{publisher}</Text>
+      <Text color="mainLight" fontSize="sm">
+        {publisher}
+      </Text>
     </Flex>
   );
 };

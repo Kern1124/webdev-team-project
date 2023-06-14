@@ -1,17 +1,17 @@
-import { yupResolver } from '@hookform/resolvers/yup';
-import { AxiosError } from 'axios';
-import { useCallback } from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { AiOutlineLock, AiOutlineMail, AiOutlineUser } from 'react-icons/ai';
+import { yupResolver } from "@hookform/resolvers/yup";
+import { AxiosError } from "axios";
+import { useCallback } from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { AiOutlineLock, AiOutlineMail, AiOutlineUser } from "react-icons/ai";
 
-import { FormInput } from '../components/FormInput';
-import { UserFormWrapper } from '../components/UserFormWrapper';
-import { useErrorToast } from '../hooks/useErrorToast';
-import { useSignup } from '../hooks/useSignup';
-import { ErrorResponseType } from '../types/response';
-import { UserSignupFormType } from '../types/user';
-import { UserSignupSchema } from '../yup/schemata';
-import { useSuccessToast } from '../hooks/useSuccessToast';
+import { FormInput } from "../components/FormInput";
+import { UserFormWrapper } from "../components/UserFormWrapper";
+import { useErrorToast } from "../hooks/useErrorToast";
+import { useSignup } from "../hooks/useSignup";
+import { ErrorResponseType } from "../types/response";
+import { UserSignupFormType } from "../types/user";
+import { UserSignupSchema } from "../yup/schemata";
+import { useSuccessToast } from "../hooks/useSuccessToast";
 
 export const SignupPage = () => {
   const {
@@ -23,13 +23,13 @@ export const SignupPage = () => {
   const { signup, isLoading } = useSignup({
     redirect: "/login",
   });
-  const toast = useErrorToast()
-  const successToast = useSuccessToast()
+  const toast = useErrorToast();
+  const successToast = useSuccessToast();
   const onSubmit: SubmitHandler<UserSignupFormType> = useCallback(
     async (data) => {
       try {
         await signup(data);
-        successToast("Succesfully signed up")
+        successToast("Succesfully signed up");
       } catch (e) {
         const data = (e as AxiosError)?.response?.data as ErrorResponseType;
         toast(data?.message);

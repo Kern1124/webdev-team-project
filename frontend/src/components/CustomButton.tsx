@@ -7,16 +7,15 @@ interface CustomButtonProps {
   isDisabled?: boolean;
   children: ReactElement<BoxProps> | ReactElement<BoxProps>[] | string;
   onClickHandler?: () => void;
-  width?: string
+  width?: string;
 }
 
 export const CustomButton = ({
   isDisabled,
   children,
   onClickHandler,
-  width
+  width,
 }: CustomButtonProps) => {
-
   const label = isDisabled != null && isDisabled ? <Spinner /> : children;
 
   return (

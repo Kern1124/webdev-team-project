@@ -4,21 +4,26 @@ import { useNavigate } from "react-router-dom";
 import { UserFormType } from "../types/user";
 
 type UseLoginProps = {
-    redirect: string;
-}
+  redirect: string;
+};
 
 export const useLogin = ({ redirect }: UseLoginProps) => {
-    const navigate = useNavigate();
-    const queryClient = useQueryClient();
-    
-    const { mutateAsync: login, isLoading, isError, data } = useMutation({
-        mutationFn: (data: UserFormType) => userLogin(data),
-        retry: false,
-        onSuccess: () => {
-            navigate(redirect);
-            queryClient.invalidateQueries({ queryKey: ["auth"] });
-        },
-    })
-    
-    return { login, isLoading, isError, data };
-}
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
+
+  const {
+    mutateAsync: login,
+    isLoading,
+    isError,
+    data,
+  } = useMutation({
+    mutationFn: (data: UserFormType) => userLogin(data),
+    retry: false,
+    onSuccess: () => {
+      navigate(redirect);
+      queryClient.invalidateQueries({ queryKey: ["auth"] });
+    },
+  });
+
+  return { login, isLoading, isError, data };
+};

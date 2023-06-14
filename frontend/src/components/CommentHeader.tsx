@@ -9,7 +9,12 @@ interface CommentHeaderProps {
   date: Date;
 }
 
-export const CommentHeader = ({ author, date, id, authorId }: CommentHeaderProps) => {
+export const CommentHeader = ({
+  author,
+  date,
+  id,
+  authorId,
+}: CommentHeaderProps) => {
   const formattedDate = new Date(date).toLocaleDateString("en-GB");
 
   return (
@@ -20,7 +25,7 @@ export const CommentHeader = ({ author, date, id, authorId }: CommentHeaderProps
           {formattedDate}
         </Text>
       </Flex>
-      <Authorized role="JOURNALIST" id={authorId} >
+      <Authorized role="JOURNALIST" id={authorId}>
         <CommentDeleter id={id} />
       </Authorized>
     </Flex>

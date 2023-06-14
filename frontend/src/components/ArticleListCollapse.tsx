@@ -7,12 +7,15 @@ interface ArticleListCollapseProps {
   articles: Article[];
 }
 
-export const ArticleListCollapse = ({ isOpen, articles }: ArticleListCollapseProps) => {
-    return (
-      <Collapse in={isOpen}>
-        <Box bg="white" color="main" fontSize={20} p={2} borderRadius="md">
-          <ArticleList articles={articles} />
-        </Box>
-      </Collapse>
-    );
-  };
+export const ArticleListCollapse = ({
+  isOpen,
+  articles,
+}: ArticleListCollapseProps) => {
+  return (
+    <Collapse in={isOpen}>
+      <Box bg="white" color="main" fontSize={20} p={2} borderRadius="md">
+        <ArticleList articles={articles} />
+      </Box>
+    </Collapse>
+  );
+};

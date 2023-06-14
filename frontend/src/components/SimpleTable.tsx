@@ -7,14 +7,16 @@ interface SimpleTableProps {
 }
 
 export const SimpleTable = ({ children }: SimpleTableProps) => {
-  return <TableContainer
-    mt="0.5rem"
-    bgColor="white"
-    borderRadius="0.3rem"
-    width={{ base: "100%", md: "50%" }}
-  >
-    <Table>
-      <Tbody>{children}</Tbody>
-    </Table>
-  </TableContainer>;
+  return (
+    <TableContainer
+      mt="0.5rem"
+      bgColor="white"
+      borderRadius="0.3rem"
+      width={{ base: "100%", md: "50%" }}
+    >
+      <Table>
+        <Tbody>{children}</Tbody>
+      </Table>
+    </TableContainer>
+  );
 };

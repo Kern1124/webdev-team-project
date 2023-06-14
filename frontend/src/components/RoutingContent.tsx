@@ -16,9 +16,12 @@ export const RoutingContent = () => {
         <Route path="/newspaper/:id" element={<CopiesPage />} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/article/search/:content" element={<ArticleSearchPage />} />
+        <Route
+          path="/article/search/:content"
+          element={<ArticleSearchPage />}
+        />
         <Route path="/auth/*" element={<PrivateRouting />} />
-        <Route path="/article/:id" element={<ArticlePage/>} />
+        <Route path="/article/:id" element={<ArticlePage />} />
         <Route index path="/*" element={<NewspaperPage />} />
       </Routes>
     </Box>

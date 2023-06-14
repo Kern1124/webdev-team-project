@@ -24,7 +24,7 @@ export const UserFormWrapper = ({
   buttonLabel,
   onSubmit,
   buttonIsDisabled,
-  errorMessage
+  errorMessage,
 }: UserFormWrapperProps) => {
   return (
     <ScaleFade in={true}>

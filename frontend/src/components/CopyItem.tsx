@@ -11,16 +11,16 @@ export const CopyItem = ({
   articles,
   published,
   isPublishable,
-  isOpenInitially
+  isOpenInitially,
 }: Copy) => {
   const { isOpen, onToggle } = useDisclosure();
   const formattedDate = new Date(date).toLocaleDateString("en-GB");
 
   useLayoutEffect(() => {
     if (isOpenInitially) {
-      onToggle()
+      onToggle();
     }
-  }, [])
+  }, []);
 
   return (
     <Box cursor="pointer" mb="1rem">

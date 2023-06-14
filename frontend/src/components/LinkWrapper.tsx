@@ -4,7 +4,7 @@ import { ReactElement } from "react";
 
 interface LinkWrapper {
   children: ReactElement<BoxProps> | ReactElement<BoxProps>[] | string;
-  onClick?: () => void
+  onClick?: () => void;
 }
 
 export const LinkWrapper = ({ children, onClick }: LinkWrapper) => {

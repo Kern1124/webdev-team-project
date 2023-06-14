@@ -25,25 +25,24 @@ export const CopyList = ({ copies, isLoading }: CopyListProps) => {
             articles={copy.articles}
             published={copy.published}
             isPublishable={copy.isPublishable}
-            isOpenInitially={index === 0 ? true : false} />
+            isOpenInitially={index === 0 ? true : false}
+          />
         ) ?? []
       );
     });
   }, [copies]);
 
   if (isLoading) {
-    return <CenteredBanner><Spinner /></CenteredBanner>;
+    return (
+      <CenteredBanner>
+        <Spinner />
+      </CenteredBanner>
+    );
   }
 
   if (renderedCopies.length <= 0) {
     return <CenteredBanner>No copies found</CenteredBanner>;
   }
 
-
-  return (
-    <Box>
-      {renderedCopies}
-    </Box>
-  );
+  return <Box>{renderedCopies}</Box>;
 };
-

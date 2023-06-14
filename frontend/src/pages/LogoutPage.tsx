@@ -1,12 +1,12 @@
 import { useEffect } from "react";
-import useLogout from "../hooks/useLogout"
+import useLogout from "../hooks/useLogout";
 
 export const LogoutPage = () => {
-    const { logout } = useLogout({ redirect: '/login' })
+  const { logout } = useLogout({ redirect: "/login" });
 
-    useEffect(() => {
-        logout();
-    }, [logout])
+  useEffect(() => {
+    logout();
+  }, [logout]);
 
-    return <></>;
-}
+  return <></>;
+};

@@ -19,11 +19,14 @@ const customEditArea = (
 interface CustomEditorProps {
   placeholder: string;
   value: string;
-  onChange: (value: string) => void
+  onChange: (value: string) => void;
 }
 
-
-export const CustomEditor = ({placeholder, value, onChange}:CustomEditorProps) => {
+export const CustomEditor = ({
+  placeholder,
+  value,
+  onChange,
+}: CustomEditorProps) => {
   const [imageUrl, setImageUrl] = useState("");
   const reactQuillRef: any = useRef(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -54,37 +57,35 @@ export const CustomEditor = ({placeholder, value, onChange}:CustomEditorProps) =
 
   return (
     <>
-     
-        <Box w="100%">
-          <ReactQuill
-            value={value}
-            onChange={onChange}
-            modules={{
-              toolbar: {
-                container: [
-                  [{ header: [1, 2, false] }],
-                  ["bold", "italic", "underline", "strike", "blockquote"],
-                  [
-                    { list: "ordered" },
-                    { list: "bullet" },
-                    { indent: "-1" },
-                    { indent: "+1" },
-                  ],
-                  ["link", "image"],
-                  ["clean"],
+      <Box w="100%">
+        <ReactQuill
+          value={value}
+          onChange={onChange}
+          modules={{
+            toolbar: {
+              container: [
+                [{ header: [1, 2, false] }],
+                ["bold", "italic", "underline", "strike", "blockquote"],
+                [
+                  { list: "ordered" },
+                  { list: "bullet" },
+                  { indent: "-1" },
+                  { indent: "+1" },
                 ],
-                handlers: {
-                  image: onOpen,
-                },
+                ["link", "image"],
+                ["clean"],
+              ],
+              handlers: {
+                image: onOpen,
               },
-            }}
-            placeholder={placeholder}
-            ref={reactQuillRef}
-          >
-            {customEditArea}
-          </ReactQuill>
-        </Box>
-        
+            },
+          }}
+          placeholder={placeholder}
+          ref={reactQuillRef}
+        >
+          {customEditArea}
+        </ReactQuill>
+      </Box>
 
       <InputModal
         title="Input image URL"

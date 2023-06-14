@@ -23,9 +23,19 @@ export const HeaderHideButton = ({
       onClick={toggleHidden}
     >
       {isHidden ? (
-        <HamburgerIcon _hover={{color: "secondary"}} margin="1rem" boxSize="2rem" color="secondaryLight" />
+        <HamburgerIcon
+          _hover={{ color: "secondary" }}
+          margin="1rem"
+          boxSize="2rem"
+          color="secondaryLight"
+        />
       ) : (
-        <CloseIcon _hover={{color: "secondary"}} margin="1.25rem" boxSize="1.5rem" color="secondaryLight" />
+        <CloseIcon
+          _hover={{ color: "secondary" }}
+          margin="1.25rem"
+          boxSize="1.5rem"
+          color="secondaryLight"
+        />
       )}
     </Box>
   );

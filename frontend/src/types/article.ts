@@ -1,21 +1,21 @@
-import { Category } from "./category"
+import { Category } from "./category";
 
 export type Article = {
-    categories: Category[]
-    heading: string,
-    id: string,
-    approved?: boolean,
-    isApprovable?: boolean,
-}
+  categories: Category[];
+  heading: string;
+  id: string;
+  approved?: boolean;
+  isApprovable?: boolean;
+};
 
 export interface ArticleFormType {
-    heading: string,
-    contents: string,
-    categories: string[]
-    newspaperId: string
+  heading: string;
+  contents: string;
+  categories: string[];
+  newspaperId: string;
 }
 
 export type CategoryType = {
-    id: string;
-    name: string;
-}
+  id: string;
+  name: string;
+};

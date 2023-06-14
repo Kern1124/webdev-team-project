@@ -1,19 +1,18 @@
-
 export type CommentType = {
-    id: string,
-    content: string,
-    author: string,
-    createdAt: string,
-}
+  id: string;
+  content: string;
+  author: string;
+  createdAt: string;
+};
 
 export type CommentQueryType = {
-    id: string,
-    author: { username: string, id: string },
-    createdAt: Date,
-    content: string
-}
+  id: string;
+  author: { username: string; id: string };
+  createdAt: Date;
+  content: string;
+};
 
 export type CommentSubmitType = {
-    articleId: string,
-    content: string
-}
+  articleId: string;
+  content: string;
+};

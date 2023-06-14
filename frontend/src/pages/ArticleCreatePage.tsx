@@ -85,7 +85,7 @@ export const ArticleCreatePage = () => {
           newspaperId: "",
           categories: [],
           heading: "",
-          contents: ""
+          contents: "",
         });
       } catch (e) {
         const data = (e as AxiosError)?.response?.data as ErrorResponseType;

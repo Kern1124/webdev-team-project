@@ -36,10 +36,12 @@ export const FormInput = React.forwardRef(
       <>
         <FormLabel marginLeft="-0.9rem">{children}</FormLabel>
         <InputGroup flexDir="column">
-          {icon && <InputLeftElement
-            pointerEvents="none"
-            children={<Icon as={icon} />}
-          />}
+          {icon && (
+            <InputLeftElement
+              pointerEvents="none"
+              children={<Icon as={icon} />}
+            />
+          )}
           <Input
             focusBorderColor="main"
             marginBottom="0.3rem"

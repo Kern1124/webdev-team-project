@@ -1,12 +1,12 @@
-import { useQuery } from '@tanstack/react-query';
-import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { useDebounce } from 'usehooks-ts';
+import { useQuery } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { useDebounce } from "usehooks-ts";
 
-import { getNewspaper } from '../api/requests';
-import { CopiesFilter } from '../components/CopiesFilter';
-import { CopyList } from '../components/CopyList';
-import { SubpageHeading } from '../components/SubpageHeading';
+import { getNewspaper } from "../api/requests";
+import { CopiesFilter } from "../components/CopiesFilter";
+import { CopyList } from "../components/CopyList";
+import { SubpageHeading } from "../components/SubpageHeading";
 
 export const CopiesPage = () => {
   const { id: newspaperId } = useParams();

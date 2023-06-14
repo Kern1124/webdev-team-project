@@ -15,21 +15,27 @@ export const CopiesFilter = ({
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);
 
-  const handleStartDateChange = useCallback((date: Date | null) => {
-    setStartDate(date);
-    if (endDate && date && date > endDate) {
-      setEndDate(date);
-    }
-    onDateRangeChange(date, endDate);
-  }, [endDate, onDateRangeChange]) ;
-
-  const handleEndDateChange = useCallback((date: Date | null) => {
-    setEndDate(date);
-    if (startDate && date && date < startDate) {
+  const handleStartDateChange = useCallback(
+    (date: Date | null) => {
       setStartDate(date);
-    }
-    onDateRangeChange(startDate, date);
-  }, [startDate, onDateRangeChange]);
+      if (endDate && date && date > endDate) {
+        setEndDate(date);
+      }
+      onDateRangeChange(date, endDate);
+    },
+    [endDate, onDateRangeChange]
+  );
+
+  const handleEndDateChange = useCallback(
+    (date: Date | null) => {
+      setEndDate(date);
+      if (startDate && date && date < startDate) {
+        setStartDate(date);
+      }
+      onDateRangeChange(startDate, date);
+    },
+    [startDate, onDateRangeChange]
+  );
 
   const inputChangeHandler = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
@@ -49,7 +55,7 @@ export const CopiesFilter = ({
       <Text fontSize="lg" marginBottom="0.7rem" color="Main">
         Filter copies
       </Text>
-      <Flex w="100%" flexDir={{base: "column", md:"row"}} gap="1rem">
+      <Flex w="100%" flexDir={{ base: "column", md: "row" }} gap="1rem">
         <DatePicker
           placeholder="Start Date"
           onDateChange={handleStartDateChange}
