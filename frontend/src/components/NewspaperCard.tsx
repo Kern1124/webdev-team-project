@@ -1,9 +1,13 @@
-import { Card } from "@chakra-ui/card";
-import { Flex, Text } from "@chakra-ui/layout";
-import { useNavigate } from "react-router";
+import { Icon } from "@chakra-ui/icon";
+import { Flex } from "@chakra-ui/layout";
 import { useCallback } from "react";
-import { Image } from "@chakra-ui/image";
-import { serverURL } from "../api/requests";
+import { FiEdit2 } from "react-icons/fi";
+import { useNavigate } from "react-router";
+
+import { CoverImage } from "./CoverImage";
+import { CustomButton } from "./CustomButton";
+import { HeadingSub } from "./HeadingSub";
+import { ZoomCard } from "./ZoomCard";
 
 interface NewspaperCardProps {
   title: string;
@@ -25,28 +29,15 @@ export const NewspaperCard = ({
 
   return (
     <Flex alignItems="center" h="100%" flexDir="column">
-      <Card
-        bgColor="main"
-        marginBottom="1.5rem"
-        h={{ base: "30rem", md: "20rem" }}
-        w="100%"
-        borderRadius={0}
-        onClick={onClickHandle}
-        _hover={{
-          transform: "scale(1.1)",
-          cursor: "pointer",
-        }}
-      >
-        <Image
-          src={`${serverURL}/${newspaperImg}`}
-          alt="COVER"
-          objectFit="cover"
-        />
-      </Card>
-      <Text>{title}</Text>
-      <Text color="mainLight" fontSize="sm">
-        {publisher}
-      </Text>
+      <ZoomCard onClickHandle={onClickHandle}>
+        <CoverImage filename={newspaperImg} />
+      </ZoomCard>
+      <Flex flexDir="row" gap="1rem">
+        <CustomButton borderRadius="1.5rem" width="1rem">
+          <Icon ringColor="secondaryLight" as={FiEdit2} />
+        </CustomButton>
+        <HeadingSub heading={title} subheading={publisher} />
+      </Flex>
     </Flex>
   );
 };
