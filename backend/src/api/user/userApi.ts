@@ -27,7 +27,7 @@ const auth = async (req: Request, res: Response) => {
             roles.push(RoleRecordTypeEnumeration[0]);
         }
         // user.userRoles.map((roles) => roles.name).nub //like Haskell nub
-        res.status(200).json({ items: {roles: roles, userId: user.id}, message: `User ${user.username} is authorized` });
+        res.status(200).json({ items: {roles: roles, userId: user.id, username: user.username, email: user.email}, message: `User ${user.username} is authorized` });
     }
     catch (error) {
         res.status(500).json({ message: (error as Error).message });
