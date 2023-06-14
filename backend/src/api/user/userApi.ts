@@ -132,7 +132,7 @@ const getUserArticles = async (req: Request, res: Response) => {
       isApprovable: !article.approved,
     }));
   }
-  res.status(200).json({ items: articlesApprovable, message: "Fetched " + articles.length + " articles", data: user?.username });
+  res.status(200).json({ items: articlesApprovable.reverse(), message: "Fetched " + articles.length + " articles", data: user?.username });
 }
 
 export const userApi = {
