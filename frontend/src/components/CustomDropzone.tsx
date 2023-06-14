@@ -12,6 +12,7 @@ export const CustomDropzone = ({
   errorHandler,
 }: CustomDropzoneProps) => {
   const [errorMessages, setErrorMessages] = useState<string>();
+  const [uploadedFilename, setUploadedFilename] = useState<string>();
   const { acceptedFiles, fileRejections, getRootProps, getInputProps } =
     useDropzone({
       maxFiles: 1,
@@ -25,6 +26,7 @@ export const CustomDropzone = ({
   useEffect(() => {
     if (acceptedFiles.length > 0) {
       uploadHandler(acceptedFiles[0]);
+      setUploadedFilename("Uploaded file: " + acceptedFiles[0].name)
     }
   }, [acceptedFiles, uploadHandler]);
 
@@ -39,9 +41,7 @@ export const CustomDropzone = ({
     }
   }, [fileRejections, errorHandler]);
 
-  const uploadedFilenames =
-    acceptedFiles.length > 0 && "Uploaded file: " + acceptedFiles[0].name;
-
+ 
   return (
     <>
       <Box
@@ -60,7 +60,7 @@ export const CustomDropzone = ({
         </Center>
       </Box>
       <Text>
-        {uploadedFilenames ||
+        {uploadedFilename ||
           (errorMessages && "Errors: " + errorMessages)}
       </Text>
     </>
