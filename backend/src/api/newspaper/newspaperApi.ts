@@ -16,7 +16,7 @@ import { Result } from "@badrap/result";
 
 const getAllNewspaper = async (req: Request, res: Response) => {
   try {
-    const newspapers = await db.newspaper.findMany({
+    let newspapers = await db.newspaper.findMany({
       include: {
         publisher: {
           select: {
@@ -25,9 +25,20 @@ const getAllNewspaper = async (req: Request, res: Response) => {
         }
       }
     })
-    if (!newspapers) {
-      res.status(200).json([]);
-    }
+    
+    const user = req.session.user
+    newspapers = newspapers.map((newspaper) => {
+      const isEditable = user?.userRoles.some(
+        (role) =>
+          role.name === RoleRecordTypeEnumeration[0] &&
+          newspaper.id === role.newspaperId
+      );
+    
+      return {
+        ...newspaper,
+        isEditable
+      };
+    });
     res.status(200).json({ item: newspapers, message: "Fetched " + newspapers.length + " newspapers." });
   } catch (e) {
     res.status(500).json([]);
