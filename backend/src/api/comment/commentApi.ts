@@ -1,11 +1,8 @@
-import { userLoginSchema, userRegistrationSchema } from "../../models/user";
-import type { UserLoginData, UserRegisterData } from "../../types/user.types";
 import { Request, Response } from "express";
 import * as commentService from "../../repositories/comment/index"
-// import { User } from "@prisma/client";
 import { db } from "../../utils/db.server";
 import { ValidationError } from "yup";
-import { User } from "@prisma/client";
+
 import { commentCreateSchema } from "../../models/comment";
 import { CreateCommentData } from "../../types/comment.types";
 

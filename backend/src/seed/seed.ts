@@ -113,7 +113,7 @@ const seed = async () => {
                 }
               },
             });
-             console.log(`Created article with id ${article.id} for heading ${article.heading}`);
+             //console.log(`Created article with id ${article.id} for heading ${article.heading}`);
 
             // Create comments
             for (const commentData of articleData.comments) {
@@ -127,7 +127,7 @@ const seed = async () => {
                   },
                   author: {
                     connect: {
-                      id: user.id,
+                      username: commentData.author.username,
                     },
                   },
                 },
@@ -166,7 +166,7 @@ const seedRoles = async () => {
             },
           },
         });
-        console.log(`Created role with id ${role.id}`)
+        //console.log(`Created role with id ${role.id}`)
       }
     }
     console.log(`[${new Date().toISOString()}] Seed succeeded`);
