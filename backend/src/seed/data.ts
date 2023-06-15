@@ -449,7 +449,7 @@ export const cats = [
   }
 ]
 
-// The New York Times  :  The Washington Post  : El País : The Times of India : Le Monde : The Washington Post
+// The New York Times  :  The Washington Post  : El País : The Times of India : Le Monde 
 // 0 Director 1 Manager
 export const roles = [
   {
@@ -457,6 +457,8 @@ export const roles = [
     userRoles: [
       { name: RoleRecordTypeEnumeration[0], newspaperName: 'The New York Times' },
       { name: RoleRecordTypeEnumeration[0], newspaperName: 'The Times of India' },
+      { name: RoleRecordTypeEnumeration[0], newspaperName: 'El País' },
+      { name: RoleRecordTypeEnumeration[0], newspaperName: 'Le Monde' },
       { name: RoleRecordTypeEnumeration[1], newspaperName: 'The Times of India' },
       { name: RoleRecordTypeEnumeration[1], newspaperName: 'The Washington Post' },
     ],
