@@ -186,7 +186,7 @@ export const data = async () => {
             newspaperCopies: [
               {
                 date: new Date(),
-                published: false,
+                published: true,
                 articles: [
                   {
                     heading: 'Sensational Victory for Local Football Club in Intense Derby Match',
@@ -319,7 +319,7 @@ export const data = async () => {
                 published: false,
                 articles: [
                   {
-                    heading: 'Wouch7',
+                    heading: 'Bradley Beal could be on the move if the Wizards decide to start over',
                     contents: 'Article 1 for Newspaper A Issue 1',
                     categories: [{ name: 'Sport' }],
                     comments: [
@@ -329,7 +329,7 @@ export const data = async () => {
                     approved: true,
                   },
                   {
-                    heading: 'Wouch8',
+                    heading: 'Will Walt Nauta flip? Trump keeps valet close as question hovers over the case.',
                     contents: 'Article 2 for Newspaper A Issue 1',
                     categories: [{ name: 'Politics' }],
                     comments: [
@@ -342,17 +342,17 @@ export const data = async () => {
               },
               {
                 date: tommorow,
-                published: true,
+                published: false,
                 articles: [
                   {
-                    heading: 'Wouch9',
+                    heading: 'Wild ninth inning in Houston leaves the Nationals at a loss and angry',
                     contents: 'Article 1 for Newspaper A Issue 2',
                     categories: [{ name: 'Sport' }],
                     comments: [
                       { content: 'Comment 1 for Article 1', author: { username: 'Slavo' } },
                       { content: 'Comment 2 for Article 1', author: { username: 'Jarmil' } },
                     ],
-                    approved: false,
+                    approved: true,
                   },
                 ],
               },
@@ -374,17 +374,17 @@ export const data = async () => {
                 published: true,
                 articles: [
                   {
-                    heading: 'Wouch10',
+                    heading: 'For USMNT’s Folarin Balogun, just a rivalry game and a mountain of hopes',
                     contents: 'Article 1 for Newspaper A Issue 1',
                     categories: [{ name: 'Sport' }],
                     comments: [
                       { content: 'Comment 1 for Article 1', author: { username: 'Tylich' } },
                       { content: 'Comment 2 for Article 1', author: { username: 'Slavo' } },
                     ],
-                    approved: false,
+                    approved: true,
                   },
                   {
-                    heading: 'Wouch11',
+                    heading: 'Trump centers campaign on his prosecution, vilifying legal system',
                     contents: 'Article 2 for Newspaper A Issue 1',
                     categories: [{ name: 'Politics' }],
                     comments: [
@@ -400,7 +400,7 @@ export const data = async () => {
                 published: true,
                 articles: [
                   {
-                    heading: 'Wouch12',
+                    heading: 'Golf is a mess. The PGA Tour-LIV alliance isn’t guaranteed to clean it up.',
                     contents: 'Article 1 for Newspaper A Issue 2',
                     categories: [{ name: 'Sport' }],
                     comments: [
