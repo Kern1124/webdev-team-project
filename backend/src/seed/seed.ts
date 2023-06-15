@@ -84,21 +84,6 @@ const seed = async () => {
 
           // Create articles
           for (const articleData of newspaperCopyData.articles) {
-            let user = await prisma.user.findFirst({
-              where: {
-                username: articleData.comments[0].author.username,
-              },
-            }); // Fetch a article author for the article's author
-            if (user == null) {
-              user = await prisma.user.findFirst({
-                where: {
-                  username: 'Slavo'
-                },
-              }); // Fetch a article author for the article's author
-            }
-            if (user == null) {
-              throw new Error()
-            }
             const article = await prisma.article.create({
               data: {
                 heading: articleData.heading,
@@ -112,7 +97,7 @@ const seed = async () => {
                 author: {
                   // connect to author with name
                   connect: {
-                    id: user.id,
+                    username: articleData.author.username
                   },
                 },
                 categories: {

@@ -15,7 +15,27 @@ const create = async (req: Request, res: Response) => {
     }
     const validatedData = await commentCreateSchema.validate(req.body);
     const commentData = validatedData as CreateCommentData;
-
+    // check that article copy is published
+    const copy = await db.article.findFirst({
+      where: {
+        id: commentData.articleId
+      },
+      include: {
+        newspaper_copy: {
+          select: {
+            published: true
+          }
+        }
+      }
+    })
+    if (!copy){
+      res.status(400).json({ message: 'Article does not exist.' })
+      return;
+    }
+    if (!copy.newspaper_copy.published){
+      res.status(400).json({ message: 'It is not possible to write a comment on an unpublished article.' })
+      return;
+    }
     const comment = await commentService.default.create({ ...commentData, authorId });
     if (comment.isErr) {
       res.status(400).json({ message: comment.error })
