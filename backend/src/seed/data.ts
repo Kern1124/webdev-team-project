@@ -107,7 +107,7 @@ export const data = async () => {
                 articles: [
                   {
                     heading: 'Trump’s political fight is his legal fight',
-                    contents: '<p>Former president <a href="https://www.washingtonpost.com/elections/candidates/donald-trump-2024/?itid=lk_inline_manual_2" target="_blank">Donald Trump</a> began his first prepared remarks following his arraignment on federal criminal charges on Tuesday the way he so often does: with dishonesty and hyperbole.</p><p>“Today,” he said, “we witness the most evil and heinous abuse of power in the history of our country. Very sad thing to watch. A corrupt sitting president had his top political opponent arrested on fake and fabricated charges of which he and numerous other presidents would be guilty.”</p><p>As exhaustingly familiar as this patter is to outside observers, it remains energizing to some substantial portion of his base. <a href="https://www.washingtonpost.com/elections/candidates/joe-biden-2024/?itid=lk_inline_manual_5" target="_blank"><em>President Biden</em></a><em> </em>is<em> corrupt! </em>they’re invited to think. <em>This whole thing </em>is <em>unfair!</em><span>﻿</span></p><p>So by the time Trump gets into the next phase of his speech — the criminal defendant’s explanation of the legal failings of the case against him — they’re already nodding along. He ropes them in with the cozy familiarity of “everyone is out to get me, by which I mean us” and then outlines the scattershot arguments they can deploy in his defense. The indictment details numerous examples of Trump allegedly seeking to avoid turning over documents? Well: <em>Presidential Records Act!</em> Check and mate.</p>',
+                    contents: '<p>Former president <a href="https://www.washingtonpost.com/elections/candidates/donald-trump-2024/?itid=lk_inline_manual_2" target="_blank">Donald Trump</a> began his first prepared remarks following his arraignment on federal criminal charges on Tuesday the way he so often does: with dishonesty and hyperbole.</p><p>“Today,” he said, “we witness the most evil and heinous abuse of power in the history of our country. Very sad thing to watch. A corrupt sitting president had his top political opponent arrested on fake and fabricated charges of which he and numerous other presidents would be guilty.”</p><p>As exhaustingly familiar as this patter is to outside observers, it remains energizing to some substantial portion of his base. <a href="https://www.washingtonpost.com/elections/candidates/joe-biden-2024/?itid=lk_inline_manual_5" target="_blank"><em>President Biden</em></a><em> </em>is<em> corrupt! </em>they’re invited to think. <em>This whole thing </em>is <em>unfair!</em><span>﻿</span></p><p>So by the time Trump gets into the next phase of his speech — the criminal defendant’s explanation of the legal failings of the case against him — they’re already nodding along. He ropes them in with the cozy familiarity of “everyone is out to get me, by which I mean us” and then outlines the scattershot arguments they can deploy in his defense. The indictment details numerous examples of Trump allegedly seeking to avoid turning over documents? Well: <em>Presidential Records Act!</em> Check and mate.<img src="https://upload.wikimedia.org/wikipedia/commons/4/4b/Donald_Trump_%2829496131773%29.jpg"></p>',
                     categories: [{ name: 'Travel' }],
                     comments: [
                       { content: 'Great article!', author: { username: 'Slavo' } },
@@ -127,13 +127,13 @@ export const data = async () => {
                   },
                   {
                     heading: 'House to consider GOP measure to censure Schiff as early as Wednesday',
-                    contents: '<p><span>The Republican-led House is expected to consider a measure as early as Wednesday that would censure Rep. Adam B. Schiff (D-Calif.) for pressing allegations that former president Donald Trump’s 2016 campaign colluded with Russia.</span></p><p>The resolution also seeks to fine Schiff, the former House Intelligence Committee chairman, $16 million, which its sponsor, Rep. Anna Paulina Luna (R-Fla.), says is half the cost of an investigation into the alleged collusion.<span>﻿</span></p><p>Luna introduced the measure Tuesday, the same day Trump was arraigned in a federal courthouse in Miami on charges that he broke the law dozens of times by keeping and hiding classified documents in his Florida home. Luna’s measure is a privileged resolution, which means that under House rules it must be considered by Thursday.</p>',
+                    contents: '<p><span>The Republican-led House is expected to consider a measure as early as Wednesday that would censure Rep. Adam B. Schiff (D-Calif.) for pressing allegations that former president Donald Trump’s 2016 campaign colluded with Russia.</span></p><p>The resolution also seeks to fine Schiff, the former House Intelligence Committee chairman, $16 million, which its sponsor, Rep. Anna Paulina Luna (R-Fla.), says is half the cost of an investigation into the alleged collusion.<span>﻿</span></p><p>Luna introduced the measure Tuesday, the same day Trump was arraigned in a federal courthouse in Miami on charges that he broke the law dozens of times by keeping and hiding classified documents in his Florida home. Luna’s measure is a privileged resolution, which means that under House rules it must be considered by Thursday.<img src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Adam_Schiff_official_portrait.jpg"></p>',
                     categories: [{ name: 'Politics' }],
                     comments: [
-                      { content: 'This is an important topic to discuss.', author: { username: 'Tylich' } },
-                      { content: 'We need to take immediate action to mitigate climate change.', author: { username: 'Slavo' } },
+                      { content: "It's concerning to see such a divisive resolution being considered. We should focus on constructive dialogue and finding common ground rather than resorting to censures and fines.", author: { username: 'Tylich' } },
+                      { content: "The politicization of allegations and the proposed fine on Rep. Adam Schiff raise questions about the motives behind this resolution. Let's prioritize fact-based discussions and work towards unity instead of further dividing our political landscape.", author: { username: 'Slavo' } },
                     ],
-                    approved: false,
+                    approved: true,
                   },
                 ],
               },
@@ -142,12 +142,12 @@ export const data = async () => {
                 published: false,
                 articles: [
                   {
-                    heading: 'The Impact of your mom on Coastal Cities',
-                    contents: 'The Impact of Climate Change on Coastal Cities',
+                    heading: 'How the U.S. wants to pressure China to help avert climate catastrophe',
+                    contents: '<p>The Biden administration is searching for ways to push the world’s largest polluter to reduce carbon emissions, as superpower rivalries engulf a fragile bilateral relationship that could determine the future of global warming.</p><p><img src="https://upload.wikimedia.org/wikipedia/commons/8/85/Benxi_Steel_Industries.jpg"></p><p>Want to know how your actions can help make a difference for our planet? Sign up for the Climate Coach newsletter, in your inbox every Tuesday and Thursday.</p><p>Since negotiations between U.S. climate envoy John F. Kerry and his Chinese counterparts stalled in August, Chinese provinces have accelerated their approvals of new coal power plants, sparking fears that China is moving away from its climate goals, not toward them.</p><p><br /></p>',
                     categories: [{ name: 'Environment' }],
                     comments: [
-                      { content: 'This is We need to take immediate action to mitigate climate change.an important topic to discuss.', author: { username: 'Slavo' } },
-                      { content: 'We need to take immediate action to mitigate climate change.', author: { username: 'Jarmil' } },
+                      { content: 'Great article!!!', author: { username: 'Jarmil' } },
+                      { content: 'Wait I already saw this post somewhere else', author: { username: 'Tylich' } },
                     ],
                     approved: false,
                   },
@@ -189,22 +189,24 @@ export const data = async () => {
                 published: false,
                 articles: [
                   {
-                    heading: 'Wouch',
-                    contents: 'Article 1 for Newspaper A Issue 1',
+                    heading: 'Sensational Victory for Local Football Club in Intense Derby Match',
+                    contents: "<p>In a thrilling display of skill, determination, and unwavering team spirit, the local football club achieved a resounding victory over their fierce rivals in a highly anticipated derby match. The atmosphere was electric as fans from both sides packed the stadium, creating an unforgettable sporting spectacle that will be etched in the annals of local sports history.</p><p>From the opening whistle, it was evident that this match would be a clash of titans. The players showcased their technical prowess, launching attacks and executing strategic maneuvers with precision. Each pass, tackle, and goal attempt intensified the already fierce rivalry between the two teams.</p><p>The home team, known for their attacking style of play, dominated the early stages of the game, consistently pressing forward and creating scoring opportunities. Their relentless offensive efforts were met with resolute defense from the visiting team, who skillfully blocked shots and launched counter-attacks of their own.</p><p><img src='https://upload.wikimedia.org/wikipedia/commons/1/10/HB_-_NSI_football_match_02.jpg'></p><p>The turning point came in the second half when the local team's star striker brilliantly maneuvered through the opposition's defense, unleashing a powerful strike that found the back of the net. The eruption of joy from the home crowd was deafening, with fans celebrating the breakthrough goal that swung the momentum in their favor.</p><p>However, the visiting team was not ready to concede defeat easily. They fought back valiantly, launching a series of fierce attacks that tested the home team's defense. The goalkeeper made a series of acrobatic saves, showcasing their exceptional reflexes and keeping their team's hopes alive.</p><p>As the clock ticked down, tension filled the air, and the fans' excitement reached a fever pitch. The local team's resilience and collective effort shone through, as they defended their slim lead with unwavering determination. The final whistle sounded, and the stadium erupted into thunderous applause and jubilation.</p><p>This victory not only symbolizes the triumph of one team over another but also reinforces the passion and camaraderie that sports instill in communities. It serves as a reminder of the unifying power of sport, bringing together fans from diverse backgrounds under a common banner.</p>",
                     categories: [{ name: 'Sport' }],
                     comments: [
-                      { content: 'Comment 1 for Article 1', author: { username: 'Tylich' } },
-                      { content: 'Comment 2 for Article 1', author: { username: 'Slavo' } },
+                      { content: "I couldn't agree more. It's moments like these that make football unforgettable!", author: { username: 'Tylich' } },
+                      { content: "Definitely! The rivalry between these teams adds an extra thrill. #PassionateClash", author: { username: 'Slavo' } },
+                      { content: "The fans' support made all the difference. They were phenomenal! #UnwaveringSupport", author: { username: 'Tylich' } },
+                      { content: "Absolutely! The community spirit in sports is truly remarkable. #TeamPride", author: { username: 'Slavo' } },
                     ],
                     approved: true,
                   },
                   {
-                    heading: 'Wouch2',
-                    contents: 'Article 2 for Newspaper A Issue 1',
-                    categories: [{ name: 'Politics' }],
+                    heading: "Efforts to Encourage China's Cooperation in Tackling Climate Crisis Gain Momentum in the U.S.",
+                    contents: '<p>The Biden administration is searching for ways to push the world’s largest polluter to reduce carbon emissions, as superpower rivalries engulf a fragile bilateral relationship that could determine the future of global warming.</p><p><img src="https://upload.wikimedia.org/wikipedia/commons/8/85/Benxi_Steel_Industries.jpg"></p><p>Want to know how your actions can help make a difference for our planet? Sign up for the Climate Coach newsletter, in your inbox every Tuesday and Thursday.</p><p>Since negotiations between U.S. climate envoy John F. Kerry and his Chinese counterparts stalled in August, Chinese provinces have accelerated their approvals of new coal power plants, sparking fears that China is moving away from its climate goals, not toward them.</p><p><br /></p>',
+                    categories: [{ name: 'Politics' }, { name: 'Environment' }],
                     comments: [
-                      { content: 'Comment 1 for Article 2', author: { username: 'Tylich' } },
-                      { content: 'Comment 2 for Article 2', author: { username: 'Jarmil' } },
+                      { content: 'This is an important topic to discuss.', author: { username: 'Slavo' } },
+                      { content: 'We need to take immediate action to mitigate climate change.', author: { username: 'Jarmil' } },
                     ],
                     approved: true,
                   },
@@ -215,12 +217,12 @@ export const data = async () => {
                 published: false,
                 articles: [
                   {
-                    heading: 'Wouch3',
-                    contents: 'Article 1 for Newspaper A Issue 2',
+                    heading: 'Heartbreaking Loss in Intense Derby Match: Team Reflects on Efforts',
+                    contents: "<p>In a fiercely contested derby match that captivated fans and sent emotions soaring, the visiting team experienced a devastating loss to their local rivals. Although the final score did not reflect their valiant efforts, the team members can hold their heads high, knowing they fought with unwavering determination until the last whistle.</p><p>From the very beginning, it was evident that this match would be a battle of skill, tactics, and unyielding passion. The visiting team showcased their prowess on the field, executing precise passes and launching strategic attacks. Their defensive line held strong, frustrating their opponents' attempts to break through.</p><p>Despite their best efforts, the home team managed to seize a crucial opportunity and score a goal, sending shockwaves through the visiting team and their loyal supporters. Undeterred, the players rallied, launching counter-attacks and pushing forward relentlessly in search of an equalizer.</p><p>The intensity of the match reached its zenith in the second half, with both teams locked in an epic struggle for dominance. The visiting team's players exhibited incredible resilience, battling through fatigue and mounting pressure to create goal-scoring opportunities.</p><p><img src='https://upload.wikimedia.org/wikipedia/commons/1/10/HB_-_NSI_football_match_02.jpg'></p><p>Sadly, despite their valiant efforts, luck did not favor the visiting team on this occasion. Shots narrowly missed the target, and their opponents' defense held firm, denying them the chance to level the score. As the final whistle echoed through the stadium, a wave of disappointment washed over the visiting team and their supporters.</p><p>However, this loss does not define the team's spirit. They will use this setback as motivation to improve and come back stronger in future matches. The players and coaching staff are committed to analyzing their performance, identifying areas for growth, and honing their skills to overcome future challenges.</p><p>Although the result may sting, it is important to remember that sports are about more than just victories and defeats. It is about the dedication, camaraderie, and the unbreakable bond between teammates and fans. The visiting team's supporters, in particular, showed unwavering loyalty and continued to cheer their heroes on until the final moments of the match.</p><p>As the players reflect on this heartbreaking loss, they are reminded of the lessons learned and the strength of their collective spirit. They remain focused and determined, knowing that every match offers a chance for redemption and an opportunity to demonstrate their true capabilities.</p><p>The visiting team will regroup, learn from this experience, and continue to work tirelessly towards their goals. They are grateful for the support of their fans and remain committed to bringing them joy and excitement in future encounters.</p>",
                     categories: [{ name: 'Sport' }],
                     comments: [
-                      { content: 'Comment 1 for Article 1', author: { username: 'Slavo' } },
-                      { content: 'Comment 2 for Article 1', author: { username: 'Jarmil' } },
+                      { content: 'You are winners in my heard.', author: { username: 'Slavo' } },
+                      { content: 'This match was booriing. You do not know what real football looks like.', author: { username: 'Jarmil' } },
                     ],
                     approved: true,
                   },
@@ -310,7 +312,7 @@ export const data = async () => {
         newspapers: [
           {
             name: 'The Times of India',
-            newspaperImg: 'TOI6.png',
+            newspaperImg: 'TOI7.png',
             newspaperCopies: [
               {
                 date: new Date(),
